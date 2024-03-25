@@ -6,7 +6,6 @@
         android:id="@+id/item_home"
         android:enabled="true"
         android:icon="@drawable/ic_home"
-        android:title="Home"
-        app:showAsAction="ifRoom"/>
+        android:title="Home" />
 
 </menu>

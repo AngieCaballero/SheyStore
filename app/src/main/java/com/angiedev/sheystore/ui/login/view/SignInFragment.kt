@@ -10,9 +10,10 @@ import com.angiedev.sheystore.R
 import com.angiedev.sheystore.databinding.FragmentSignInBinding
 import com.angiedev.sheystore.databinding.LoginComponentBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
-import com.angiedev.sheystore.ui.extension.validateEmail
-import com.angiedev.sheystore.ui.extension.validatePassword
+import com.angiedev.sheystore.ui.utils.extension.validateEmail
+import com.angiedev.sheystore.ui.utils.extension.validatePassword
 import com.angiedev.sheystore.ui.login.viewmodel.LoginViewModel
+import com.angiedev.sheystore.ui.main.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -72,6 +73,10 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
                 }
             }
         }
+    }
+
+    private fun navigateToHomeModule() {
+        findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToNavHome())
     }
 
     override fun setObservers() {

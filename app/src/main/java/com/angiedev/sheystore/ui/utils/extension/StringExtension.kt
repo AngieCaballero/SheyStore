@@ -1,4 +1,4 @@
-package com.angiedev.sheystore.ui.extension
+package com.angiedev.sheystore.ui.utils.extension
 
 import android.graphics.Color
 import android.text.TextUtils

@@ -2,17 +2,31 @@ package com.angiedev.sheystore.ui.login.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.angiedev.sheystore.ui.extension.validatePassword
+import androidx.lifecycle.viewModelScope
+import com.angiedev.sheystore.data.repository.auth.IAuthenticationRepository
+import com.angiedev.sheystore.ui.utils.extension.validatePassword
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor() : ViewModel() {
+class LoginViewModel @Inject constructor(
+    private val authenticationRepository: IAuthenticationRepository
+) : ViewModel() {
     val username = MutableLiveData<String>()
     val password = MutableLiveData<String>()
 
     private val _isAuthenticated = MutableLiveData(false)
     val isAuthenticated get() = _isAuthenticated
+
+    private val _isAuthored = MutableLiveData(false)
+    val isAuthored get() = _isAuthored
+
+    fun isAuthored() {
+        viewModelScope.launch {
+            _isAuthored.postValue(authenticationRepository.isAuthenticate())
+        }
+    }
 
     private fun login(username: String, password: String) {
         // Make request to login

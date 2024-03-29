@@ -1,14 +1,17 @@
 package com.angiedev.sheystore.ui.main.view
 
 import android.os.Bundle
-import android.os.PersistableBundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.NavigationUiSaveStateControl
 import com.angiedev.sheystore.R
 import com.angiedev.sheystore.databinding.ActivityMainBinding
-import com.angiedev.sheystore.ui.extension.BackButtonBehaviour
-import com.angiedev.sheystore.ui.extension.setupWithNavController
+import com.angiedev.sheystore.ui.utils.extension.BackButtonBehaviour
+import com.angiedev.sheystore.ui.utils.extension.setupWithNavController
+import com.angiedev.sheystore.ui.main.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,9 +22,8 @@ class MainActivity: AppCompatActivity() {
     }
 
     private var _binding: ActivityMainBinding? = null
-    private var navController: NavController? = null
     private val binding get() = _binding!!
-    private var bottomNavSelectedItemId = R.id.nav_login
+    private var bottomNavSelectedItemId = R.id.nav_home
     private val navGraphId = listOf(
         R.navigation.nav_login,
         R.navigation.nav_home,
@@ -46,17 +48,15 @@ class MainActivity: AppCompatActivity() {
             fragmentManager = supportFragmentManager,
             containerId = R.id.main_fragment_container_view,
             backButtonBehaviour = BackButtonBehaviour.POP_HOST_FRAGMENT,
-            firstItemId = R.id.nav_login,
+            firstItemId = R.id.nav_home,
             intent = intent
         )
 
         binding.bottomNavigation.selectedItemId = bottomNavSelectedItemId
 
-        navController = controller.value
 
-        controller.observe(this) { navController ->
-            NavigationUI.setupWithNavController(binding.bottomNavigation, navController)
-            bottomNavSelectedItemId = navController.graph.id
+        controller.observe(this) { selectedItemId ->
+            bottomNavSelectedItemId = selectedItemId
         }
     }
 

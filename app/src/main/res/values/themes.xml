@@ -150,4 +150,16 @@
 
     <!-- End Button Styles-->
 
+    <!-- Begin BottomNavigationView Styles -->
+
+    <style name="Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">#33000000</item>
+    </style>
+
+    <style name="BottomNavigationViewTextStyle">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- End BottomNavigationView Styles -->
 </resources>

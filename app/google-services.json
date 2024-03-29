@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1051780865838",
+    "project_id": "sheystore-d7393",
+    "storage_bucket": "sheystore-d7393.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1051780865838:android:83e37b48f7c8dae0ee64bf",
+        "android_client_info": {
+          "package_name": "com.angiedev.sheystore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFv5UYUlZuPZxQJB9XKkVm4mwcjHmUx64"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

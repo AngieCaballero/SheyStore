@@ -26,7 +26,7 @@ fun BottomNavigationView.setupWithNavController(
     intent: Intent
 ): LiveData<Int> {
 
-    val menuListItem = listOf("Home", "Shopping", "Cart", "Profile", "Login")
+    val menuListItem = listOf("Inicio", "Compras", "Carrito", "Perfil", "Login")
     val menuFragmentTag = mutableListOf<String>()
     // Map of tags
     // Result. Mutable live data with the selected controlled
@@ -182,7 +182,7 @@ private fun BottomNavigationView.setupDeepLinks(
     containerId: Int,
     intent: Intent
 ) {
-    val menuListItem = listOf("Home", "Shopping", "Cart", "Profile", "Login")
+    val menuListItem = listOf("Inicio", "Compras", "Carrito", "Perfil", "Login")
     navGraphIds.forEachIndexed { index, navGraphId ->
         val fragmentTag = getFragmentTag(menuListItem[index])
 

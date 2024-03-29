@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.landingLogin.view.LandingLoginFragment">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_header_landing_login"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/vamos_a_entrar"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceHeadline4"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/landing_login_google_button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/continuar_con_google"
+            style="@style/Widget.SheyStore.ButtonIcon"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="40dp"
+            app:icon="@drawable/ic_google" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_weight="1.5"
+                android:layout_marginEnd="10dp"
+                android:background="@color/color_primary"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:textColor="@color/color_text"
+                android:textSize="18sp"
+                android:text="@string/o"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_weight="1.5"
+                android:layout_marginStart="10dp"
+                android:background="@color/color_primary"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/landing_login_create_account"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/crear_una_cuenta"
+            style="@style/Widget.SheyStore.Button"
+            android:textColor="@color/white"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/black"
+            android:layout_marginHorizontal="40dp"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceCaption"
+                android:text="@string/ya_tienes_un_cuenta"
+                android:textColor="@color/color_text_hint" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/landing_login_sign_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:text="@string/iniciar_sesi_n"
+                android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceCaption"
+                android:textSize="12sp"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</androidx.core.widget.NestedScrollView>

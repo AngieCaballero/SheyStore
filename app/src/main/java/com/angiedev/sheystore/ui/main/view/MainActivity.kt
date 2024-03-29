@@ -1,17 +1,12 @@
 package com.angiedev.sheystore.ui.main.view
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.NavigationUiSaveStateControl
 import com.angiedev.sheystore.R
 import com.angiedev.sheystore.databinding.ActivityMainBinding
 import com.angiedev.sheystore.ui.utils.extension.BackButtonBehaviour
 import com.angiedev.sheystore.ui.utils.extension.setupWithNavController
-import com.angiedev.sheystore.ui.main.viewmodel.MainViewModel
+import com.google.android.material.elevation.SurfaceColors
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,29 +1,49 @@
 package com.angiedev.sheystore.ui.login.view
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.angiedev.sheystore.R
+import com.angiedev.sheystore.data.model.AuthResource
 import com.angiedev.sheystore.databinding.FragmentSignInBinding
 import com.angiedev.sheystore.databinding.LoginComponentBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
+import com.angiedev.sheystore.ui.landingLogin.view.LandingLoginFragmentDirections
 import com.angiedev.sheystore.ui.utils.extension.validateEmail
 import com.angiedev.sheystore.ui.utils.extension.validatePassword
 import com.angiedev.sheystore.ui.login.viewmodel.LoginViewModel
 import com.angiedev.sheystore.ui.main.view.MainActivity
+import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.google.android.gms.auth.api.identity.Identity
+import com.google.android.gms.auth.api.identity.SignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SignInFragment : BaseFragment<FragmentSignInBinding>() {
 
     private var _loginComponentBinding: LoginComponentBinding? = null
+    override var isBottomNavVisible = View.GONE
     private val loginComponentBinding get() = _loginComponentBinding!!
     private val viewModel: LoginViewModel by viewModels()
 
-    override var isBottomNavVisible = View.GONE
+    private val googleSignInLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                viewModel.handleSignInResult(GoogleSignIn.getSignedInAccountFromIntent(result.data))
+            }
+        }
 
     override fun getViewBinding() = FragmentSignInBinding.inflate(layoutInflater).also {
         _loginComponentBinding = LoginComponentBinding.bind(it.root)
@@ -45,7 +65,8 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
             createAccountButton.setOnClickListener {
                 viewModel.validateCredentials(
                     createAccountEmail.text.toString(),
-                    createAccountPassword.text.toString()
+                    createAccountPassword.text.toString(),
+                    true
                 )
             }
 
@@ -54,8 +75,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
             }
 
             createAccountSignInGoogle.setOnClickListener {
-                // Request login with Google
-                Toast.makeText(requireContext(), "Feature not yet implemented", Toast.LENGTH_SHORT).show()
+                viewModel.signInWithGoogle(googleSignInLauncher)
             }
 
             createAccountPassword.doOnTextChanged { text, _, _, _ ->
@@ -75,10 +95,6 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
         }
     }
 
-    private fun navigateToHomeModule() {
-        findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToNavHome())
-    }
-
     override fun setObservers() {
         super.setObservers()
         viewModel.password.observe(viewLifecycleOwner) { message ->
@@ -87,6 +103,48 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
 
         viewModel.username.observe(viewLifecycleOwner) { message ->
             loginComponentBinding.createAccountEmailContainer.error = message
+        }
+
+        viewModel.signInWithEmailAndPassword.observe(viewLifecycleOwner) { response ->
+            when(response) {
+                is AuthResource.Error -> {
+                    Toast.makeText(requireContext(), response.errorMessage, Toast.LENGTH_SHORT).show()
+                }
+                is AuthResource.Success -> {
+                    findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToNavHome())
+                }
+            }
+        }
+
+        viewModel.handleSignInResult.observe(viewLifecycleOwner) { response ->
+            when(response) {
+                is AuthResource.Error -> {
+                    Toast.makeText(requireContext(), response.errorMessage, Toast.LENGTH_SHORT).show()
+                }
+                is AuthResource.Success -> {
+                    val credential = GoogleAuthProvider.getCredential(response.data.idToken, null)
+                    viewModel.signInWithGoogleCredential(credential)
+                }
+
+                else -> { }
+            }
+        }
+
+        viewModel.sigInWithGoogleCredential.observe(viewLifecycleOwner) { response ->
+            when(response) {
+                is AuthResource.Error -> {
+                    Toast.makeText(requireContext(), response.errorMessage, Toast.LENGTH_SHORT).show()
+                }
+                is AuthResource.Success -> {
+                    if (response == null) {
+                        Toast.makeText(requireContext(), "Ha ocurrido un error", Toast.LENGTH_SHORT).show()
+                        return@observe
+                    }
+                    findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToNavHome())
+                }
+
+                else -> { }
+            }
         }
     }
 

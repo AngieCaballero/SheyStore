@@ -48,6 +48,11 @@
             app:destination="@id/signInFragment"
             app:popUpTo="@id/createAccountFragment"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_createAccountFragment_to_nav_home"
+            app:destination="@id/nav_home"
+            app:popUpTo="@id/nav_login"
+            app:popUpToInclusive="true"/>
     </fragment>
     <include app:graph="@navigation/nav_home" />
 

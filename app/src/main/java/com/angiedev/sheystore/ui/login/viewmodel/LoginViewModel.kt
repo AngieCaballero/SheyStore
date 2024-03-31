@@ -23,9 +23,6 @@ class LoginViewModel @Inject constructor(
     val username = MutableLiveData<String>()
     val password = MutableLiveData<String>()
 
-    private val _isAuthenticated = MutableLiveData(false)
-    val isAuthenticated get() = _isAuthenticated
-
     private val _isAuthored = MutableLiveData(false)
     val isAuthored get() = _isAuthored
 

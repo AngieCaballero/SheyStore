@@ -38,6 +38,7 @@ class MainActivity: AppCompatActivity() {
     }
 
     private fun setupNavigationView() {
+        binding.bottomNavigation.itemIconTintList = null
         val controller = binding.bottomNavigation.setupWithNavController(
             navGraphIds = navGraphId,
             fragmentManager = supportFragmentManager,
@@ -48,7 +49,6 @@ class MainActivity: AppCompatActivity() {
         )
 
         binding.bottomNavigation.selectedItemId = bottomNavSelectedItemId
-
 
         controller.observe(this) { selectedItemId ->
             bottomNavSelectedItemId = selectedItemId

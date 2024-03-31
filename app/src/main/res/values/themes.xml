@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.SheyStore" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.SheyStore" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryVariant">@color/color_primary</item>
@@ -9,6 +9,7 @@
         <item name="colorSecondary">@color/white</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSurfaceVariant">@color/color_text_hint</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
@@ -156,10 +157,25 @@
         <item name="android:color">#33000000</item>
     </style>
 
+    <style name="Custom.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="backgroundTint">@color/white</item>
+        <item name="itemTextAppearanceActive">@style/BottomNavigationViewTextStyle</item>
+        <item name="itemTextAppearanceInactive">@style/BottomNavigationViewTextStyle</item>
+        <item name="itemActiveIndicatorStyle">@style/Custom.Indicator</item>
+    </style>
+
     <style name="BottomNavigationViewTextStyle">
         <item name="android:fontFamily">@font/roboto_bold</item>
         <item name="android:textSize">12sp</item>
     </style>
 
     <!-- End BottomNavigationView Styles -->
+
+    <!-- Begin Search Bar Styles-->
+    <style name="Custom.SearchBar" parent="Widget.Material3.SearchBar">
+        <item name="backgroundTint">@color/shape_gray_background</item>
+        <item name="navigationIconTint">@color/color_text_hint</item>
+        <item name="android:textColorHint">@color/color_text_hint</item>
+    </style>
+    <!-- End Search Bar Styles-->
 </resources>

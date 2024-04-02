@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="10dp"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@android:color/transparent"
+        app:cardBackgroundColor="@color/shape_gray_background"
+        app:layout_constraintTop_toBottomOf="@id/specials_offers_view_all"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/product_hint"
+            android:scaleType="fitCenter"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gaming Chair"
+        android:layout_marginTop="2dp"
+        android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceSubtitle2"/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:gravity="center_vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            app:srcCompat="@drawable/ic_rating" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4.4"
+            android:textStyle="bold"
+            android:textColor="@color/color_text_hint"
+            android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceCaption"
+            android:layout_marginStart="4dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceCaption"
+            android:text="Mujer"
+            android:layout_marginStart="8dp"
+            android:paddingVertical="1dp"
+            android:textSize="10sp"
+            android:paddingHorizontal="6dp"
+            android:background="@drawable/shape_rounded_stroke_background"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$20.45"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/roboto_black"
+        android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceCaption"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

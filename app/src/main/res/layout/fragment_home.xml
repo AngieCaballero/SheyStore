@@ -29,10 +29,38 @@
             android:layout_marginHorizontal="20dp"
             android:hint="@string/buscar"/>
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/specials_offers_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceBody2"
+                android:text="@string/ofertas_especiales"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/specials_offers_view_all"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:textAlignment="textEnd"
+                android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceButton"
+                android:text="@string/ver_todo"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
         <include android:id="@+id/fragment_home_specials_offers"
-            layout="@layout/layout_specials_offers"
+            layout="@layout/item_specials_offers"
             android:layout_marginHorizontal="20dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"/>
 
         <androidx.recyclerview.widget.RecyclerView

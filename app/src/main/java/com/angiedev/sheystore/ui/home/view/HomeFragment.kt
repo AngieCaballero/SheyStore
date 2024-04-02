@@ -29,6 +29,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToWishListFragment())
             }
         }
+
+        binding.specialsOffersViewAll.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSpecialsOffersFragment())
+        }
     }
 
 }

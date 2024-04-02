@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".ui.wishlist.view.WishListFragment">
+    tools:context=".SpecialsOffersFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
             android:id="@+id/wishlist_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:title="Mi Lista de Deseos"
+            app:title="Ofertas Especiales"
             android:background="@color/white"
             app:navigationIcon="@drawable/ic_arrow_back"
             app:titleTextAppearance="@style/TextAppearance.SheyStore.textAppearanceSubtitle1"/>
@@ -23,25 +23,10 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/wishlist_category_rv"
+    android:id="@+id/specials_offers_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal"
         tools:itemCount="10"
-        tools:listitem="@layout/item_category_chips"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/category_most_popular_view_all"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/wishlist_products_rv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:listitem="@layout/item_product"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
-        android:orientation="vertical"/>
+        tools:listitem="@layout/item_specials_offers"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

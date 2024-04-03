@@ -33,6 +33,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.specialsOffersViewAll.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSpecialsOffersFragment())
         }
+
+        binding.fragmentHomeMostPopular.apply {
+            categoryMostPopularViewAll.setOnClickListener {
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMostPopularFragment())
+            }
+        }
+
+        binding.fragmentHomeSearchBar.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
+        }
     }
 
 }

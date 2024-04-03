@@ -1,4 +1,4 @@
-package com.angiedev.sheystore
+package com.angiedev.sheystore.ui.specialsOffers.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

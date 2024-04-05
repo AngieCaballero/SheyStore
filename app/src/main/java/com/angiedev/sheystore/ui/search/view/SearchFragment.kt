@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.MenuItemCompat
+import androidx.navigation.fragment.findNavController
 import com.angiedev.sheystore.R
 import com.angiedev.sheystore.databinding.FragmentSearchBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
@@ -26,8 +27,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     override fun setListeners() {
         super.setListeners()
         binding.fragmentSearchView.addTransitionListener { _, _, transitionState2 ->
-            if (transitionState2 == SearchView.TransitionState.SHOWING) {
-                Toast.makeText(requireContext(), "Showing", Toast.LENGTH_SHORT).show()
+            when (transitionState2) {
+                SearchView.TransitionState.SHOWING -> {
+                    Toast.makeText(requireContext(), "Showing", Toast.LENGTH_SHORT).show()
+                }
+                SearchView.TransitionState.HIDDEN -> {
+                    findNavController().popBackStack()
+                }
+                else -> { }
             }
         }
 

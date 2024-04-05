@@ -177,5 +177,10 @@
         <item name="navigationIconTint">@color/color_text_hint</item>
         <item name="android:textColorHint">@color/color_text_hint</item>
     </style>
+
+    <style name="WhiteCursorSearchView" parent="Widget.Material3.SearchView">
+        <item name="colorControlActivated">#121212</item>
+    </style>
+
     <!-- End Search Bar Styles-->
 </resources>

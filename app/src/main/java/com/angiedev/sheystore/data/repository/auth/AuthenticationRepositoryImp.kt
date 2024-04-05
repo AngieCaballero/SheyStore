@@ -50,6 +50,7 @@ class AuthenticationRepositoryImp @Inject constructor(
     ): AuthResource<FirebaseUser?> {
         return try {
             val authResult = firebaseAuth.signInWithEmailAndPassword(email, password).await()
+            dataStoreManager.storeValue(PreferencesKeys.TOKEN, authResult.user?.getIdToken(true)?.await()?.token.toString())
             AuthResource.Success(authResult.user)
         } catch(e: Exception) {
             AuthResource.Error(e.message ?: "Error al iniciar sesión")
@@ -86,6 +87,7 @@ class AuthenticationRepositoryImp @Inject constructor(
         return try {
             val firebaseUser = firebaseAuth.signInWithCredential(credential).await()
             firebaseUser.user?.let {
+                dataStoreManager.storeValue(PreferencesKeys.TOKEN, it.getIdToken(true).await()?.token.toString())
                 AuthResource.Success(it)
             } ?: throw Exception("Sign in with Google failed.")
         } catch (e: Exception) {

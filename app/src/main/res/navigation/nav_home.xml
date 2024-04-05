@@ -9,5 +9,66 @@
         android:id="@+id/homeFragment"
         android:name="com.angiedev.sheystore.ui.home.view.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_notificationsFragment"
+            app:destination="@id/notificationsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+        <action
+            android:id="@+id/action_homeFragment_to_wishListFragment"
+            app:destination="@id/wishListFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_homeFragment_to_specialsOffersFragment"
+            app:destination="@id/specialsOffersFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+        <action
+            android:id="@+id/action_homeFragment_to_mostPopularFragment"
+            app:destination="@id/mostPopularFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+    </fragment>
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.angiedev.sheystore.ui.notifications.view.NotificationsFragment"
+        android:label="fragment_notifications"
+        tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/wishListFragment"
+        android:name="com.angiedev.sheystore.ui.wishlist.view.WishListFragment"
+        android:label="fragment_wish_list"
+        tools:layout="@layout/fragment_wish_list" />
+    <fragment
+        android:id="@+id/specialsOffersFragment"
+        android:name="com.angiedev.sheystore.ui.specialsOffers.view.SpecialsOffersFragment"
+        android:label="fragment_specials_offers"
+        tools:layout="@layout/fragment_specials_offers" />
+    <fragment
+        android:id="@+id/mostPopularFragment"
+        android:name="com.angiedev.sheystore.ui.mostPopular.view.MostPopularFragment"
+        android:label="fragment_most_popular"
+        tools:layout="@layout/fragment_most_popular" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.angiedev.sheystore.ui.search.view.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
 </navigation>

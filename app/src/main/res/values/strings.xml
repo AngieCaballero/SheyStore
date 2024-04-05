@@ -16,12 +16,18 @@
     <string name="crear_una_cuenta">Crear una cuenta</string>
     <string name="sign_in_with_account">Inicia sesión</string>
 
-    <!-- Create Accoun Fragment -->
+    <!-- Create Account Fragment -->
     <string name="crea_tu_cuenta">Crea tu cuenta</string>
     <string name="correo_elect_nico">Correo electónico</string>
     <string name="contrase_a">Contraseña</string>
     <string name="crear_cuenta">Crear cuenta</string>
     <string name="otras_opciones">Otras opciones</string>
     <string name="not_have_account">¿No tienes cuenta?</string>
+
+    <!-- Home Fragment-->
+    <string name="buscar">Buscar</string>
+    <string name="ofertas_especiales">Ofertas Especiales</string>
+    <string name="ver_todo">Ver todo</string>
+    <string name="lo_sentimos_no_hemos_encontrado_resultados_a_partir_de_tu_b_squeda">¡Lo sentimos! No hemos encontrado resultados a partir de tu búsqueda.</string>
 
 </resources>

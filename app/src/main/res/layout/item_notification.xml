@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:strokeWidth="0dp"
+    app:cardBackgroundColor="@color/white"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="22dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/item_notifications_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/shape_black_rounded_background"
+            android:padding="18dp"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_notifications_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Free Shipping"
+            android:textStyle="bold"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="14dp"
+            android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceBody1"
+            app:layout_constraintStart_toEndOf="@id/item_notifications_image"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_notifications_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+            android:textStyle="bold"
+            android:layout_marginStart="14dp"
+            android:textColor="@color/color_text_hint"
+            android:layout_marginTop="4dp"
+            android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceCaption"
+            app:layout_constraintStart_toEndOf="@id/item_notifications_image"
+            app:layout_constraintTop_toBottomOf="@id/item_notifications_title"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

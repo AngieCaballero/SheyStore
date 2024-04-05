@@ -37,6 +37,7 @@ class LandingLoginFragment : BaseFragment<FragmentLandingLoginBinding>() {
 
     override fun createView(view: View, savedInstanceState: Bundle?) {
         super.createView(view, savedInstanceState)
+        viewModel.isAuthored()
     }
 
     override fun setListeners() {

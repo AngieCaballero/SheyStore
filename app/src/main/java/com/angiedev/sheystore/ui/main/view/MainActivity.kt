@@ -1,7 +1,13 @@
 package com.angiedev.sheystore.ui.main.view
 
+import android.content.Intent
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.ui.NavigationUI
 import com.angiedev.sheystore.R
 import com.angiedev.sheystore.databinding.ActivityMainBinding
 import com.angiedev.sheystore.ui.utils.extension.BackButtonBehaviour
@@ -17,6 +23,7 @@ class MainActivity: AppCompatActivity() {
     }
 
     private var _binding: ActivityMainBinding? = null
+    private lateinit var navController: NavController
     private val binding get() = _binding!!
     private var bottomNavSelectedItemId = R.id.nav_home
     private val navGraphId = listOf(
@@ -31,13 +38,25 @@ class MainActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        handleOnBackPressed()
         savedInstanceState?.let {
             bottomNavSelectedItemId = savedInstanceState.getInt(BOTTOM_NAV_SELECTED_ITEM_ID_KEY)
         }
         setupNavigationView()
     }
 
+    private fun handleOnBackPressed() {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (!navController.popBackStack()) {
+                    finish()
+                }
+            }
+        })
+    }
+
     private fun setupNavigationView() {
+        binding.bottomNavigation.itemIconTintList = null
         val controller = binding.bottomNavigation.setupWithNavController(
             navGraphIds = navGraphId,
             fragmentManager = supportFragmentManager,
@@ -49,9 +68,9 @@ class MainActivity: AppCompatActivity() {
 
         binding.bottomNavigation.selectedItemId = bottomNavSelectedItemId
 
-
         controller.observe(this) { selectedItemId ->
             bottomNavSelectedItemId = selectedItemId
+            navController = Navigation.findNavController(this@MainActivity, R.id.main_fragment_container_view)
         }
     }
 

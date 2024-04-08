@@ -10,7 +10,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.angiedev.sheystore.R
-import com.angiedev.sheystore.data.model.AuthResource
+import com.angiedev.sheystore.data.Util.AuthResource
 import com.angiedev.sheystore.databinding.FragmentCreateAccountBinding
 import com.angiedev.sheystore.databinding.LoginComponentBinding
 import com.angiedev.sheystore.ui.base.BaseFragment

@@ -11,20 +11,14 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.angiedev.sheystore.R
-import com.angiedev.sheystore.data.model.AuthResource
+import com.angiedev.sheystore.data.Util.AuthResource
 import com.angiedev.sheystore.databinding.FragmentSignInBinding
 import com.angiedev.sheystore.databinding.LoginComponentBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
-import com.angiedev.sheystore.ui.landingLogin.view.LandingLoginFragmentDirections
 import com.angiedev.sheystore.ui.utils.extension.validateEmail
 import com.angiedev.sheystore.ui.utils.extension.validatePassword
 import com.angiedev.sheystore.ui.login.viewmodel.LoginViewModel
-import com.angiedev.sheystore.ui.main.view.MainActivity
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
-import com.google.android.gms.auth.api.identity.Identity
-import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.AndroidEntryPoint
 

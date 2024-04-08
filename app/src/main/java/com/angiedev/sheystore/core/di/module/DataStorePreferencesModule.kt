@@ -7,7 +7,7 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStoreFile
-import com.angiedev.sheystore.core.di.manager.DataStoreManager
+import com.angiedev.sheystore.data.datasource.local.DataStoreManager
 import com.angiedev.sheystore.ui.utils.constant.Constant
 import dagger.Module
 import dagger.Provides

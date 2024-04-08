@@ -5,7 +5,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.angiedev.sheystore.data.model.AuthResource
+import com.angiedev.sheystore.data.Util.AuthResource
 import com.angiedev.sheystore.data.repository.auth.IAuthenticationRepository
 import com.angiedev.sheystore.ui.utils.extension.validatePassword
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount

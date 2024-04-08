@@ -1,4 +1,4 @@
-package com.angiedev.sheystore.core.di.manager
+package com.angiedev.sheystore.data.datasource.local
 
 
 import androidx.datastore.core.DataStore

@@ -2,7 +2,7 @@ package com.angiedev.sheystore.data.repository.auth
 
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
-import com.angiedev.sheystore.data.model.AuthResource
+import com.angiedev.sheystore.data.Util.AuthResource
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthCredential

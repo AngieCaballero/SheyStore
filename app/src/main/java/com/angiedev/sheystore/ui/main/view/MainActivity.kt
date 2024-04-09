@@ -4,16 +4,23 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcher
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.angiedev.sheystore.R
 import com.angiedev.sheystore.databinding.ActivityMainBinding
+import com.angiedev.sheystore.ui.landingLogin.view.LandingLoginFragmentDirections
+import com.angiedev.sheystore.ui.login.viewmodel.LoginViewModel
 import com.angiedev.sheystore.ui.utils.extension.BackButtonBehaviour
 import com.angiedev.sheystore.ui.utils.extension.setupWithNavController
 import com.google.android.material.elevation.SurfaceColors
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.log
 
 @AndroidEntryPoint
 class MainActivity: AppCompatActivity() {
@@ -24,6 +31,7 @@ class MainActivity: AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
     private lateinit var navController: NavController
+    private val loginViewModel: LoginViewModel by viewModels()
     private val binding get() = _binding!!
     private var bottomNavSelectedItemId = R.id.nav_home
     private val navGraphId = listOf(
@@ -39,10 +47,19 @@ class MainActivity: AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         handleOnBackPressed()
+        setObservers()
         savedInstanceState?.let {
             bottomNavSelectedItemId = savedInstanceState.getInt(BOTTOM_NAV_SELECTED_ITEM_ID_KEY)
         }
         setupNavigationView()
+        loginViewModel.isAuthored()
+    }
+
+    private fun setObservers() {
+        loginViewModel.isAuthored.observe(this) { isAuthored ->
+            if (!isAuthored) navigateToLoginModule()
+            else navigateToHomeModule()
+        }
     }
 
     private fun handleOnBackPressed() {
@@ -72,6 +89,20 @@ class MainActivity: AppCompatActivity() {
             bottomNavSelectedItemId = selectedItemId
             navController = Navigation.findNavController(this@MainActivity, R.id.main_fragment_container_view)
         }
+    }
+
+    private fun navigateToHomeModule() {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_fragment_container_view) as NavHostFragment
+        val inflater = navHostFragment.navController.navInflater
+        val graph = inflater.inflate(R.navigation.nav_home)
+        navController.graph = graph
+    }
+
+    private fun navigateToLoginModule() {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_fragment_container_view) as NavHostFragment
+        val inflater = navHostFragment.navController.navInflater
+        val graph = inflater.inflate(R.navigation.nav_login)
+        navController.graph = graph
     }
 
     fun isBottomNavVisible(visibility: Int){

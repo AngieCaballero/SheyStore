@@ -3,7 +3,7 @@ package com.angiedev.sheystore.data.repository.auth
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import com.angiedev.sheystore.data.datasource.local.DataStoreManager
-import com.angiedev.sheystore.data.Util.AuthResource
+import com.angiedev.sheystore.data.util.AuthResource
 import com.angiedev.sheystore.ui.utils.constant.PreferencesKeys
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount

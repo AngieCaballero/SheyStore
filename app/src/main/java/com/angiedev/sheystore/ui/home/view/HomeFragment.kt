@@ -10,6 +10,7 @@ import com.angiedev.sheystore.data.entities.SpecialsOffersEntity
 import com.angiedev.sheystore.data.model.remote.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentHomeBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
+import com.angiedev.sheystore.ui.home.view.adapter.CategoryAdapter
 import com.angiedev.sheystore.ui.home.viewmodel.HomeViewModel
 import com.angiedev.sheystore.ui.login.viewmodel.LoginViewModel
 import com.bumptech.glide.Glide
@@ -20,12 +21,20 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private val homeViewModel: HomeViewModel by viewModels()
+    private var categoryAdapter: CategoryAdapter? = null
 
     override fun getViewBinding() = FragmentHomeBinding.inflate(layoutInflater)
 
     override fun createView(view: View, savedInstanceState: Bundle?) {
         super.createView(view, savedInstanceState)
         homeViewModel.getSpecialsOffers()
+        homeViewModel.getCategories()
+        setupCategoryAdapter()
+    }
+
+    private fun setupCategoryAdapter() {
+        categoryAdapter = CategoryAdapter()
+        binding.fragmentHomeCategoryRv.adapter = categoryAdapter
     }
 
     override fun setObservers() {
@@ -40,6 +49,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 }
                 is ApiResponse.Success -> {
                     loadSpecialsOffers(response.data.first())
+                }
+            }
+        }
+
+        homeViewModel.categories.observe(viewLifecycleOwner) { response ->
+            when(response) {
+                is ApiResponse.Error -> Toast.makeText(requireContext(), response.toString(), Toast.LENGTH_SHORT).show()
+                ApiResponse.Loading -> { }
+                is ApiResponse.Success -> {
+                    // Load categories recycler view
+                    categoryAdapter?.submitList(response.data)
                 }
             }
         }

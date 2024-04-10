@@ -1,6 +1,7 @@
 package com.angiedev.sheystore.data.datasource.remote
 
 import android.content.Context
+import com.angiedev.sheystore.data.model.remote.CategoryResponse
 import com.angiedev.sheystore.data.model.remote.CollectionResponse
 import com.angiedev.sheystore.data.model.remote.DocumentResponse
 import com.angiedev.sheystore.data.model.remote.ProductResponse
@@ -31,6 +32,11 @@ class ApiDataSource @Inject constructor(
 
     suspend fun getSpecialsOffers() = service.safeRequest<CollectionResponse<SpecialsOffersResponse>>(
         endpoint = "specials_offers/",
+        method = HttpMethod.Get
+    )
+
+    suspend fun getCategories() = service.safeRequest<CollectionResponse<CategoryResponse>>(
+        endpoint = "category/",
         method = HttpMethod.Get
     )
 }

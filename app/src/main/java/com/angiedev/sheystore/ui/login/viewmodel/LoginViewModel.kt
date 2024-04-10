@@ -5,7 +5,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.angiedev.sheystore.data.Util.AuthResource
+import com.angiedev.sheystore.data.util.AuthResource
 import com.angiedev.sheystore.data.repository.auth.IAuthenticationRepository
 import com.angiedev.sheystore.ui.utils.extension.validatePassword
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -13,7 +13,9 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,7 +25,7 @@ class LoginViewModel @Inject constructor(
     val username = MutableLiveData<String>()
     val password = MutableLiveData<String>()
 
-    private val _isAuthored = MutableLiveData(false)
+    private val _isAuthored = MutableLiveData<Boolean>()
     val isAuthored get() = _isAuthored
 
     private val _sigInWithEmailAndPassword = MutableLiveData<AuthResource<FirebaseUser?>>()
@@ -42,7 +44,7 @@ class LoginViewModel @Inject constructor(
     val sigInWithGoogleCredential get() = _sigInWithGoogleCredential
 
     fun isAuthored() {
-        viewModelScope.launch {
+        runBlocking(Dispatchers.IO) {
             _isAuthored.postValue(authenticationRepository.isAuthenticate())
         }
     }

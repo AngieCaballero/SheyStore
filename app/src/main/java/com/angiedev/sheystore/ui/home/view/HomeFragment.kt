@@ -1,21 +1,60 @@
 package com.angiedev.sheystore.ui.home.view
 
+import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.angiedev.sheystore.data.entities.SpecialsOffersEntity
+import com.angiedev.sheystore.data.model.remote.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentHomeBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
+import com.angiedev.sheystore.ui.home.viewmodel.HomeViewModel
 import com.angiedev.sheystore.ui.login.viewmodel.LoginViewModel
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
-    val viewModel: LoginViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModels()
 
     override fun getViewBinding() = FragmentHomeBinding.inflate(layoutInflater)
 
+    override fun createView(view: View, savedInstanceState: Bundle?) {
+        super.createView(view, savedInstanceState)
+        homeViewModel.getSpecialsOffers()
+    }
+
     override fun setObservers() {
         super.setObservers()
+        homeViewModel.specialsOffers.observe(viewLifecycleOwner) { response ->
+            when(response) {
+                is ApiResponse.Error -> {
+                    Toast.makeText(requireContext(), response.exception?.toString(), Toast.LENGTH_SHORT).show()
+                }
+                ApiResponse.Loading -> {
+                    // Show Loading Screen
+                }
+                is ApiResponse.Success -> {
+                    loadSpecialsOffers(response.data.first())
+                }
+            }
+        }
+    }
+
+    private fun loadSpecialsOffers(specialsOffers: SpecialsOffersEntity) {
+        with(binding.fragmentHomeSpecialsOffers) {
+            specialsOffersDiscount.text = specialsOffers.percentDiscount
+            specialsOffersTitle.text = specialsOffers.title
+            specialsOffersShortDescription.text = specialsOffers.description
+            Glide.with(requireContext())
+                .load(specialsOffers.image)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(specialsOffersImage)
+        }
     }
 
     override fun setListeners() {

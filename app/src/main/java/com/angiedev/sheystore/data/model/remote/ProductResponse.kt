@@ -1,4 +1,4 @@
-package com.angiedev.sheystore.model.remote
+package com.angiedev.sheystore.data.model.remote
 
 import com.google.gson.annotations.SerializedName
 

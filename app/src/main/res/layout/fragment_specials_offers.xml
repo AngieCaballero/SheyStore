@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".ui.specialsOffers.view.SpecialsOffersFragment">
 
@@ -15,18 +15,27 @@
             android:id="@+id/wishlist_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:title="Ofertas Especiales"
             android:background="@color/white"
             app:navigationIcon="@drawable/ic_arrow_back"
-            app:titleTextAppearance="@style/TextAppearance.SheyStore.textAppearanceSubtitle1"/>
+            app:title="Ofertas Especiales"
+            app:titleTextAppearance="@style/TextAppearance.SheyStore.textAppearanceSubtitle1" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/specials_offers_rv"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/specials_offers_swipe_to_refresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:itemCount="10"
-        tools:listitem="@layout/item_specials_offers"/>
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/specials_offers_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_specials_offers" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

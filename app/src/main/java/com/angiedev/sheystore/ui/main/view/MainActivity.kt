@@ -58,7 +58,6 @@ class MainActivity: AppCompatActivity() {
     private fun setObservers() {
         loginViewModel.isAuthored.observe(this) { isAuthored ->
             if (!isAuthored) navigateToLoginModule()
-            else navigateToHomeModule()
         }
     }
 
@@ -89,13 +88,6 @@ class MainActivity: AppCompatActivity() {
             bottomNavSelectedItemId = selectedItemId
             navController = Navigation.findNavController(this@MainActivity, R.id.main_fragment_container_view)
         }
-    }
-
-    private fun navigateToHomeModule() {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_fragment_container_view) as NavHostFragment
-        val inflater = navHostFragment.navController.navInflater
-        val graph = inflater.inflate(R.navigation.nav_home)
-        navController.graph = graph
     }
 
     private fun navigateToLoginModule() {

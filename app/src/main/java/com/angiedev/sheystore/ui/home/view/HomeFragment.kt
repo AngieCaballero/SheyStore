@@ -1,21 +1,22 @@
 package com.angiedev.sheystore.ui.home.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.angiedev.sheystore.data.entities.CategoryEntity
 import com.angiedev.sheystore.data.entities.SpecialsOffersEntity
 import com.angiedev.sheystore.data.model.remote.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentHomeBinding
+import com.angiedev.sheystore.databinding.ItemCategoryChipsBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
 import com.angiedev.sheystore.ui.home.view.adapter.CategoryAdapter
 import com.angiedev.sheystore.ui.home.viewmodel.HomeViewModel
-import com.angiedev.sheystore.ui.login.viewmodel.LoginViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Random
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
@@ -60,8 +61,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 is ApiResponse.Success -> {
                     // Load categories recycler view
                     categoryAdapter?.submitList(response.data)
+                    setupMostPopularCategoryChips(response.data)
                 }
             }
+        }
+    }
+
+    private fun setupMostPopularCategoryChips(data: List<CategoryEntity>) {
+        data.forEach {
+            val chip = ItemCategoryChipsBinding.inflate(layoutInflater)
+            chip.root.apply {
+                text = it.name
+                id = Random().nextInt()
+            }
+            binding.fragmentHomeMostPopular.mostPopularChipsGroup.addView(chip.root)
         }
     }
 
@@ -96,6 +109,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.fragmentHomeMostPopular.apply {
             categoryMostPopularViewAll.setOnClickListener {
                 findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMostPopularFragment())
+            }
+
+            mostPopularChipsGroup.setOnCheckedStateChangeListener { chipGroup, ints ->
+                // Event Chip Checked
             }
         }
 

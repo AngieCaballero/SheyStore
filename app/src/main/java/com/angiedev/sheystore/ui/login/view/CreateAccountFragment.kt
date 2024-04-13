@@ -20,6 +20,7 @@ import com.angiedev.sheystore.ui.login.viewmodel.LoginViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Date
 
 @AndroidEntryPoint
 class CreateAccountFragment : BaseFragment<FragmentCreateAccountBinding>() {
@@ -50,7 +51,8 @@ class CreateAccountFragment : BaseFragment<FragmentCreateAccountBinding>() {
                 viewModel.validateCredentials(
                     createAccountEmail.text.toString(),
                     createAccountPassword.text.toString(),
-                    false
+                    false,
+                    Date().time
                 )
             }
 
@@ -110,7 +112,7 @@ class CreateAccountFragment : BaseFragment<FragmentCreateAccountBinding>() {
                 }
                 is AuthResource.Success -> {
                     val credential = GoogleAuthProvider.getCredential(response.data.idToken, null)
-                    viewModel.signInWithGoogleCredential(credential)
+                    viewModel.signInWithGoogleCredential(credential, Date().time)
                 }
 
                 else -> { }

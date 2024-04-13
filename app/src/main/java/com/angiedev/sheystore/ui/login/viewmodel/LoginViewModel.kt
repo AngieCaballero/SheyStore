@@ -43,16 +43,16 @@ class LoginViewModel @Inject constructor(
     private val _sigInWithGoogleCredential = MutableLiveData<AuthResource<FirebaseUser>?>()
     val sigInWithGoogleCredential get() = _sigInWithGoogleCredential
 
-    fun isAuthored() {
+    fun isAuthored(currentTime: Long) {
         runBlocking(Dispatchers.IO) {
-            _isAuthored.postValue(authenticationRepository.isAuthenticate())
+            _isAuthored.postValue(authenticationRepository.isAuthenticate(currentTime))
         }
     }
 
-    private fun signInWithEmailAndPassword(username: String, password: String) {
+    private fun signInWithEmailAndPassword(username: String, password: String, timeSession: Long) {
         viewModelScope.launch {
             val response = authenticationRepository.signInWithEmailAndPassword(
-                username, password
+                username, password, timeSession
             )
             _sigInWithEmailAndPassword.postValue(response)
         }
@@ -67,9 +67,9 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun signInWithGoogleCredential(credential: AuthCredential) {
+    fun signInWithGoogleCredential(credential: AuthCredential, timeSession: Long) {
         viewModelScope.launch {
-            val response = authenticationRepository.signInWithGoogleCredential(credential)
+            val response = authenticationRepository.signInWithGoogleCredential(credential, timeSession)
             _sigInWithGoogleCredential.postValue(response)
         }
     }
@@ -93,7 +93,8 @@ class LoginViewModel @Inject constructor(
     fun validateCredentials(
         usernameToValidate: String,
         passwordToValidate: String,
-        isSignInUser: Boolean
+        isSignInUser: Boolean,
+        timeSession: Long
     ) {
         when {
             usernameToValidate.isEmpty() && !passwordToValidate.validatePassword() -> {
@@ -110,7 +111,7 @@ class LoginViewModel @Inject constructor(
                 password.postValue("")
                 username.postValue("")
                 if (isSignInUser) {
-                    signInWithEmailAndPassword(usernameToValidate, passwordToValidate)
+                    signInWithEmailAndPassword(usernameToValidate, passwordToValidate, timeSession)
                 } else {
                     createUserWithEmailAndPassword(usernameToValidate, passwordToValidate)
                 }

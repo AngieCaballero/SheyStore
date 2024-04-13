@@ -5,6 +5,7 @@ import androidx.activity.result.ActivityResultLauncher
 import com.angiedev.sheystore.data.datasource.local.DataStoreManager
 import com.angiedev.sheystore.data.util.AuthResource
 import com.angiedev.sheystore.ui.utils.constant.PreferencesKeys
+import com.angiedev.sheystore.ui.utils.extension.getHours
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -23,12 +24,17 @@ class AuthenticationRepositoryImp @Inject constructor(
     private val signInClient: SignInClient
 ) : IAuthenticationRepository {
 
-    override suspend fun isAuthenticate(): Boolean {
-        var isAuthenticated = false
+    override suspend fun isAuthenticate(currentTime: Long): Boolean {
+        var isAuthenticated = ""
+        var timeSession = -1L
         dataStoreManager.readValue(PreferencesKeys.TOKEN) {
-            isAuthenticated = isNotBlank()
+            isAuthenticated = this
         }
-        return isAuthenticated
+        dataStoreManager.readValue(PreferencesKeys.TIME_SESSION) {
+            timeSession = this
+        }
+        val hoursSession = currentTime.getHours(timeSession)
+        return isAuthenticated.isNotBlank() && hoursSession < 1
     }
 
     override suspend fun createUserWithEmailAndPassword(
@@ -46,11 +52,13 @@ class AuthenticationRepositoryImp @Inject constructor(
 
     override suspend fun signInWithEmailAndPassword(
         email: String,
-        password: String
+        password: String,
+        timeSession: Long
     ): AuthResource<FirebaseUser?> {
         return try {
             val authResult = firebaseAuth.signInWithEmailAndPassword(email, password).await()
             dataStoreManager.storeValue(PreferencesKeys.TOKEN, authResult.user?.getIdToken(true)?.await()?.token.toString())
+            dataStoreManager.storeValue(PreferencesKeys.TIME_SESSION, timeSession)
             AuthResource.Success(authResult.user)
         } catch(e: Exception) {
             AuthResource.Error(e.message ?: "Error al iniciar sesión")
@@ -83,11 +91,12 @@ class AuthenticationRepositoryImp @Inject constructor(
         }
     }
 
-    override suspend fun signInWithGoogleCredential(credential: AuthCredential): AuthResource<FirebaseUser>? {
+    override suspend fun signInWithGoogleCredential(credential: AuthCredential, timeSession: Long): AuthResource<FirebaseUser>? {
         return try {
             val firebaseUser = firebaseAuth.signInWithCredential(credential).await()
             firebaseUser.user?.let {
                 dataStoreManager.storeValue(PreferencesKeys.TOKEN, it.getIdToken(true).await()?.token.toString())
+                dataStoreManager.storeValue(PreferencesKeys.TIME_SESSION, timeSession)
                 AuthResource.Success(it)
             } ?: throw Exception("Sign in with Google failed.")
         } catch (e: Exception) {

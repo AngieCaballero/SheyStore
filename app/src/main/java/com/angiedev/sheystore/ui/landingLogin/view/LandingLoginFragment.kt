@@ -16,6 +16,7 @@ import com.angiedev.sheystore.ui.login.viewmodel.LoginViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Date
 
 @AndroidEntryPoint
 class LandingLoginFragment : BaseFragment<FragmentLandingLoginBinding>() {
@@ -62,7 +63,7 @@ class LandingLoginFragment : BaseFragment<FragmentLandingLoginBinding>() {
                 }
                 is AuthResource.Success -> {
                     val credential = GoogleAuthProvider.getCredential(response.data.idToken, null)
-                    viewModel.signInWithGoogleCredential(credential)
+                    viewModel.signInWithGoogleCredential(credential, Date().time)
                 }
 
                 else -> { }

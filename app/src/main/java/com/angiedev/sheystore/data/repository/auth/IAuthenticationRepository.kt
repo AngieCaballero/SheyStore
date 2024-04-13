@@ -10,11 +10,11 @@ import com.google.firebase.auth.FirebaseUser
 
 interface IAuthenticationRepository {
 
-    suspend fun isAuthenticate(): Boolean
+    suspend fun isAuthenticate(currentTime: Long): Boolean
 
     suspend fun createUserWithEmailAndPassword(email: String, password: String): AuthResource<FirebaseUser?>
 
-    suspend fun signInWithEmailAndPassword(email: String, password: String): AuthResource<FirebaseUser?>
+    suspend fun signInWithEmailAndPassword(email: String, password: String, timeSession: Long): AuthResource<FirebaseUser?>
 
     suspend fun resetPassword(email: String): AuthResource<Unit>
 
@@ -24,7 +24,7 @@ interface IAuthenticationRepository {
 
     fun handleSignInResult(task: Task<GoogleSignInAccount>): AuthResource<GoogleSignInAccount>?
 
-    suspend fun signInWithGoogleCredential(credential: AuthCredential): AuthResource<FirebaseUser>?
+    suspend fun signInWithGoogleCredential(credential: AuthCredential, timeSession: Long): AuthResource<FirebaseUser>?
 
     fun signInWithGoogle(googleSignInLauncher: ActivityResultLauncher<Intent>)
 }

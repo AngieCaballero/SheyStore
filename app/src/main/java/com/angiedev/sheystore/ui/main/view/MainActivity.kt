@@ -20,6 +20,7 @@ import com.angiedev.sheystore.ui.utils.extension.BackButtonBehaviour
 import com.angiedev.sheystore.ui.utils.extension.setupWithNavController
 import com.google.android.material.elevation.SurfaceColors
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Date
 import kotlin.math.log
 
 @AndroidEntryPoint
@@ -52,7 +53,7 @@ class MainActivity: AppCompatActivity() {
             bottomNavSelectedItemId = savedInstanceState.getInt(BOTTOM_NAV_SELECTED_ITEM_ID_KEY)
         }
         setupNavigationView()
-        loginViewModel.isAuthored()
+        loginViewModel.isAuthored(Date().time)
     }
 
     private fun setObservers() {

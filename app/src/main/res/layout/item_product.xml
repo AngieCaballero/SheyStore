@@ -19,6 +19,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/item_product_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/product_hint"
@@ -27,6 +28,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/item_product_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Gaming Chair"
@@ -45,6 +47,7 @@
             app:srcCompat="@drawable/ic_rating" />
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_product_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="4.4"
@@ -54,6 +57,7 @@
             android:layout_marginStart="4dp"/>
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_product_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceCaption"
@@ -67,6 +71,7 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/item_product_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="$20.45"

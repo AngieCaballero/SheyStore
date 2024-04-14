@@ -3,39 +3,56 @@ package com.angiedev.sheystore.ui.home.view
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.allViews
+import androidx.core.view.contains
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.angiedev.sheystore.data.entities.CategoryEntity
+import com.angiedev.sheystore.data.entities.ProductEntity
 import com.angiedev.sheystore.data.entities.SpecialsOffersEntity
+import com.angiedev.sheystore.data.model.domain.ScreenProducts
 import com.angiedev.sheystore.data.model.remote.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentHomeBinding
 import com.angiedev.sheystore.databinding.ItemCategoryChipsBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
 import com.angiedev.sheystore.ui.home.view.adapter.CategoryAdapter
 import com.angiedev.sheystore.ui.home.viewmodel.HomeViewModel
+import com.angiedev.sheystore.ui.mostPopular.view.adapter.ProductAdapter
+import com.angiedev.sheystore.ui.mostPopular.viewmodel.ProductViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Random
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
+    companion object {
+        private const val CHECKED_CATEGORY_SELECTED = "checkedCategorySelected"
+    }
+
     private val homeViewModel: HomeViewModel by viewModels()
+    private val productViewModel: ProductViewModel by viewModels()
     private var categoryAdapter: CategoryAdapter? = null
+    private var productAdapter: ProductAdapter? = null
+    private val productList: MutableList<ProductEntity> = mutableListOf()
 
     override fun getViewBinding() = FragmentHomeBinding.inflate(layoutInflater)
 
     override fun createView(view: View, savedInstanceState: Bundle?) {
         super.createView(view, savedInstanceState)
         homeViewModel.getSpecialsOffers()
+        productViewModel.getProducts()
         homeViewModel.getCategories()
-        setupCategoryAdapter()
+        setupAdapters()
     }
 
-    private fun setupCategoryAdapter() {
+    private fun setupAdapters() {
         categoryAdapter = CategoryAdapter()
         binding.fragmentHomeCategoryRv.adapter = categoryAdapter
+        productAdapter = ProductAdapter()
+        binding.homeFragmentMostPopularProductsRv.adapter = productAdapter
     }
 
     override fun setObservers() {
@@ -65,16 +82,36 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 }
             }
         }
+
+        productViewModel.products.observe(viewLifecycleOwner) { response ->
+            when(response) {
+                is ApiResponse.Error -> Toast.makeText(requireContext(), response.toString(), Toast.LENGTH_SHORT).show()
+                ApiResponse.Loading -> { }
+                is ApiResponse.Success -> {
+                    productList.clear()
+                    productList.addAll(response.data)
+                    productViewModel.setProductsList(response.data)
+                }
+            }
+        }
+
+        homeViewModel.filteredList.observe(viewLifecycleOwner) {
+            productAdapter?.filterBy(it)
+        }
     }
 
     private fun setupMostPopularCategoryChips(data: List<CategoryEntity>) {
-        data.forEach {
-            val chip = ItemCategoryChipsBinding.inflate(layoutInflater)
-            chip.root.apply {
-                text = it.name
-                id = Random().nextInt()
+        with(binding.fragmentHomeMostPopular.mostPopularChipsGroup) {
+            if (childCount > 0) return@with
+            data.forEachIndexed { index, item ->
+                val chip = ItemCategoryChipsBinding.inflate(layoutInflater)
+                chip.root.apply {
+                    text = item.name
+                    id = index
+                }
+                addView(chip.root)
             }
-            binding.fragmentHomeMostPopular.mostPopularChipsGroup.addView(chip.root)
+            check(getChildAt(0).id)
         }
     }
 
@@ -98,7 +135,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             }
 
             headerProfileInfoHeart.setOnClickListener {
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToWishListFragment())
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMostPopularFragment(ScreenProducts.MY_WISH_LIST.typeScreen))
             }
         }
 
@@ -108,11 +145,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         binding.fragmentHomeMostPopular.apply {
             categoryMostPopularViewAll.setOnClickListener {
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMostPopularFragment())
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMostPopularFragment(ScreenProducts.MOST_POPULAR.typeScreen))
             }
 
             mostPopularChipsGroup.setOnCheckedStateChangeListener { chipGroup, ints ->
                 // Event Chip Checked
+                val selectedChip = chipGroup.findViewById<Chip>(ints.first())
+                homeViewModel.filterBy(selectedChip.text.toString(), productList)
             }
         }
 

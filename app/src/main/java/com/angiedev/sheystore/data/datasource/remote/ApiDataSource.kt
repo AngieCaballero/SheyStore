@@ -39,4 +39,9 @@ class ApiDataSource @Inject constructor(
         endpoint = "category/",
         method = HttpMethod.Get
     )
+
+    suspend fun getProducts() = service.safeRequest<CollectionResponse<ProductResponse>>(
+        endpoint = "product/",
+        method = HttpMethod.Get
+    )
 }

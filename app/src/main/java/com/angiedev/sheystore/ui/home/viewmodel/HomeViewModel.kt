@@ -3,6 +3,7 @@ package com.angiedev.sheystore.ui.home.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.angiedev.sheystore.data.entities.CategoryEntity
+import com.angiedev.sheystore.data.entities.ProductEntity
 import com.angiedev.sheystore.data.entities.SpecialsOffersEntity
 import com.angiedev.sheystore.data.model.remote.ApiResponse
 import com.angiedev.sheystore.data.repository.home.IHomeRepository
@@ -22,6 +23,8 @@ class HomeViewModel @Inject constructor(
     private val _categories: MutableLiveData<ApiResponse<List<CategoryEntity>>> = MutableLiveData()
     val categories get() = _categories
 
+    val filteredList = MutableLiveData<List<ProductEntity>>()
+
     fun getCategories() {
         _categories.postValue(ApiResponse.Loading)
         runBlocking(Dispatchers.IO) {
@@ -36,5 +39,16 @@ class HomeViewModel @Inject constructor(
             val response = homeRepository.getSpecialsOffers()
             _specialsOffers.postValue(response)
         }
+    }
+
+    fun filterBy(query: String, originalList: MutableList<ProductEntity>) {
+        val filtered = mutableListOf<ProductEntity>()
+        filtered.addAll(filteredList.value.orEmpty())
+        if (query == "Todos" || query.isBlank()) {
+            filteredList.postValue(originalList)
+            return
+        }
+        val filter = originalList.filter { it.category == query }
+        filteredList.postValue(filter)
     }
 }

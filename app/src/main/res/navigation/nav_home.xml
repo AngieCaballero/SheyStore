@@ -18,13 +18,6 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
-            android:id="@+id/action_homeFragment_to_wishListFragment"
-            app:destination="@id/wishListFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
             android:id="@+id/action_homeFragment_to_specialsOffersFragment"
             app:destination="@id/specialsOffersFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
@@ -52,11 +45,6 @@
         android:label="fragment_notifications"
         tools:layout="@layout/fragment_notifications" />
     <fragment
-        android:id="@+id/wishListFragment"
-        android:name="com.angiedev.sheystore.ui.wishlist.view.WishListFragment"
-        android:label="fragment_wish_list"
-        tools:layout="@layout/fragment_wish_list" />
-    <fragment
         android:id="@+id/specialsOffersFragment"
         android:name="com.angiedev.sheystore.ui.specialsOffers.view.SpecialsOffersFragment"
         android:label="fragment_specials_offers"
@@ -65,7 +53,10 @@
         android:id="@+id/mostPopularFragment"
         android:name="com.angiedev.sheystore.ui.mostPopular.view.MostPopularFragment"
         android:label="fragment_most_popular"
-        tools:layout="@layout/fragment_most_popular" />
+        tools:layout="@layout/fragment_most_popular" >
+        <argument app:argType="string"
+            android:name="screenType"/>
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.angiedev.sheystore.ui.search.view.SearchFragment"

@@ -4,11 +4,15 @@ import com.google.gson.annotations.SerializedName
 
 data class ProductResponse(
     @SerializedName("name")
-    val name: StringResponse = StringResponse(""),
+    val name: StringResponse?,
     @SerializedName("image")
-    val image: StringResponse = StringResponse(""),
+    val image: StringResponse?,
     @SerializedName("price")
-    val price: DoubleResponse = DoubleResponse(0.0),
+    val price: DoubleResponse?,
     @SerializedName("discount")
-    val discount: IntegerResponse = IntegerResponse("")
+    val discount: IntegerResponse?,
+    @SerializedName("category")
+    val category: StringResponse?,
+    @SerializedName("rate")
+    val rate: StringResponse?
 )

@@ -25,6 +25,8 @@ class HomeViewModel @Inject constructor(
 
     val filteredList = MutableLiveData<List<ProductEntity>>()
 
+    val filteredByNameList = MutableLiveData<List<ProductEntity>>()
+
     fun getCategories() {
         _categories.postValue(ApiResponse.Loading)
         runBlocking(Dispatchers.IO) {
@@ -41,14 +43,17 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun filterBy(query: String, originalList: MutableList<ProductEntity>) {
-        val filtered = mutableListOf<ProductEntity>()
-        filtered.addAll(filteredList.value.orEmpty())
+    fun filterByCategory(query: String, originalList: MutableList<ProductEntity>) {
         if (query == "Todos" || query.isBlank()) {
             filteredList.postValue(originalList)
             return
         }
         val filter = originalList.filter { it.category == query }
         filteredList.postValue(filter)
+    }
+
+    fun filterByName(query: String, originalList: MutableList<ProductEntity>) {
+        val filter = originalList.filter { it.name.lowercase().contains(query) }
+        filteredByNameList.postValue(filter)
     }
 }

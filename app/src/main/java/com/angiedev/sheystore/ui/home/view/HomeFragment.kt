@@ -7,6 +7,7 @@ import androidx.core.view.allViews
 import androidx.core.view.contains
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.angiedev.sheystore.R
 import com.angiedev.sheystore.data.entities.CategoryEntity
 import com.angiedev.sheystore.data.entities.ProductEntity
 import com.angiedev.sheystore.data.entities.SpecialsOffersEntity
@@ -19,9 +20,12 @@ import com.angiedev.sheystore.ui.home.view.adapter.CategoryAdapter
 import com.angiedev.sheystore.ui.home.viewmodel.HomeViewModel
 import com.angiedev.sheystore.ui.mostPopular.view.adapter.ProductAdapter
 import com.angiedev.sheystore.ui.mostPopular.viewmodel.ProductViewModel
+import com.angiedev.sheystore.ui.utils.extension.setGone
+import com.angiedev.sheystore.ui.utils.extension.setVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.chip.Chip
+import com.google.android.material.search.SearchView
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Random
 
@@ -46,6 +50,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         productViewModel.getProducts()
         homeViewModel.getCategories()
         setupAdapters()
+        setupUI()
+    }
+
+    private fun setupUI() {
+        binding.fragmentHomeSearchView.inflateMenu(R.menu.menu_search_bar)
     }
 
     private fun setupAdapters() {
@@ -155,9 +164,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             }
         }
 
-        binding.fragmentHomeSearchBar.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
+        binding.fragmentHomeSearchView.setOnMenuItemClickListener {
+            return@setOnMenuItemClickListener true
+        }
+
+        binding.fragmentHomeSearchView.addTransitionListener { _, _, transitionState2 ->
+            when (transitionState2) {
+                SearchView.TransitionState.SHOWING -> {
+                    binding.fragmentHomeHeaderProfile.root.setGone()
+                    binding.fragmentHomeContentInfo.setGone()
+                }
+                SearchView.TransitionState.HIDDEN -> {
+                    binding.fragmentHomeContentInfo.setVisible()
+                    binding.fragmentHomeHeaderProfile.root.setVisible()
+                }
+                else -> { }
+            }
         }
     }
-
 }

@@ -26,8 +26,9 @@
 
     <!-- Home Fragment-->
     <string name="buscar">Buscar</string>
-    <string name="ofertas_especiales">Ofertas Especiales</string>
+    <string name="ofertas_especiales">Ofertas especiales</string>
     <string name="ver_todo">Ver todo</string>
     <string name="lo_sentimos_no_hemos_encontrado_resultados_a_partir_de_tu_b_squeda">¡Lo sentimos! No hemos encontrado resultados a partir de tu búsqueda.</string>
+    <string name="m_s_popular">Más popular</string>
 
 </resources>

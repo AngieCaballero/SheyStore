@@ -2,6 +2,7 @@ package com.angiedev.sheystore.ui.mostPopular.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.angiedev.sheystore.data.entities.ProductDetailsEntity
 import com.angiedev.sheystore.data.entities.ProductEntity
 import com.angiedev.sheystore.data.model.remote.ApiResponse
 import com.angiedev.sheystore.data.repository.product.IProductRepository
@@ -20,10 +21,20 @@ class ProductViewModel @Inject constructor(
 
     val filteredList = MutableLiveData<List<ProductEntity>>()
 
+    private val _productDetails: MutableLiveData<ApiResponse<ProductDetailsEntity>> = MutableLiveData()
+    val productDetails get() = _productDetails
+
     fun getProducts() {
         runBlocking(Dispatchers.IO) {
             val response = productRepository.getProducts()
             _products.postValue(response)
+        }
+    }
+
+    fun getProductDetails(productId: String) {
+        runBlocking(Dispatchers.IO) {
+            val response = productRepository.getProductDetails(productId)
+            _productDetails.postValue(response)
         }
     }
 

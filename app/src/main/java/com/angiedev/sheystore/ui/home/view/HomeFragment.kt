@@ -19,6 +19,7 @@ import com.angiedev.sheystore.ui.home.view.adapter.CategoryAdapter
 import com.angiedev.sheystore.ui.home.viewmodel.HomeViewModel
 import com.angiedev.sheystore.ui.mostPopular.view.adapter.ProductAdapter
 import com.angiedev.sheystore.ui.mostPopular.viewmodel.ProductViewModel
+import com.angiedev.sheystore.ui.product.adapter.ProductItemListener
 import com.angiedev.sheystore.ui.utils.extension.setGone
 import com.angiedev.sheystore.ui.utils.extension.setVisible
 import com.bumptech.glide.Glide
@@ -28,7 +29,7 @@ import com.google.android.material.search.SearchView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductItemListener {
 
     companion object {
         private const val CHECKED_CATEGORY_SELECTED = "checkedCategorySelected"
@@ -59,9 +60,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun setupAdapters() {
         categoryAdapter = CategoryAdapter()
         binding.fragmentHomeCategoryRv.adapter = categoryAdapter
-        productAdapter = ProductAdapter()
+        productAdapter = ProductAdapter(this)
         binding.homeFragmentMostPopularProductsRv.adapter = productAdapter
-        productSearchAdapter = ProductAdapter()
+        productSearchAdapter = ProductAdapter(this)
         binding.fragmentHomeLayoutResults.fragmentSearchResults.adapter = productSearchAdapter
     }
 
@@ -206,5 +207,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.fragmentHomeSearchView.editText.setOnEditorActionListener { v, actionId, event ->
             return@setOnEditorActionListener false
         }
+    }
+
+    override fun onClickItem(productEntity: ProductEntity) {
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(productEntity.id))
     }
 }

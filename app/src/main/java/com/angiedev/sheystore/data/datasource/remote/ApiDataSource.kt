@@ -4,6 +4,7 @@ import android.content.Context
 import com.angiedev.sheystore.data.model.remote.CategoryResponse
 import com.angiedev.sheystore.data.model.remote.CollectionResponse
 import com.angiedev.sheystore.data.model.remote.DocumentResponse
+import com.angiedev.sheystore.data.model.remote.ProductDetailsResponse
 import com.angiedev.sheystore.data.model.remote.ProductResponse
 import com.angiedev.sheystore.data.model.remote.SpecialsOffersResponse
 import com.kmc.networking.entity.HttpMethod
@@ -18,18 +19,6 @@ class ApiDataSource @Inject constructor(
 
     private val service = networkingService(context)
 
-    suspend fun fetchProducts() = service.safeRequest<CollectionResponse<ProductResponse>>(
-        endpoint = "product",
-        method = HttpMethod.Get
-    )
-
-    suspend fun fetchProductById(
-        productId: String
-    ) = service.safeRequest<DocumentResponse<ProductResponse>>(
-        endpoint = "product/$productId",
-        method = HttpMethod.Get
-    )
-
     suspend fun getSpecialsOffers() = service.safeRequest<CollectionResponse<SpecialsOffersResponse>>(
         endpoint = "specials_offers/",
         method = HttpMethod.Get
@@ -42,6 +31,11 @@ class ApiDataSource @Inject constructor(
 
     suspend fun getProducts() = service.safeRequest<CollectionResponse<ProductResponse>>(
         endpoint = "product/",
+        method = HttpMethod.Get
+    )
+
+    suspend fun getProductDetails(productId: String) = service.safeRequest<DocumentResponse<ProductDetailsResponse>>(
+        endpoint = "product_details/$productId/",
         method = HttpMethod.Get
     )
 }

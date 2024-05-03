@@ -1,6 +1,6 @@
 package com.angiedev.sheystore.data.entities
 
-import com.angiedev.sheystore.data.model.remote.SpecialsOffersResponse
+import com.angiedev.sheystore.data.model.remote.response.SpecialsOffersResponse
 
 data class SpecialsOffersEntity (
     val id: Int,

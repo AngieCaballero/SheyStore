@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.angiedev.sheystore.data.entities.CategoryEntity
 import com.angiedev.sheystore.data.entities.ProductEntity
 import com.angiedev.sheystore.data.entities.SpecialsOffersEntity
-import com.angiedev.sheystore.data.model.remote.ApiResponse
+import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.data.repository.home.IHomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

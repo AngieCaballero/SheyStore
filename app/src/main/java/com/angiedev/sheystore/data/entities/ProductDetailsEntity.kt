@@ -1,6 +1,6 @@
 package com.angiedev.sheystore.data.entities
 
-import com.angiedev.sheystore.data.model.remote.ProductDetailsResponse
+import com.angiedev.sheystore.data.model.remote.response.ProductDetailsResponse
 
 data class ProductDetailsEntity(
     val documentId: String,

@@ -11,7 +11,7 @@ import com.angiedev.sheystore.data.entities.CategoryEntity
 import com.angiedev.sheystore.data.entities.ProductEntity
 import com.angiedev.sheystore.data.entities.SpecialsOffersEntity
 import com.angiedev.sheystore.data.model.domain.ScreenProducts
-import com.angiedev.sheystore.data.model.remote.ApiResponse
+import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentHomeBinding
 import com.angiedev.sheystore.databinding.ItemCategoryChipsBinding
 import com.angiedev.sheystore.ui.base.BaseFragment

@@ -3,9 +3,9 @@ package com.angiedev.sheystore.data.repository.product
 import com.angiedev.sheystore.data.datasource.remote.ApiDataSource
 import com.angiedev.sheystore.data.entities.ProductDetailsEntity
 import com.angiedev.sheystore.data.entities.ProductEntity
-import com.angiedev.sheystore.data.model.remote.ApiResponse
-import com.angiedev.sheystore.data.model.remote.DocumentResponse
-import com.angiedev.sheystore.data.model.remote.ProductDetailsResponse
+import com.angiedev.sheystore.data.model.remote.response.ApiResponse
+import com.angiedev.sheystore.data.model.remote.response.DocumentResponse
+import com.angiedev.sheystore.data.model.remote.response.ProductDetailsResponse
 import com.angiedev.sheystore.data.util.parseArray
 import com.google.gson.Gson
 import javax.inject.Inject
@@ -32,8 +32,7 @@ class ProductRepositoryResponseImp @Inject constructor(
         return try {
             if (response.isSuccess) {
                 val data = response.getOrNull()
-                val jsonToParse = Gson().toJson(data)
-                val productDetailsResponse = parseArray<DocumentResponse<ProductDetailsResponse>>(jsonToParse)
+                val productDetailsResponse = parseArray<DocumentResponse<ProductDetailsResponse>>(Gson().toJson(data))
                 ApiResponse.Success(ProductDetailsEntity(productDetailsResponse.fields, data?.name))
             } else {
                 ApiResponse.Error(response.exceptionOrNull())

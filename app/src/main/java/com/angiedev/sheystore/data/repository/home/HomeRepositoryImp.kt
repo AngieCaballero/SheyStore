@@ -3,7 +3,7 @@ package com.angiedev.sheystore.data.repository.home
 import com.angiedev.sheystore.data.datasource.remote.ApiDataSource
 import com.angiedev.sheystore.data.entities.CategoryEntity
 import com.angiedev.sheystore.data.entities.SpecialsOffersEntity
-import com.angiedev.sheystore.data.model.remote.ApiResponse
+import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.data.util.parseArray
 import com.google.gson.Gson
 import javax.inject.Inject

@@ -47,11 +47,6 @@ class LandingLoginFragment : BaseFragment<FragmentLandingLoginBinding>() {
         binding.landingLoginCreateAccount.setOnClickListener {
             findNavController().navigate(LandingLoginFragmentDirections.actionLandingLoginFragmentToCreateAccountFragment())
         }
-
-        binding.landingLoginGoogleButton.setOnClickListener {
-            // Request login with Google
-            viewModel.signInWithGoogle(googleSignInLauncher)
-        }
     }
 
     override fun setObservers() {

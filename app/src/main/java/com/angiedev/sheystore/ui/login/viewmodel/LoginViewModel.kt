@@ -5,6 +5,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.angiedev.sheystore.data.model.remote.response.SignUpResponse
 import com.angiedev.sheystore.data.util.AuthResource
 import com.angiedev.sheystore.data.repository.auth.IAuthenticationRepository
 import com.angiedev.sheystore.ui.utils.extension.validatePassword
@@ -31,7 +32,7 @@ class LoginViewModel @Inject constructor(
     private val _sigInWithEmailAndPassword = MutableLiveData<AuthResource<FirebaseUser?>>()
     val signInWithEmailAndPassword get() = _sigInWithEmailAndPassword
 
-    private val _createUserWithEmailAndPassword = MutableLiveData<AuthResource<FirebaseUser?>>()
+    private val _createUserWithEmailAndPassword = MutableLiveData<AuthResource<SignUpResponse>>()
     val createUserWithEmailAndPassword get() = _createUserWithEmailAndPassword
 
     private val _signOut = MutableLiveData(false)

@@ -8,7 +8,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.angiedev.sheystore.data.entities.CategoryEntity
 import com.angiedev.sheystore.data.entities.ProductEntity
-import com.angiedev.sheystore.data.model.remote.ApiResponse
+import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentMostPopularBinding
 import com.angiedev.sheystore.databinding.ItemCategoryChipsBinding
 import com.angiedev.sheystore.ui.base.BaseFragment

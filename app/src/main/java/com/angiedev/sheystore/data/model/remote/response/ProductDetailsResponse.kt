@@ -1,4 +1,4 @@
-package com.angiedev.sheystore.data.model.remote
+package com.angiedev.sheystore.data.model.remote.response
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

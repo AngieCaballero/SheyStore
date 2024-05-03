@@ -10,7 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.angiedev.sheystore.R
 import com.angiedev.sheystore.data.entities.ProductDetailsEntity
 import com.angiedev.sheystore.data.model.domain.CartItem
-import com.angiedev.sheystore.data.model.remote.ApiResponse
+import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentProductDetailsBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
 import com.angiedev.sheystore.ui.main.viewmodel.MainViewModel

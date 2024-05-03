@@ -2,8 +2,7 @@ package com.angiedev.sheystore.data.repository.product
 
 import com.angiedev.sheystore.data.entities.ProductDetailsEntity
 import com.angiedev.sheystore.data.entities.ProductEntity
-import com.angiedev.sheystore.data.model.remote.ApiResponse
-import com.angiedev.sheystore.data.model.remote.ProductDetailsResponse
+import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 
 interface IProductRepository {
 

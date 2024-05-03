@@ -8,6 +8,7 @@ import com.angiedev.sheystore.R
 import com.angiedev.sheystore.data.model.domain.CartItem
 import com.angiedev.sheystore.databinding.FragmentCartBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
+import com.angiedev.sheystore.ui.cart.RemoveCartItemBottomSheetDialog
 import com.angiedev.sheystore.ui.cart.adapter.CartAdapter
 import com.angiedev.sheystore.ui.cart.adapter.CartItemListener
 import com.angiedev.sheystore.ui.main.viewmodel.MainViewModel
@@ -38,7 +39,9 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), CartItemListener {
     }
 
     override fun onRemoveItem(cartItem: CartItem) {
-
+        RemoveCartItemBottomSheetDialog.newInstance().show(
+            childFragmentManager, "RemoveCartItemBottomSheetDialog"
+        )
     }
 
     override fun onValueChangeQuantityStepper(value: Int) {

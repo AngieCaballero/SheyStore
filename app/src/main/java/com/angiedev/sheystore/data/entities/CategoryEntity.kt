@@ -1,6 +1,6 @@
 package com.angiedev.sheystore.data.entities
 
-import com.angiedev.sheystore.data.model.remote.CategoryResponse
+import com.angiedev.sheystore.data.model.remote.response.CategoryResponse
 
 data class CategoryEntity(
     val name: String,

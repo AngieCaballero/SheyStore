@@ -3,7 +3,13 @@ package com.angiedev.sheystore.data.repository.auth
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import com.angiedev.sheystore.data.datasource.local.DataStoreManager
+import com.angiedev.sheystore.data.datasource.remote.ApiDataSource
+import com.angiedev.sheystore.data.entities.UserEntity
+import com.angiedev.sheystore.data.model.remote.response.DocumentResponse
+import com.angiedev.sheystore.data.model.remote.response.SignUpResponse
+import com.angiedev.sheystore.data.model.remote.response.UserResponse
 import com.angiedev.sheystore.data.util.AuthResource
+import com.angiedev.sheystore.data.util.parseArray
 import com.angiedev.sheystore.ui.utils.constant.PreferencesKeys
 import com.angiedev.sheystore.ui.utils.extension.getHours
 import com.google.android.gms.auth.api.identity.SignInClient
@@ -14,6 +20,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.gson.Gson
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -21,7 +28,8 @@ class AuthenticationRepositoryImp @Inject constructor(
     private val dataStoreManager: DataStoreManager,
     private val firebaseAuth: FirebaseAuth,
     private val googleSignInClient: GoogleSignInClient,
-    private val signInClient: SignInClient
+    private val signInClient: SignInClient,
+    private val apiDataSource: ApiDataSource
 ) : IAuthenticationRepository {
 
     override suspend fun isAuthenticate(currentTime: Long): Boolean {
@@ -40,13 +48,23 @@ class AuthenticationRepositoryImp @Inject constructor(
     override suspend fun createUserWithEmailAndPassword(
         email: String,
         password: String
-    ): AuthResource<FirebaseUser?> {
-        return try {
-            val authResult = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
-            dataStoreManager.storeValue(PreferencesKeys.TOKEN, authResult.user?.getIdToken(true)?.await()?.token.toString())
-            AuthResource.Success(authResult.user)
-        } catch(e: Exception) {
-            AuthResource.Error(e.message ?: "Error al crear el usuario")
+    ): AuthResource<SignUpResponse> {
+        val authResult = apiDataSource.createAccount(email, password)
+        val responseData = authResult.getOrNull()
+
+        return if (authResult.isSuccess && responseData != null) {
+            dataStoreManager.storeValue(PreferencesKeys.TOKEN, responseData.idToken.toString())
+            dataStoreManager.storeValue(PreferencesKeys.EMAIL, responseData.email.toString())
+
+            val createdUserResponse = apiDataSource.createUser(responseData.email.orEmpty(), "1").getOrNull()
+            if (createdUserResponse != null) {
+                val createdUser = UserEntity(parseArray<DocumentResponse<UserResponse>>(Gson().toJson(createdUserResponse)).fields)
+                dataStoreManager.storeValue(PreferencesKeys.ROLE, createdUser.role)
+            }
+
+            AuthResource.Success(responseData)
+        } else {
+            AuthResource.Error(authResult.exceptionOrNull()?.toString() ?: "Ha ocurrido un error al intentar crear la cuenta")
         }
     }
 

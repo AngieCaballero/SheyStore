@@ -180,6 +180,7 @@
 
     <style name="WhiteCursorSearchView" parent="Widget.Material3.SearchView">
         <item name="colorControlActivated">#121212</item>
+        <item name="android:backgroundTint">@color/white</item>
     </style>
 
     <!-- End Search Bar Styles-->

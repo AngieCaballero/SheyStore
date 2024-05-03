@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceBody2"
-        android:text="Más Popular"
+        android:text="@string/m_s_popular"
         app:layout_constraintEnd_toStartOf="@id/category_most_popular_view_all"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>

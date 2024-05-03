@@ -31,15 +31,6 @@ class CreateAccountFragment : BaseFragment<FragmentCreateAccountBinding>() {
     private val viewModel: LoginViewModel by viewModels()
     override var isBottomNavVisible = View.GONE
 
-    private val googleSignInLauncher: ActivityResultLauncher<Intent> =
-        registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result ->
-            if (result.resultCode == RESULT_OK) {
-                viewModel.handleSignInResult(GoogleSignIn.getSignedInAccountFromIntent(result.data))
-            }
-        }
-
     override fun getViewBinding() = FragmentCreateAccountBinding.inflate(layoutInflater).also {
         _loginComponentBinding = LoginComponentBinding.bind(it.root)
     }
@@ -54,10 +45,6 @@ class CreateAccountFragment : BaseFragment<FragmentCreateAccountBinding>() {
                     false,
                     Date().time
                 )
-            }
-
-            createAccountSignInGoogle.setOnClickListener {
-                viewModel.signInWithGoogle(googleSignInLauncher)
             }
 
             createAccountPassword.doOnTextChanged { text, _, _, _ ->

@@ -3,15 +3,15 @@ package com.angiedev.sheystore.ui.home.view
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.view.allViews
-import androidx.core.view.contains
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.angiedev.sheystore.R
 import com.angiedev.sheystore.data.entities.CategoryEntity
 import com.angiedev.sheystore.data.entities.ProductEntity
 import com.angiedev.sheystore.data.entities.SpecialsOffersEntity
 import com.angiedev.sheystore.data.model.domain.ScreenProducts
-import com.angiedev.sheystore.data.model.remote.ApiResponse
+import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentHomeBinding
 import com.angiedev.sheystore.databinding.ItemCategoryChipsBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
@@ -19,14 +19,17 @@ import com.angiedev.sheystore.ui.home.view.adapter.CategoryAdapter
 import com.angiedev.sheystore.ui.home.viewmodel.HomeViewModel
 import com.angiedev.sheystore.ui.mostPopular.view.adapter.ProductAdapter
 import com.angiedev.sheystore.ui.mostPopular.viewmodel.ProductViewModel
+import com.angiedev.sheystore.ui.product.adapter.ProductItemListener
+import com.angiedev.sheystore.ui.utils.extension.setGone
+import com.angiedev.sheystore.ui.utils.extension.setVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.chip.Chip
+import com.google.android.material.search.SearchView
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Random
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductItemListener {
 
     companion object {
         private const val CHECKED_CATEGORY_SELECTED = "checkedCategorySelected"
@@ -36,6 +39,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val productViewModel: ProductViewModel by viewModels()
     private var categoryAdapter: CategoryAdapter? = null
     private var productAdapter: ProductAdapter? = null
+    private var productSearchAdapter: ProductAdapter? = null
     private val productList: MutableList<ProductEntity> = mutableListOf()
 
     override fun getViewBinding() = FragmentHomeBinding.inflate(layoutInflater)
@@ -46,13 +50,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         productViewModel.getProducts()
         homeViewModel.getCategories()
         setupAdapters()
+        setupUI()
+    }
+
+    private fun setupUI() {
+        binding.fragmentHomeSearchView.inflateMenu(R.menu.menu_search_bar)
     }
 
     private fun setupAdapters() {
         categoryAdapter = CategoryAdapter()
         binding.fragmentHomeCategoryRv.adapter = categoryAdapter
-        productAdapter = ProductAdapter()
+        productAdapter = ProductAdapter(this)
         binding.homeFragmentMostPopularProductsRv.adapter = productAdapter
+        productSearchAdapter = ProductAdapter(this)
+        binding.fragmentHomeLayoutResults.fragmentSearchResults.adapter = productSearchAdapter
     }
 
     override fun setObservers() {
@@ -97,6 +108,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         homeViewModel.filteredList.observe(viewLifecycleOwner) {
             productAdapter?.filterBy(it)
+        }
+
+        homeViewModel.filteredByNameList.observe(viewLifecycleOwner) {
+            if (it.isEmpty()) {
+                binding.fragmentHomeLayoutResults.fragmentSearchResults.setGone()
+                binding.fragmentHomeLayoutResults.fragmentSearchViewNotFound.setVisible()
+            } else {
+                binding.fragmentHomeLayoutResults.fragmentSearchResults.setVisible()
+                binding.fragmentHomeLayoutResults.fragmentSearchViewNotFound.setGone()
+                productSearchAdapter?.filterBy(it)
+            }
         }
     }
 
@@ -151,13 +173,43 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             mostPopularChipsGroup.setOnCheckedStateChangeListener { chipGroup, ints ->
                 // Event Chip Checked
                 val selectedChip = chipGroup.findViewById<Chip>(ints.first())
-                homeViewModel.filterBy(selectedChip.text.toString(), productList)
+                homeViewModel.filterByCategory(selectedChip.text.toString(), productList)
             }
         }
 
-        binding.fragmentHomeSearchBar.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
+        binding.fragmentHomeSearchView.setOnMenuItemClickListener {
+            return@setOnMenuItemClickListener true
+        }
+
+        binding.fragmentHomeSearchView.addTransitionListener { _, _, transitionState2 ->
+            when (transitionState2) {
+                SearchView.TransitionState.SHOWING -> {
+                    binding.fragmentHomeHeaderProfile.root.setGone()
+                    binding.fragmentHomeContentInfo.setGone()
+                }
+                SearchView.TransitionState.HIDDEN -> {
+                    productSearchAdapter?.filterBy(emptyList())
+                    binding.fragmentHomeContentInfo.setVisible()
+                    binding.fragmentHomeHeaderProfile.root.setVisible()
+                }
+                else -> { }
+            }
+        }
+
+        binding.fragmentHomeSearchView.editText.doAfterTextChanged {
+            if (it.toString().isBlank()) {
+                productSearchAdapter?.filterBy(emptyList())
+                return@doAfterTextChanged
+            }
+            homeViewModel.filterByName(it.toString().lowercase(), productList)
+        }
+
+        binding.fragmentHomeSearchView.editText.setOnEditorActionListener { v, actionId, event ->
+            return@setOnEditorActionListener false
         }
     }
 
+    override fun onClickItem(productEntity: ProductEntity) {
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(productEntity.id))
+    }
 }

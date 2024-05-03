@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.angiedev.sheystore.data.entities.CategoryEntity
 import com.angiedev.sheystore.data.entities.ProductEntity
 import com.angiedev.sheystore.data.entities.SpecialsOffersEntity
-import com.angiedev.sheystore.data.model.remote.ApiResponse
+import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.data.repository.home.IHomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -25,6 +25,8 @@ class HomeViewModel @Inject constructor(
 
     val filteredList = MutableLiveData<List<ProductEntity>>()
 
+    val filteredByNameList = MutableLiveData<List<ProductEntity>>()
+
     fun getCategories() {
         _categories.postValue(ApiResponse.Loading)
         runBlocking(Dispatchers.IO) {
@@ -41,14 +43,17 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun filterBy(query: String, originalList: MutableList<ProductEntity>) {
-        val filtered = mutableListOf<ProductEntity>()
-        filtered.addAll(filteredList.value.orEmpty())
+    fun filterByCategory(query: String, originalList: MutableList<ProductEntity>) {
         if (query == "Todos" || query.isBlank()) {
             filteredList.postValue(originalList)
             return
         }
         val filter = originalList.filter { it.category == query }
         filteredList.postValue(filter)
+    }
+
+    fun filterByName(query: String, originalList: MutableList<ProductEntity>) {
+        val filter = originalList.filter { it.name.lowercase().contains(query) }
+        filteredByNameList.postValue(filter)
     }
 }

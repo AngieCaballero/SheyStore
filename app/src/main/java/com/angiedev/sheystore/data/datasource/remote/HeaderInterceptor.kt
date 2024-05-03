@@ -26,8 +26,13 @@ class HeaderInterceptor @Inject constructor(
         }
         val requestBuilder = chain.request().newBuilder()
         requestBuilder.addHeader("Content-Type", "application/json")
-        val requestBuilderWithHeader =
+
+        // When host is identitytoolkit.googleapis.com don't need Bearer Token
+        val requestBuilderWithHeader = if (chain.request().url.host.contains("identitytoolkit.googleapis.com")) {
+            requestBuilder.build()
+        } else {
             requestBuilder.addHeader("Authorization", "Bearer $accessToken").build()
+        }
 
         return chain.proceed(requestBuilderWithHeader)
     }

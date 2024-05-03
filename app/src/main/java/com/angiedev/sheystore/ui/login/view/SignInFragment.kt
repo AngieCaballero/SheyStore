@@ -31,15 +31,6 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
     private val loginComponentBinding get() = _loginComponentBinding!!
     private val viewModel: LoginViewModel by viewModels()
 
-    private val googleSignInLauncher: ActivityResultLauncher<Intent> =
-        registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                viewModel.handleSignInResult(GoogleSignIn.getSignedInAccountFromIntent(result.data))
-            }
-        }
-
     override fun getViewBinding() = FragmentSignInBinding.inflate(layoutInflater).also {
         _loginComponentBinding = LoginComponentBinding.bind(it.root)
     }
@@ -68,10 +59,6 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
 
             createAccountSignIn.setOnClickListener {
                 findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToCreateAccountFragment())
-            }
-
-            createAccountSignInGoogle.setOnClickListener {
-                viewModel.signInWithGoogle(googleSignInLauncher)
             }
 
             createAccountPassword.doOnTextChanged { text, _, _, _ ->

@@ -8,13 +8,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.angiedev.sheystore.data.entities.CategoryEntity
 import com.angiedev.sheystore.data.entities.ProductEntity
-import com.angiedev.sheystore.data.model.remote.ApiResponse
+import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentMostPopularBinding
 import com.angiedev.sheystore.databinding.ItemCategoryChipsBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
 import com.angiedev.sheystore.ui.home.viewmodel.HomeViewModel
 import com.angiedev.sheystore.ui.mostPopular.view.adapter.ProductAdapter
 import com.angiedev.sheystore.ui.mostPopular.viewmodel.ProductViewModel
+import com.angiedev.sheystore.ui.product.adapter.ProductItemListener
 import com.angiedev.sheystore.ui.utils.extension.setGone
 import com.angiedev.sheystore.ui.utils.extension.setVisible
 import com.google.android.material.chip.Chip
@@ -22,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.Random
 
 @AndroidEntryPoint
-class MostPopularFragment : BaseFragment<FragmentMostPopularBinding>() {
+class MostPopularFragment : BaseFragment<FragmentMostPopularBinding>(), ProductItemListener {
 
     override var isBottomNavVisible = View.GONE
     private val mostPopularArgs: MostPopularFragmentArgs by navArgs()
@@ -42,7 +43,7 @@ class MostPopularFragment : BaseFragment<FragmentMostPopularBinding>() {
     }
 
     private fun setupAdapters() {
-        productAdapter = ProductAdapter()
+        productAdapter = ProductAdapter(this)
         binding.mostPopularProductsRv.adapter = productAdapter
     }
 
@@ -111,5 +112,9 @@ class MostPopularFragment : BaseFragment<FragmentMostPopularBinding>() {
         binding.mostPopularToolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+    }
+
+    override fun onClickItem(productEntity: ProductEntity) {
+
     }
 }

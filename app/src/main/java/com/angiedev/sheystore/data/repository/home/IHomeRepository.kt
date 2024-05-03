@@ -2,9 +2,7 @@ package com.angiedev.sheystore.data.repository.home
 
 import com.angiedev.sheystore.data.entities.CategoryEntity
 import com.angiedev.sheystore.data.entities.SpecialsOffersEntity
-import com.angiedev.sheystore.data.model.remote.ApiResponse
-import com.angiedev.sheystore.data.model.remote.DocumentResponse
-import com.angiedev.sheystore.data.model.remote.SpecialsOffersResponse
+import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 
 interface IHomeRepository {
 

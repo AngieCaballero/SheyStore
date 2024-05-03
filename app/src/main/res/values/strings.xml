@@ -26,8 +26,18 @@
 
     <!-- Home Fragment-->
     <string name="buscar">Buscar</string>
-    <string name="ofertas_especiales">Ofertas Especiales</string>
+    <string name="ofertas_especiales">Ofertas especiales</string>
     <string name="ver_todo">Ver todo</string>
     <string name="lo_sentimos_no_hemos_encontrado_resultados_a_partir_de_tu_b_squeda">¡Lo sentimos! No hemos encontrado resultados a partir de tu búsqueda.</string>
+    <string name="m_s_popular">Más popular</string>
+    <string name="descripci_n">Descripción</string>
+    <string name="cantidad">Cantidad</string>
+    <string name="precio_total">Precio total</string>
+    <string name="agregar_al_carrito">Agregar al carrito</string>
+    <string name="total_price">$%s</string>
+    <string name="ir_a_pagar">Ir a pagar</string>
+    <string name="eliminar_del_carrito">¿Eliminar del carrito?</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="s_eliminar">Sí, eliminar</string>
 
 </resources>

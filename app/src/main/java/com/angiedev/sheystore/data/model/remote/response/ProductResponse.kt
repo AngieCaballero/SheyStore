@@ -1,8 +1,14 @@
-package com.angiedev.sheystore.data.model.remote
+package com.angiedev.sheystore.data.model.remote.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.JsonClass
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
+@JsonClass(generateAdapter = true)
 data class ProductResponse(
+    @SerializedName("id") val id: StringResponse?,
     @SerializedName("name")
     val name: StringResponse?,
     @SerializedName("image")
@@ -15,4 +21,4 @@ data class ProductResponse(
     val category: StringResponse?,
     @SerializedName("rate")
     val rate: StringResponse?
-)
+) : Parcelable

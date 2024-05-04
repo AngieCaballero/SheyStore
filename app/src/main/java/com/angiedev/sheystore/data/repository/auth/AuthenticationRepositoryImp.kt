@@ -6,6 +6,7 @@ import com.angiedev.sheystore.data.datasource.local.DataStoreManager
 import com.angiedev.sheystore.data.datasource.remote.ApiDataSource
 import com.angiedev.sheystore.data.entities.UserEntity
 import com.angiedev.sheystore.data.model.remote.response.DocumentResponse
+import com.angiedev.sheystore.data.model.remote.response.SignInResponse
 import com.angiedev.sheystore.data.model.remote.response.SignUpResponse
 import com.angiedev.sheystore.data.model.remote.response.UserResponse
 import com.angiedev.sheystore.data.util.AuthResource
@@ -48,7 +49,7 @@ class AuthenticationRepositoryImp @Inject constructor(
     override suspend fun createUserWithEmailAndPassword(
         email: String,
         password: String
-    ): AuthResource<SignUpResponse> {
+    ): AuthResource<Boolean> {
         val authResult = apiDataSource.createAccount(email, password)
         val responseData = authResult.getOrNull()
 
@@ -62,7 +63,7 @@ class AuthenticationRepositoryImp @Inject constructor(
                 dataStoreManager.storeValue(PreferencesKeys.ROLE, createdUser.role)
             }
 
-            AuthResource.Success(responseData)
+            AuthResource.Success(true)
         } else {
             AuthResource.Error(authResult.exceptionOrNull()?.toString() ?: "Ha ocurrido un error al intentar crear la cuenta")
         }
@@ -72,14 +73,28 @@ class AuthenticationRepositoryImp @Inject constructor(
         email: String,
         password: String,
         timeSession: Long
-    ): AuthResource<FirebaseUser?> {
-        return try {
-            val authResult = firebaseAuth.signInWithEmailAndPassword(email, password).await()
-            dataStoreManager.storeValue(PreferencesKeys.TOKEN, authResult.user?.getIdToken(true)?.await()?.token.toString())
-            dataStoreManager.storeValue(PreferencesKeys.TIME_SESSION, timeSession)
-            AuthResource.Success(authResult.user)
-        } catch(e: Exception) {
-            AuthResource.Error(e.message ?: "Error al iniciar sesión")
+    ): AuthResource<Boolean> {
+        val authResult = apiDataSource.signInWithPassword(email, password)
+        val responseData = authResult.getOrNull()
+
+        return if (authResult.isSuccess && responseData != null) {
+            dataStoreManager.storeValue(PreferencesKeys.TOKEN, responseData.idToken.toString())
+            dataStoreManager.storeValue(PreferencesKeys.EMAIL, responseData.email.toString())
+
+            val createdUserResponse = apiDataSource.fetchUserByDocumentId(responseData.email.orEmpty()).getOrNull()
+            if (createdUserResponse != null) {
+                val createdUser = UserEntity(parseArray<DocumentResponse<UserResponse>>(Gson().toJson(createdUserResponse)).fields)
+                with(dataStoreManager) {
+                    storeValue(PreferencesKeys.ROLE, createdUser.role)
+                    storeValue(PreferencesKeys.USERNAME, createdUser.username)
+                    storeValue(PreferencesKeys.NAME, createdUser.name)
+                    storeValue(PreferencesKeys.LASTNAME, createdUser.lastname)
+                }
+            }
+
+            AuthResource.Success(true)
+        } else {
+            AuthResource.Error(authResult.exceptionOrNull()?.toString() ?: "Ha ocurrido un error al intentar ingresar")
         }
     }
 

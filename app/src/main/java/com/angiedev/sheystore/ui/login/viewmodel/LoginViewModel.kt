@@ -29,10 +29,10 @@ class LoginViewModel @Inject constructor(
     private val _isAuthored = MutableLiveData<Boolean>()
     val isAuthored get() = _isAuthored
 
-    private val _sigInWithEmailAndPassword = MutableLiveData<AuthResource<FirebaseUser?>>()
+    private val _sigInWithEmailAndPassword = MutableLiveData<AuthResource<Boolean>>()
     val signInWithEmailAndPassword get() = _sigInWithEmailAndPassword
 
-    private val _createUserWithEmailAndPassword = MutableLiveData<AuthResource<SignUpResponse>>()
+    private val _createUserWithEmailAndPassword = MutableLiveData<AuthResource<Boolean>>()
     val createUserWithEmailAndPassword get() = _createUserWithEmailAndPassword
 
     private val _signOut = MutableLiveData(false)

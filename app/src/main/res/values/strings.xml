@@ -39,5 +39,11 @@
     <string name="eliminar_del_carrito">¿Eliminar del carrito?</string>
     <string name="cancelar">Cancelar</string>
     <string name="s_eliminar">Sí, eliminar</string>
+    <string name="nombre_completo">Nombre completo</string>
+    <string name="nombre_de_usuario">Nombre de usuario</string>
+    <string name="sexo">Sexo</string>
+    <string name="tipo_de_usuario">Tipo de usuario</string>
+    <string name="continuar">Continuar</string>
+    <string name="n_mero_de_tel_fono">Número de teléfono</string>
 
 </resources>

@@ -73,9 +73,9 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
-            android:id="@+id/action_createAccountFragment_to_nav_home"
-            app:destination="@id/nav_home"
-            app:popUpTo="@id/nav_login"
+            android:id="@+id/action_createAccountFragment_to_fillYourProfileFragment"
+            app:destination="@id/fillYourProfileFragment"
+            app:popUpTo="@id/landingLoginFragment"
             app:popUpToInclusive="true"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
@@ -83,5 +83,10 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <include app:graph="@navigation/nav_home" />
+    <fragment
+        android:id="@+id/fillYourProfileFragment"
+        android:name="com.angiedev.sheystore.ui.fillProfile.view.FillYourProfileFragment"
+        android:label="fragment_fill_your_profile"
+        tools:layout="@layout/fragment_fill_your_profile" />
 
 </navigation>

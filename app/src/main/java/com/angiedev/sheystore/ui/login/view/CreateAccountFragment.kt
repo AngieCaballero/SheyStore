@@ -67,7 +67,7 @@ class CreateAccountFragment : BaseFragment<FragmentCreateAccountBinding>() {
         }
 
         loginComponentBinding.createAccountSignIn.setOnClickListener {
-            findNavController().navigate(CreateAccountFragmentDirections.actionCreateAccountFragmentToSignInFragment())
+            findNavController().navigate(CreateAccountFragmentDirections.actionCreateAccountFragmentToFillYourProfileFragment())
         }
     }
 
@@ -87,7 +87,7 @@ class CreateAccountFragment : BaseFragment<FragmentCreateAccountBinding>() {
                     Toast.makeText(requireContext(), response.errorMessage, Toast.LENGTH_SHORT).show()
                 }
                 is AuthResource.Success -> {
-                    findNavController().navigate(CreateAccountFragmentDirections.actionCreateAccountFragmentToNavHome())
+                    findNavController().navigate(CreateAccountFragmentDirections.actionCreateAccountFragmentToFillYourProfileFragment())
                 }
             }
         }

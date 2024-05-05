@@ -51,14 +51,16 @@ class ApiDataSource @Inject constructor(
         )
         .execute<SignInResponse>()
 
-    suspend fun createUser(email: String, role: String) = service.safeRequest(endpoint = "users?documentId=${email}")
+    suspend fun createUser(email: String) = service.safeRequest(endpoint = "users?documentId=${email}")
         .withMethod(HttpMethod.POST)
         .withBody(
             mapOf(
                 "fields" to CreateUserFields(
-                    lastname = StringResponse(""),
-                    name = StringResponse(""),
-                    role = StringResponse(role),
+                    fullName = StringResponse(""),
+                    phone = StringResponse(""),
+                    photo = StringResponse(""),
+                    gender = StringResponse(""),
+                    role = StringResponse(""),
                     username = StringResponse("")
                 )
             )

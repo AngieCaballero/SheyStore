@@ -6,8 +6,6 @@ import com.angiedev.sheystore.data.datasource.local.DataStoreManager
 import com.angiedev.sheystore.data.datasource.remote.ApiDataSource
 import com.angiedev.sheystore.data.entities.UserEntity
 import com.angiedev.sheystore.data.model.remote.response.DocumentResponse
-import com.angiedev.sheystore.data.model.remote.response.SignInResponse
-import com.angiedev.sheystore.data.model.remote.response.SignUpResponse
 import com.angiedev.sheystore.data.model.remote.response.UserResponse
 import com.angiedev.sheystore.data.util.AuthResource
 import com.angiedev.sheystore.data.util.parseArray
@@ -56,13 +54,6 @@ class AuthenticationRepositoryImp @Inject constructor(
         return if (authResult.isSuccess && responseData != null) {
             dataStoreManager.storeValue(PreferencesKeys.TOKEN, responseData.idToken.toString())
             dataStoreManager.storeValue(PreferencesKeys.EMAIL, responseData.email.toString())
-
-            val createdUserResponse = apiDataSource.createUser(responseData.email.orEmpty(), "1").getOrNull()
-            if (createdUserResponse != null) {
-                val createdUser = UserEntity(parseArray<DocumentResponse<UserResponse>>(Gson().toJson(createdUserResponse)).fields)
-                dataStoreManager.storeValue(PreferencesKeys.ROLE, createdUser.role)
-            }
-
             AuthResource.Success(true)
         } else {
             AuthResource.Error(authResult.exceptionOrNull()?.toString() ?: "Ha ocurrido un error al intentar crear la cuenta")

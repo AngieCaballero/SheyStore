@@ -67,7 +67,7 @@ class CreateAccountFragment : BaseFragment<FragmentCreateAccountBinding>() {
         }
 
         loginComponentBinding.createAccountSignIn.setOnClickListener {
-            findNavController().navigate(CreateAccountFragmentDirections.actionCreateAccountFragmentToFillYourProfileFragment())
+            findNavController().navigate(CreateAccountFragmentDirections.actionCreateAccountFragmentToSignInFragment())
         }
     }
 

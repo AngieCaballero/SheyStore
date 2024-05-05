@@ -183,5 +183,23 @@
         <item name="android:backgroundTint">@color/white</item>
     </style>
 
-    <!-- End Search Bar Styles-->
+    <!-- End Search Bar Styles -->
+
+    <!-- Begin TextInputLayout -->
+    <style name="TextInputLayout.Outline" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusBottomEnd">16dp</item>
+        <item name="boxCornerRadiusBottomStart">16dp</item>
+        <item name="boxCornerRadiusTopEnd">16dp</item>
+        <item name="boxCornerRadiusTopStart">16dp</item>
+        <item name="android:textColorHint">@color/color_text_hint</item>
+        <item name="boxBackgroundColor">@color/shape_gray_background</item>
+    </style>
+
+    <style name="TextInputLayout.ExpandedDropDown" parent="Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxBackgroundColor">@color/shape_gray_background</item>
+        <item name="boxCornerRadiusBottomEnd">16dp</item>
+        <item name="boxCornerRadiusBottomStart">16dp</item>
+        <item name="boxCornerRadiusTopEnd">16dp</item>
+        <item name="boxCornerRadiusTopStart">16dp</item>
+    </style>
 </resources>

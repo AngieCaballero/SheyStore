@@ -11,7 +11,9 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.angiedev.sheystore.R
+import com.angiedev.sheystore.data.util.AuthResource
 import com.angiedev.sheystore.databinding.FragmentFillYourProfileBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
 import com.angiedev.sheystore.ui.fillProfile.viewmodel.FillYourProfileViewModel
@@ -141,8 +143,28 @@ class FillYourProfileFragment : BaseFragment<FragmentFillYourProfileBinding>() {
             fillYourProfileContinueButton.setOnClickListener {
                if (validator.checkIsValid()) {
                    // Make request to save user data
-
+                   fillYourProfileViewModel.saveUserProfileData(
+                       fullName = fillYourProfileTextInputEditFullName.text.toString(),
+                       username = fillYourProfileTextInputEditUsername.text.toString(),
+                       phone = fillYourProfileTextInputEditPhone.text.toString(),
+                       gender = genderSelected,
+                       roleId = roleSelected,
+                       photo = downloadImageUrl,
+                       email = fillYourProfileTextInputEditEmail.text.toString()
+                   )
                }
+            }
+        }
+    }
+
+    override fun setObservers() {
+        super.setObservers()
+        fillYourProfileViewModel.userSavedSuccessfully.observe(viewLifecycleOwner) {
+            when(it) {
+                is AuthResource.Error -> Toast.makeText(requireContext(), it.errorMessage, Toast.LENGTH_SHORT).show()
+                is AuthResource.Success -> {
+                    findNavController().navigate(FillYourProfileFragmentDirections.actionFillYourProfileFragmentToNavHome())
+                }
             }
         }
     }

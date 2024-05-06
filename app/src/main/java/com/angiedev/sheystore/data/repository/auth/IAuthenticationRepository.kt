@@ -2,6 +2,7 @@ package com.angiedev.sheystore.data.repository.auth
 
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
+import com.angiedev.sheystore.data.model.remote.request.CreateUserFields
 import com.angiedev.sheystore.data.model.remote.response.SignInResponse
 import com.angiedev.sheystore.data.model.remote.response.SignUpResponse
 import com.angiedev.sheystore.data.util.AuthResource
@@ -22,11 +23,5 @@ interface IAuthenticationRepository {
 
     suspend fun signOut()
 
-    fun getCurrentUser(): FirebaseUser?
-
-    fun handleSignInResult(task: Task<GoogleSignInAccount>): AuthResource<GoogleSignInAccount>?
-
-    suspend fun signInWithGoogleCredential(credential: AuthCredential, timeSession: Long): AuthResource<FirebaseUser>?
-
-    fun signInWithGoogle(googleSignInLauncher: ActivityResultLauncher<Intent>)
+    suspend fun saveUserProfileData(createUserFields: CreateUserFields, email: String) : AuthResource<Boolean>
 }

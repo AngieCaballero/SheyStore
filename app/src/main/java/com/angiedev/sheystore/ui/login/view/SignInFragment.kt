@@ -1,12 +1,8 @@
 package com.angiedev.sheystore.ui.login.view
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -15,11 +11,9 @@ import com.angiedev.sheystore.data.util.AuthResource
 import com.angiedev.sheystore.databinding.FragmentSignInBinding
 import com.angiedev.sheystore.databinding.LoginComponentBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
+import com.angiedev.sheystore.ui.login.viewmodel.LoginViewModel
 import com.angiedev.sheystore.ui.utils.extension.validateEmail
 import com.angiedev.sheystore.ui.utils.extension.validatePassword
-import com.angiedev.sheystore.ui.login.viewmodel.LoginViewModel
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Date
 
@@ -96,37 +90,6 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
                 is AuthResource.Success -> {
                     findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToNavHome())
                 }
-            }
-        }
-
-        viewModel.handleSignInResult.observe(viewLifecycleOwner) { response ->
-            when(response) {
-                is AuthResource.Error -> {
-                    Toast.makeText(requireContext(), response.errorMessage, Toast.LENGTH_SHORT).show()
-                }
-                is AuthResource.Success -> {
-                    val credential = GoogleAuthProvider.getCredential(response.data.idToken, null)
-                    viewModel.signInWithGoogleCredential(credential, Date().time)
-                }
-
-                else -> { }
-            }
-        }
-
-        viewModel.sigInWithGoogleCredential.observe(viewLifecycleOwner) { response ->
-            when(response) {
-                is AuthResource.Error -> {
-                    Toast.makeText(requireContext(), response.errorMessage, Toast.LENGTH_SHORT).show()
-                }
-                is AuthResource.Success -> {
-                    if (response == null) {
-                        Toast.makeText(requireContext(), "Ha ocurrido un error", Toast.LENGTH_SHORT).show()
-                        return@observe
-                    }
-                    findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToNavHome())
-                }
-
-                else -> { }
             }
         }
     }

@@ -8,4 +8,8 @@ object PreferencesKeys {
     val TIME_SESSION =  longPreferencesKey("time_session")
     val EMAIL = stringPreferencesKey("email")
     val ROLE = stringPreferencesKey("role")
+    val USERNAME = stringPreferencesKey("username")
+    val FULL_NAME = stringPreferencesKey("fullName")
+    val PHOTO = stringPreferencesKey("photo")
+    val PHONE = stringPreferencesKey("phone")
 }

@@ -21,8 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
-        style="?attr/textInputOutlinedStyle"
-        android:textColorHint="@color/color_text_hint"
+        style="@style/TextInputLayout.Outline"
         android:hint="@string/correo_elect_nico"
         app:startIconDrawable="@drawable/ic_mail">
 
@@ -41,8 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
-        style="?attr/textInputOutlinedStyle"
-        android:textColorHint="@color/color_text_hint"
+        style="@style/TextInputLayout.Outline"
         android:hint="@string/contrase_a"
         app:endIconMode="password_toggle"
         app:startIconDrawable="@drawable/ic_lock">

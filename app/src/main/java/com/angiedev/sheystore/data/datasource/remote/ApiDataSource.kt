@@ -7,6 +7,7 @@ import com.angiedev.sheystore.data.model.remote.request.CreateUserFields
 import com.angiedev.sheystore.data.model.remote.response.DocumentResponse
 import com.angiedev.sheystore.data.model.remote.response.ProductDetailsResponse
 import com.angiedev.sheystore.data.model.remote.response.ProductResponse
+import com.angiedev.sheystore.data.model.remote.response.SignInResponse
 import com.angiedev.sheystore.data.model.remote.response.SignUpResponse
 import com.angiedev.sheystore.data.model.remote.response.SpecialsOffersResponse
 import com.angiedev.sheystore.data.model.remote.response.StringResponse
@@ -37,18 +38,30 @@ class ApiDataSource @Inject constructor(
         )
         .execute<SignUpResponse>()
 
-    suspend fun createUser(email: String, role: String) = service.safeRequest(endpoint = "users?documentId=${email}")
+    suspend fun signInWithPassword(email: String, password: String) = service.safeRequest(
+        endpoint = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAFv5UYUlZuPZxQJB9XKkVm4mwcjHmUx64"
+    )
         .withMethod(HttpMethod.POST)
         .withBody(
             mapOf(
-                "fields" to CreateUserFields(
-                    lastname = StringResponse(""),
-                    name = StringResponse(""),
-                    role = StringResponse(role),
-                    username = StringResponse("")
-                )
+                "email" to email,
+                "password" to password,
+                "returnSecureToken" to true
             )
         )
+        .execute<SignInResponse>()
+
+    suspend fun saveUserProfileData(email: String, createUserFields: CreateUserFields) = service.safeRequest(endpoint = "users?documentId=${email}")
+        .withMethod(HttpMethod.POST)
+        .withBody(
+            mapOf(
+                "fields" to createUserFields
+            )
+        )
+        .execute<DocumentResponse<UserResponse>>()
+
+    suspend fun fetchUserByDocumentId(email: String) = service.safeRequest(endpoint = "users/$email/")
+        .withMethod(HttpMethod.GET)
         .execute<DocumentResponse<UserResponse>>()
 
     suspend fun getSpecialsOffers() = service.safeRequest(endpoint = "specials_offers/")

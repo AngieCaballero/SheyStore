@@ -29,20 +29,14 @@ class LoginViewModel @Inject constructor(
     private val _isAuthored = MutableLiveData<Boolean>()
     val isAuthored get() = _isAuthored
 
-    private val _sigInWithEmailAndPassword = MutableLiveData<AuthResource<FirebaseUser?>>()
+    private val _sigInWithEmailAndPassword = MutableLiveData<AuthResource<Boolean>>()
     val signInWithEmailAndPassword get() = _sigInWithEmailAndPassword
 
-    private val _createUserWithEmailAndPassword = MutableLiveData<AuthResource<SignUpResponse>>()
+    private val _createUserWithEmailAndPassword = MutableLiveData<AuthResource<Boolean>>()
     val createUserWithEmailAndPassword get() = _createUserWithEmailAndPassword
 
     private val _signOut = MutableLiveData(false)
     val signOut get() = _signOut
-
-    private val _handleSigInResult = MutableLiveData<AuthResource<GoogleSignInAccount>?>()
-    val handleSignInResult get() = _handleSigInResult
-
-    private val _sigInWithGoogleCredential = MutableLiveData<AuthResource<FirebaseUser>?>()
-    val sigInWithGoogleCredential get() = _sigInWithGoogleCredential
 
     fun isAuthored(currentTime: Long) {
         runBlocking(Dispatchers.IO) {
@@ -66,22 +60,6 @@ class LoginViewModel @Inject constructor(
             )
             _createUserWithEmailAndPassword.postValue(response)
         }
-    }
-
-    fun signInWithGoogleCredential(credential: AuthCredential, timeSession: Long) {
-        viewModelScope.launch {
-            val response = authenticationRepository.signInWithGoogleCredential(credential, timeSession)
-            _sigInWithGoogleCredential.postValue(response)
-        }
-    }
-
-    fun signInWithGoogle(googleSignInLauncher: ActivityResultLauncher<Intent>) {
-        authenticationRepository.signInWithGoogle(googleSignInLauncher)
-    }
-
-    fun handleSignInResult(task: Task<GoogleSignInAccount>) {
-        val response = authenticationRepository.handleSignInResult(task)
-        _handleSigInResult.postValue(response)
     }
 
     private fun sigOut() {

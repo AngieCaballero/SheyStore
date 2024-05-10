@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.angiedev.sheystore.R
 import com.angiedev.sheystore.data.entities.CategoryEntity
@@ -17,9 +18,12 @@ import com.angiedev.sheystore.databinding.ItemCategoryChipsBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
 import com.angiedev.sheystore.ui.home.view.adapter.CategoryAdapter
 import com.angiedev.sheystore.ui.home.viewmodel.HomeViewModel
+import com.angiedev.sheystore.ui.main.view.MainActivity
 import com.angiedev.sheystore.ui.mostPopular.view.adapter.ProductAdapter
 import com.angiedev.sheystore.ui.mostPopular.viewmodel.ProductViewModel
 import com.angiedev.sheystore.ui.product.adapter.ProductItemListener
+import com.angiedev.sheystore.ui.user.viewmodel.UserDataViewModel
+import com.angiedev.sheystore.ui.utils.constant.PreferencesKeys
 import com.angiedev.sheystore.ui.utils.extension.setGone
 import com.angiedev.sheystore.ui.utils.extension.setVisible
 import com.bumptech.glide.Glide
@@ -27,6 +31,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.chip.Chip
 import com.google.android.material.search.SearchView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductItemListener {
@@ -37,6 +42,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductItemListener {
 
     private val homeViewModel: HomeViewModel by viewModels()
     private val productViewModel: ProductViewModel by viewModels()
+    private val userDataViewModel: UserDataViewModel by viewModels()
     private var categoryAdapter: CategoryAdapter? = null
     private var productAdapter: ProductAdapter? = null
     private var productSearchAdapter: ProductAdapter? = null
@@ -54,6 +60,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductItemListener {
     }
 
     private fun setupUI() {
+        lifecycleScope.launch {
+            with(binding.fragmentHomeHeaderProfile) {
+                headerProfileInfoName.text = userDataViewModel.readValue(PreferencesKeys.USERNAME)
+                val photo = userDataViewModel.readValue(PreferencesKeys.PHOTO)
+                Glide.with(requireContext())
+                    .load(photo)
+                    .placeholder(R.drawable.ic_user_placeholder)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(headerProfileInfoImage)
+            }
+        }
         binding.fragmentHomeSearchView.inflateMenu(R.menu.menu_search_bar)
     }
 
@@ -184,10 +201,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductItemListener {
         binding.fragmentHomeSearchView.addTransitionListener { _, _, transitionState2 ->
             when (transitionState2) {
                 SearchView.TransitionState.SHOWING -> {
+                    bottomNavigationVisibility(View.GONE)
                     binding.fragmentHomeHeaderProfile.root.setGone()
                     binding.fragmentHomeContentInfo.setGone()
                 }
                 SearchView.TransitionState.HIDDEN -> {
+                    bottomNavigationVisibility(View.VISIBLE)
                     productSearchAdapter?.filterBy(emptyList())
                     binding.fragmentHomeContentInfo.setVisible()
                     binding.fragmentHomeHeaderProfile.root.setVisible()

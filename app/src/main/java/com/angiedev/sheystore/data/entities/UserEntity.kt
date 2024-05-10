@@ -17,7 +17,7 @@ data class UserEntity(
         fullName = userResponse?.fullName?.stringValue.orEmpty(),
         gender = userResponse?.gender?.stringValue.orEmpty(),
         phone = userResponse?.phone?.stringValue.orEmpty(),
-        photo = userResponse?.phone?.stringValue.orEmpty(),
+        photo = userResponse?.photo?.stringValue.orEmpty(),
         role = userResponse?.role?.stringValue.orEmpty(),
         username = userResponse?.username?.stringValue.orEmpty()
     )

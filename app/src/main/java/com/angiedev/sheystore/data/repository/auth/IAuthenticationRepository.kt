@@ -15,7 +15,7 @@ interface IAuthenticationRepository {
 
     suspend fun isAuthenticate(currentTime: Long): Boolean
 
-    suspend fun createUserWithEmailAndPassword(email: String, password: String): AuthResource<Boolean>
+    suspend fun createUserWithEmailAndPassword(email: String, password: String, timeSession: Long): AuthResource<Boolean>
 
     suspend fun signInWithEmailAndPassword(email: String, password: String, timeSession: Long): AuthResource<Boolean>
 

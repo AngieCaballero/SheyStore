@@ -16,17 +16,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FillYourProfileViewModel @Inject constructor(
-    private val dataStoragePreferences: IDataStoragePreferences,
     private val authenticationRepository: IAuthenticationRepository
 ) : ViewModel() {
 
     private val _userSavedSuccessfully = MutableLiveData<AuthResource<Boolean>>()
     val userSavedSuccessfully get() = _userSavedSuccessfully
-
-    fun getEmail() = runBlocking {
-        dataStoragePreferences.readValue(PreferencesKeys.EMAIL).orEmpty()
-    }
-
     fun saveUserProfileData(
         fullName: String,
         username: String,

@@ -44,9 +44,9 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
         return binding.root
     }
 
-    private fun bottomNavigationVisibility() {
+    protected fun bottomNavigationVisibility(bottomNavigationVisibility: Int = isBottomNavVisible) {
         // get the reference of the parent activity and call the setBottomNavigationVisibility method.
-        (activity as MainActivity).isBottomNavVisible(isBottomNavVisible)
+        (activity as MainActivity).isBottomNavVisible(bottomNavigationVisibility)
     }
 
     private fun init() {

@@ -1,27 +1,19 @@
 package com.angiedev.sheystore.ui.main.view
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.angiedev.sheystore.R
 import com.angiedev.sheystore.databinding.ActivityMainBinding
-import com.angiedev.sheystore.ui.landingLogin.view.LandingLoginFragmentDirections
 import com.angiedev.sheystore.ui.login.viewmodel.LoginViewModel
 import com.angiedev.sheystore.ui.utils.extension.BackButtonBehaviour
 import com.angiedev.sheystore.ui.utils.extension.setupWithNavController
-import com.google.android.material.elevation.SurfaceColors
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Date
-import kotlin.math.log
 
 @AndroidEntryPoint
 class MainActivity: AppCompatActivity() {
@@ -31,9 +23,10 @@ class MainActivity: AppCompatActivity() {
     }
 
     private var _binding: ActivityMainBinding? = null
+    private val binding get() = _binding!!
     private lateinit var navController: NavController
     private val loginViewModel: LoginViewModel by viewModels()
-    private val binding get() = _binding!!
+
     private var bottomNavSelectedItemId = R.id.nav_home
     private val navGraphId = listOf(
         R.navigation.nav_login,

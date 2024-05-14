@@ -3,6 +3,7 @@ package com.angiedev.sheystore.ui.home.view
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +17,7 @@ import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentHomeBinding
 import com.angiedev.sheystore.databinding.ItemCategoryChipsBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
+import com.angiedev.sheystore.ui.home.SortFilterBottomSheetDialog
 import com.angiedev.sheystore.ui.home.view.adapter.CategoryAdapter
 import com.angiedev.sheystore.ui.home.viewmodel.HomeViewModel
 import com.angiedev.sheystore.ui.main.view.MainActivity
@@ -47,6 +49,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductItemListener {
     private var productAdapter: ProductAdapter? = null
     private var productSearchAdapter: ProductAdapter? = null
     private val productList: MutableList<ProductEntity> = mutableListOf()
+    private val categoryList: MutableList<CategoryEntity> = mutableListOf()
 
     override fun getViewBinding() = FragmentHomeBinding.inflate(layoutInflater)
 
@@ -105,8 +108,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductItemListener {
                 ApiResponse.Loading -> { }
                 is ApiResponse.Success -> {
                     // Load categories recycler view
+                    categoryList.clear()
+                    categoryList.addAll(response.data)
                     categoryAdapter?.submitList(response.data)
-                    setupMostPopularCategoryChips(response.data)
+                    setupMostPopularCategoryChips()
                 }
             }
         }
@@ -139,14 +144,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductItemListener {
         }
     }
 
-    private fun setupMostPopularCategoryChips(data: List<CategoryEntity>) {
+    private fun setupMostPopularCategoryChips() {
         with(binding.fragmentHomeMostPopular.mostPopularChipsGroup) {
             if (childCount > 0) return@with
-            data.forEachIndexed { index, item ->
+            categoryList.forEachIndexed { index, item ->
                 val chip = ItemCategoryChipsBinding.inflate(layoutInflater)
                 chip.root.apply {
                     text = item.name
                     id = index
+                    isCheckedIconVisible = false
                 }
                 addView(chip.root)
             }
@@ -194,7 +200,33 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductItemListener {
             }
         }
 
-        binding.fragmentHomeSearchView.setOnMenuItemClickListener {
+        binding.fragmentHomeSearchBar.setOnMenuItemClickListener { item ->
+            when(item.itemId) {
+                R.id.menu_item_filter -> {
+                    SortFilterBottomSheetDialog.newInstance(
+                        bundleOf(
+                            SortFilterBottomSheetDialog.CATEGORIES to categoryList,
+                            SortFilterBottomSheetDialog.MAX_PRICE to productList.maxOf { it.price },
+                            SortFilterBottomSheetDialog.MIN_PRICE to productList.minOf { it.price }
+                        )
+                    ).show(childFragmentManager, SortFilterBottomSheetDialog.TAG)
+                }
+            }
+            return@setOnMenuItemClickListener true
+        }
+
+        binding.fragmentHomeSearchView.setOnMenuItemClickListener { item ->
+            when(item.itemId) {
+                R.id.menu_item_filter -> {
+                    SortFilterBottomSheetDialog.newInstance(
+                        bundleOf(
+                            SortFilterBottomSheetDialog.CATEGORIES to categoryList,
+                            SortFilterBottomSheetDialog.MAX_PRICE to productList.maxOf { it.price },
+                            SortFilterBottomSheetDialog.MIN_PRICE to productList.minOf { it.price }
+                        )
+                    ).show(childFragmentManager, SortFilterBottomSheetDialog.TAG)
+                }
+            }
             return@setOnMenuItemClickListener true
         }
 

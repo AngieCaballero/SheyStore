@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/shape_white_bottom_sheet_background"
+    android:paddingBottom="20dp"
+    android:paddingHorizontal="10dp">
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="50dp"
+        android:layout_height="4dp"
+        android:layout_marginTop="8dp"
+        app:strokeWidth="0dp"
+        app:cardForegroundColor="@color/color_primary_variant"
+        android:layout_gravity="center_horizontal"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceHeadline6"
+        android:text="@string/ordenar_y_filtrar"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_primary_variant"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceSubtitle1"
+        android:text="@string/categor_as"/>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:layout_marginTop="10dp" >
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/sort_filter_chips_group_categories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipSpacingHorizontal="12dp"
+            app:selectionRequired="true"
+            app:singleSelection="true"
+            android:orientation="horizontal" />
+
+    </HorizontalScrollView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceSubtitle1"
+        android:text="@string/rango_de_precio"/>
+    
+    <com.google.android.material.slider.RangeSlider
+        android:id="@+id/sort_filter_range_slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:valueFrom="0"
+        android:valueTo="1000"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceSubtitle1"
+        android:text="@string/ordenar_por"/>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:visibility="gone"
+        android:layout_marginTop="10dp">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/sort_filter_chips_group_sort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipSpacingHorizontal="12dp"
+            app:selectionRequired="true"
+            app:singleSelection="true"
+            android:orientation="horizontal" />
+
+    </HorizontalScrollView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceSubtitle1"
+        android:text="@string/rating"/>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:layout_marginTop="10dp">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/sort_filter_chips_group_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipSpacingHorizontal="12dp"
+            app:selectionRequired="true"
+            app:singleSelection="true"
+            android:orientation="horizontal" />
+
+    </HorizontalScrollView>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bottom_sheet_title">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sort_filter_reset_button"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            app:iconTint="@color/white"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:text="@string/reset"
+            style="@style/Widget.SheyStore.Button"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/color_primary_variant"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sort_filter_apply_button"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            app:iconTint="@color/white"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="@string/aplicar"
+            style="@style/Widget.SheyStore.Button"
+            android:textColor="@color/white"
+            app:iconGravity="textStart"
+            app:iconPadding="10dp"
+            android:backgroundTint="@color/black"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

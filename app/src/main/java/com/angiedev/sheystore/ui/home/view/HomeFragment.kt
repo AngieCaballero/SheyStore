@@ -25,6 +25,7 @@ import com.angiedev.sheystore.ui.mostPopular.view.adapter.ProductAdapter
 import com.angiedev.sheystore.ui.mostPopular.viewmodel.ProductViewModel
 import com.angiedev.sheystore.ui.product.adapter.ProductItemListener
 import com.angiedev.sheystore.ui.user.viewmodel.UserDataViewModel
+import com.angiedev.sheystore.ui.utils.QuerySelector
 import com.angiedev.sheystore.ui.utils.constant.PreferencesKeys
 import com.angiedev.sheystore.ui.utils.extension.setGone
 import com.angiedev.sheystore.ui.utils.extension.setVisible
@@ -203,13 +204,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductItemListener {
         binding.fragmentHomeSearchBar.setOnMenuItemClickListener { item ->
             when(item.itemId) {
                 R.id.menu_item_filter -> {
-                    SortFilterBottomSheetDialog.newInstance(
-                        bundleOf(
-                            SortFilterBottomSheetDialog.CATEGORIES to categoryList,
-                            SortFilterBottomSheetDialog.MAX_PRICE to productList.maxOf { it.price },
-                            SortFilterBottomSheetDialog.MIN_PRICE to productList.minOf { it.price }
-                        )
-                    ).show(childFragmentManager, SortFilterBottomSheetDialog.TAG)
+                    showSortFilterBottomSheetDialog()
                 }
             }
             return@setOnMenuItemClickListener true
@@ -218,13 +213,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductItemListener {
         binding.fragmentHomeSearchView.setOnMenuItemClickListener { item ->
             when(item.itemId) {
                 R.id.menu_item_filter -> {
-                    SortFilterBottomSheetDialog.newInstance(
-                        bundleOf(
-                            SortFilterBottomSheetDialog.CATEGORIES to categoryList,
-                            SortFilterBottomSheetDialog.MAX_PRICE to productList.maxOf { it.price },
-                            SortFilterBottomSheetDialog.MIN_PRICE to productList.minOf { it.price }
-                        )
-                    ).show(childFragmentManager, SortFilterBottomSheetDialog.TAG)
+                    showSortFilterBottomSheetDialog()
                 }
             }
             return@setOnMenuItemClickListener true
@@ -258,6 +247,27 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductItemListener {
         binding.fragmentHomeSearchView.editText.setOnEditorActionListener { v, actionId, event ->
             return@setOnEditorActionListener false
         }
+    }
+
+    private fun showSortFilterBottomSheetDialog() {
+        SortFilterBottomSheetDialog.newInstance(
+            bundleOf(
+                SortFilterBottomSheetDialog.CATEGORIES to categoryList,
+                SortFilterBottomSheetDialog.MAX_PRICE to productList.maxOf { it.price },
+                SortFilterBottomSheetDialog.MIN_PRICE to productList.minOf { it.price }
+            )
+        ).apply {
+            setOnApplyFilterListener { selectedCategory, selectedRating, selectedMinPrice, selectedMaxPrice ->
+                val filterList = QuerySelector.Builder()
+                    .setListToFilter(productList)
+                    .category(selectedCategory)
+                    .rating(selectedRating)
+                    .minPrice(selectedMinPrice)
+                    .maxPrice(selectedMaxPrice)
+                    .build()
+                productAdapter?.filterBy(filterList)
+            }
+        }.show(childFragmentManager, SortFilterBottomSheetDialog.TAG)
     }
 
     override fun onClickItem(productEntity: ProductEntity) {

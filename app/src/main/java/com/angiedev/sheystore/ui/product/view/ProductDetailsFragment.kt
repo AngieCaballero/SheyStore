@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.angiedev.sheystore.R
+import com.angiedev.sheystore.data.entities.CartEntity
 import com.angiedev.sheystore.data.entities.ProductDetailsEntity
 import com.angiedev.sheystore.data.model.domain.CartItem
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
@@ -18,6 +19,7 @@ import com.angiedev.sheystore.ui.mostPopular.viewmodel.ProductViewModel
 import com.angiedev.sheystore.ui.product.QuantityStepperListener
 import com.angiedev.sheystore.ui.product.adapter.ProductDetailsImagesViewPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 
 @AndroidEntryPoint
 class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding>() {
@@ -54,13 +56,14 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding>() {
                     }
                 }
                 val price = productDetailsEntity?.price?.toDouble() ?: 0.0
-                binding.productDetailsPriceTotal.text = resources.getString(R.string.total_price, String.format("%.2f", (value.times(price))))
+                binding.productDetailsPriceTotal.text = resources.getString(R.string.total_price, String.format(
+                    Locale.getDefault(),"%.2f", (value.times(price))))
             }
         })
 
         binding.productDetailsAddToCar.setOnClickListener {
             val totalPrice = binding.productDetailsPriceTotal.text.removePrefix("$").toString()
-            mainViewModel.cart.add(CartItem(productDetailsEntity, totalPrice, quantity))
+            mainViewModel.cart.add(CartEntity(productDetailsEntity, totalPrice, quantity))
         }
     }
 

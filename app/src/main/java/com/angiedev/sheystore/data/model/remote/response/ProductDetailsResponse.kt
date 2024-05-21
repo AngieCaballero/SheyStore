@@ -10,7 +10,7 @@ import kotlinx.parcelize.Parcelize
 data class ProductDetailsResponse(
     @SerializedName("id") val id: StringResponse?,
     @SerializedName("name") val name: StringResponse?,
-    @SerializedName("images") val images: ArrayResponse?,
+    @SerializedName("images") val images: ArrayResponse<StringResponse>?,
     @SerializedName("category") val category: StringResponse?,
     @SerializedName("rating") val rating: StringResponse?,
     @SerializedName("price") val price: StringResponse?,

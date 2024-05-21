@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.angiedev.sheystore.R
+import com.angiedev.sheystore.data.entities.CartEntity
 import com.angiedev.sheystore.data.model.domain.CartItem
 import com.angiedev.sheystore.databinding.ItemCartBinding
 import com.angiedev.sheystore.ui.product.QuantityStepperListener
@@ -18,7 +19,7 @@ class CartAdapter (
     private val cartItemListener: CartItemListener
 ) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
-    private val listCartItem = mutableListOf<CartItem>()
+    private val listCartItem = mutableListOf<CartEntity>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CartViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_cart, parent, false)
     )
@@ -29,7 +30,7 @@ class CartAdapter (
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun submitList(newList: List<CartItem>) {
+    fun submitList(newList: List<CartEntity>) {
         listCartItem.clear()
         listCartItem.addAll(newList)
         notifyDataSetChanged()
@@ -38,10 +39,10 @@ class CartAdapter (
     inner class CartViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ItemCartBinding.bind(view)
 
-        fun render(cartItem: CartItem) {
+        fun render(cartItem: CartEntity) {
             with(binding) {
                 itemCartName.text = cartItem.name
-                itemCartQuantityStepper.value = cartItem.quantity
+                itemCartQuantityStepper.value = cartItem.quantity.toInt()
                 itemCartTotalPrice.text = root.context.resources.getString(R.string.total_price, cartItem.totalPrice)
                 val gradientColor = GradientDrawable().apply {
                     setColor(Color.parseColor(cartItem.color))

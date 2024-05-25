@@ -10,7 +10,6 @@ import androidx.navigation.fragment.navArgs
 import com.angiedev.sheystore.R
 import com.angiedev.sheystore.data.entities.CartEntity
 import com.angiedev.sheystore.data.entities.ProductDetailsEntity
-import com.angiedev.sheystore.data.model.domain.CartItem
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentProductDetailsBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
@@ -18,6 +17,8 @@ import com.angiedev.sheystore.ui.main.viewmodel.MainViewModel
 import com.angiedev.sheystore.ui.mostPopular.viewmodel.ProductViewModel
 import com.angiedev.sheystore.ui.product.QuantityStepperListener
 import com.angiedev.sheystore.ui.product.adapter.ProductDetailsImagesViewPagerAdapter
+import com.angiedev.sheystore.ui.user.viewmodel.UserDataViewModel
+import com.angiedev.sheystore.ui.utils.constant.PreferencesKeys
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
@@ -25,15 +26,17 @@ import java.util.Locale
 class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding>() {
 
     private val productViewModel: ProductViewModel by viewModels()
+    private val userDataViewModel: UserDataViewModel by viewModels()
     private val mainViewModel: MainViewModel by activityViewModels()
     private val productDetailsFragmentArgs: ProductDetailsFragmentArgs by navArgs()
-    private var quantity = 0
+    private var quantity = 1
     private var productDetailsEntity: ProductDetailsEntity? = null
 
     override fun getViewBinding() = FragmentProductDetailsBinding.inflate(layoutInflater)
 
     override fun createView(view: View, savedInstanceState: Bundle?) {
         super.createView(view, savedInstanceState)
+        mainViewModel.getCartItems(userDataViewModel.readValue(PreferencesKeys.EMAIL).orEmpty())
         productViewModel.getProductDetails(productDetailsFragmentArgs.productId)
     }
 
@@ -63,7 +66,8 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding>() {
 
         binding.productDetailsAddToCar.setOnClickListener {
             val totalPrice = binding.productDetailsPriceTotal.text.removePrefix("$").toString()
-            mainViewModel.cart.add(CartEntity(productDetailsEntity, totalPrice, quantity))
+            mainViewModel.myCart.add(CartEntity(productDetailsEntity, totalPrice, quantity))
+            productViewModel.putProductInCart(userDataViewModel.readValue(PreferencesKeys.EMAIL).orEmpty(), mainViewModel.myCart)
         }
     }
 
@@ -84,6 +88,18 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding>() {
                 }
             }
         }
+
+        productViewModel.cartItems.observe(viewLifecycleOwner) { response ->
+            when(response) {
+                is ApiResponse.Error -> Toast.makeText(requireContext(), response.toString(), Toast.LENGTH_SHORT).show()
+                ApiResponse.Loading -> TODO()
+                is ApiResponse.Success -> {
+                    Toast.makeText(requireContext(), "Producto agregado al carrito", Toast.LENGTH_SHORT).show()
+                    mainViewModel.myCart.clear()
+                    mainViewModel.myCart.addAll(response.data)
+                }
+            }
+        }
     }
 
     private fun setupUI(data: ProductDetailsEntity) {
@@ -94,6 +110,8 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding>() {
             productDetailsRate.text = data.rating
             productDetailsPrice.text = data.price
             setupViewPagerImageProducts(data.images)
+            binding.productDetailsPriceTotal.text = resources.getString(R.string.total_price, String.format(
+                Locale.getDefault(),"%.2f", (data.price.toDoubleOrNull() ?: 0.0)))
         }
     }
 

@@ -2,9 +2,11 @@ package com.angiedev.sheystore.ui.mostPopular.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.angiedev.sheystore.data.entities.CartEntity
 import com.angiedev.sheystore.data.entities.ProductDetailsEntity
 import com.angiedev.sheystore.data.entities.ProductEntity
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
+import com.angiedev.sheystore.data.repository.cart.ICartRepository
 import com.angiedev.sheystore.data.repository.product.IProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -13,8 +15,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProductViewModel @Inject constructor(
-    private val productRepository: IProductRepository
+    private val productRepository: IProductRepository,
+    private val categoryRepository: ICartRepository
 ) : ViewModel() {
+
+    private val _cartItems = MutableLiveData<ApiResponse<List<CartEntity>>>()
+    val cartItems get() = _cartItems
 
     private val _products: MutableLiveData<ApiResponse<List<ProductEntity>>> = MutableLiveData()
     val products get() = _products
@@ -30,6 +36,13 @@ class ProductViewModel @Inject constructor(
         runBlocking(Dispatchers.IO) {
             val response = productRepository.getProducts()
             _products.postValue(response)
+        }
+    }
+
+    fun putProductInCart(documentId: String, newList: MutableList<CartEntity>) {
+        runBlocking(Dispatchers.IO) {
+            val response = categoryRepository.patchCartItems(documentId, newList)
+            _cartItems.postValue(response)
         }
     }
 

@@ -8,8 +8,10 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.angiedev.sheystore.R
+import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.databinding.ActivityMainBinding
 import com.angiedev.sheystore.ui.login.viewmodel.LoginViewModel
+import com.angiedev.sheystore.ui.main.viewmodel.MainViewModel
 import com.angiedev.sheystore.ui.utils.extension.BackButtonBehaviour
 import com.angiedev.sheystore.ui.utils.extension.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +27,7 @@ class MainActivity: AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
     private lateinit var navController: NavController
+    private val mainViewModel: MainViewModel by viewModels()
     private val loginViewModel: LoginViewModel by viewModels()
 
     private var bottomNavSelectedItemId = R.id.nav_home
@@ -52,6 +55,17 @@ class MainActivity: AppCompatActivity() {
     private fun setObservers() {
         loginViewModel.isAuthored.observe(this) { isAuthored ->
             if (!isAuthored) navigateToLoginModule()
+        }
+
+        mainViewModel.cart.observe(this) {
+            when(it) {
+                is ApiResponse.Error -> { }
+                ApiResponse.Loading -> { }
+                is ApiResponse.Success -> {
+                    mainViewModel.myCart.clear()
+                    mainViewModel.myCart.addAll(it.data)
+                }
+            }
         }
     }
 

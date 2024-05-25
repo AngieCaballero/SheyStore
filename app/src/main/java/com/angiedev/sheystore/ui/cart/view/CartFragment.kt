@@ -43,8 +43,8 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), CartItemListener {
                 is ApiResponse.Error -> Toast.makeText(requireContext(), response.toString(), Toast.LENGTH_SHORT).show()
                 ApiResponse.Loading -> TODO()
                 is ApiResponse.Success -> {
-                    mainViewModel.cart.clear()
-                    mainViewModel.cart.addAll(response.data)
+                    mainViewModel.myCart.clear()
+                    mainViewModel.myCart.addAll(response.data)
                     setUI(response.data)
                 }
             }
@@ -52,7 +52,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), CartItemListener {
     }
     private fun setUI(data: List<CartEntity>) {
         cartAdapter?.submitList(data)
-        val totalPrice = data.sumOf { it.totalPrice.toDouble() }
+        val totalPrice = data.sumOf { it.totalPrice.toDoubleOrNull() ?: 0.0 }
         binding.fragmentCartPriceTotal.text = resources.getString(R.string.total_price, totalPrice.toString())
     }
 
@@ -66,10 +66,10 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), CartItemListener {
             bundleOf(CART_ITEM to cartItem)
         ).also {
             it.setOnRemoveCartItemListener {
-                mainViewModel.cart.removeAt(position)
+                mainViewModel.myCart.removeAt(position)
                 cartViewModel.patchCartItems(
                     documentId = userDataViewModel.readValue(PreferencesKeys.EMAIL).orEmpty(),
-                    cartItems = mainViewModel.cart
+                    cartItems = mainViewModel.myCart
                 )
             }
         }.show(

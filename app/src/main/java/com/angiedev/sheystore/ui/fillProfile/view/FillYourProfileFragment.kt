@@ -143,6 +143,10 @@ class FillYourProfileFragment : BaseFragment<FragmentFillYourProfileBinding>() {
                 checkReadImagePermission()
             }
 
+            fillYourProfileToolbar.setNavigationOnClickListener {
+                findNavController().popBackStack()
+            }
+
             fillYourProfileContinueButton.setOnClickListener {
                if (validator.checkIsValid()) {
                    // Make request to save user data

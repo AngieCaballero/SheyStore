@@ -9,5 +9,14 @@
         android:id="@+id/profileFragment"
         android:name="com.angiedev.sheystore.ui.profile.view.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_fillYourProfileFragment2"
+            app:destination="@id/fillYourProfileFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/fillYourProfileFragment2"
+        android:name="com.angiedev.sheystore.ui.fillProfile.view.FillYourProfileFragment"
+        android:label="fragment_fill_your_profile"
+        tools:layout="@layout/fragment_fill_your_profile" />
 </navigation>

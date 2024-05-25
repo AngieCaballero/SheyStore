@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="10dp"
+    android:paddingHorizontal="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/item_profile_start_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:padding="4dp"
+        app:tint="@color/black"
+        tools:src="@drawable/ic_rating_checked"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/item_profile_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Edit Profile"
+        android:layout_marginHorizontal="10dp"
+        android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceSubtitle2"
+        app:layout_constraintStart_toEndOf="@id/item_profile_start_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/item_profile_end_icon"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/item_profile_end_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:tint="@color/black"
+        android:padding="4dp"
+        tools:src="@drawable/ic_arrow_angle_right"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

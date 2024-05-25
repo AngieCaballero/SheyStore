@@ -9,7 +9,7 @@
     tools:context=".ui.fillProfile.view.FillYourProfileFragment">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/product_details_app_bar"
+        android:id="@+id/fill_your_profile_app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/product_details_toolbar"
+            android:id="@+id/fill_your_profile_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"

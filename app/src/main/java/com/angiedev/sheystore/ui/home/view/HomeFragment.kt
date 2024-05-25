@@ -29,6 +29,7 @@ import com.angiedev.sheystore.ui.utils.QuerySelector
 import com.angiedev.sheystore.ui.utils.constant.PreferencesKeys
 import com.angiedev.sheystore.ui.utils.extension.setGone
 import com.angiedev.sheystore.ui.utils.extension.setVisible
+import com.angiedev.sheystore.ui.utils.helper.getGreetingMessage
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.chip.Chip
@@ -67,6 +68,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductItemListener {
     private fun setupUI() {
         lifecycleScope.launch {
             with(binding.fragmentHomeHeaderProfile) {
+                headerProfileInfoGreeting.text = getGreetingMessage()
                 headerProfileInfoName.text = userDataViewModel.readValue(PreferencesKeys.USERNAME)
                 val photo = userDataViewModel.readValue(PreferencesKeys.PHOTO)
                 Glide.with(requireContext())

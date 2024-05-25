@@ -35,6 +35,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.search.SearchView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.util.Random
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductItemListener {
@@ -148,17 +149,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductItemListener {
     private fun setupMostPopularCategoryChips() {
         with(binding.fragmentHomeMostPopular.mostPopularChipsGroup) {
             if (childCount > 0) return@with
-            categoryList.forEachIndexed { index, item ->
-                val chip = ItemCategoryChipsBinding.inflate(layoutInflater)
-                chip.root.apply {
-                    text = item.name
-                    id = index
-                    isCheckedIconVisible = false
-                }
-                addView(chip.root)
+            addChips("Todo")
+            categoryList.forEach {item ->
+                addChips(item.name)
             }
             check(getChildAt(0).id)
         }
+    }
+
+    private fun addChips(title: String) {
+        val chip = ItemCategoryChipsBinding.inflate(layoutInflater)
+        chip.root.apply {
+            text = title
+            id = Random().nextInt()
+        }
+        binding.fragmentHomeMostPopular.mostPopularChipsGroup.addView(chip.root)
     }
 
     private fun loadSpecialsOffers(specialsOffers: SpecialsOffersEntity) {

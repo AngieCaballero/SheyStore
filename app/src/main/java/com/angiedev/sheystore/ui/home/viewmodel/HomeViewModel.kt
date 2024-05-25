@@ -44,7 +44,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun filterByCategory(query: String, originalList: MutableList<ProductEntity>) {
-        if (query == "Todos" || query.isBlank()) {
+        if (query == "Todo" || query.isBlank()) {
             filteredList.postValue(originalList)
             return
         }

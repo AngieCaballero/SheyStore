@@ -52,4 +52,5 @@
     <string name="rating">Rating</string>
     <string name="reset">Reset</string>
     <string name="aplicar">Aplicar</string>
+    <string name="todo">Todo</string>
 </resources>

@@ -12,6 +12,7 @@ import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentMostPopularBinding
 import com.angiedev.sheystore.databinding.ItemCategoryChipsBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
+import com.angiedev.sheystore.ui.home.view.HomeFragmentDirections
 import com.angiedev.sheystore.ui.home.viewmodel.HomeViewModel
 import com.angiedev.sheystore.ui.mostPopular.view.adapter.ProductAdapter
 import com.angiedev.sheystore.ui.mostPopular.viewmodel.ProductViewModel
@@ -56,6 +57,7 @@ class MostPopularFragment : BaseFragment<FragmentMostPopularBinding>(), ProductI
                 }
                 ApiResponse.Loading -> { }
                 is ApiResponse.Success -> {
+                    productList.clear()
                     productList.addAll(response.data)
                     viewModel.setProductsList(response.data)
                 }
@@ -79,28 +81,34 @@ class MostPopularFragment : BaseFragment<FragmentMostPopularBinding>(), ProductI
             }
         }
 
-        viewModel.filteredList.observe(viewLifecycleOwner) {
+        viewModel.filteredProducts.observe(viewLifecycleOwner) {
             if (it.isEmpty()) {
                 binding.mostPopularLayoutNoResults.root.setVisible()
                 binding.mostPopularProductsRv.setGone()
             } else {
                 binding.mostPopularLayoutNoResults.root.setGone()
                 binding.mostPopularProductsRv.setVisible()
+                productAdapter?.filterBy(it)
             }
-            productAdapter?.filterBy(it)
         }
     }
 
     private fun setupMostPopularCategoryChips(data: List<CategoryEntity>) {
+        if (binding.mostPopularChipsGroup.childCount > 0) return
+        addChips("Todo")
         data.forEach {
-            val chip = ItemCategoryChipsBinding.inflate(layoutInflater)
-            chip.root.apply {
-                text = it.name
-                id = Random().nextInt()
-            }
-            binding.mostPopularChipsGroup.addView(chip.root)
+            addChips(it.name)
         }
         binding.mostPopularChipsGroup.check(binding.mostPopularChipsGroup.getChildAt(0).id)
+    }
+
+    private fun addChips(title: String) {
+        val chip = ItemCategoryChipsBinding.inflate(layoutInflater)
+        chip.root.apply {
+            text = title
+            id = Random().nextInt()
+        }
+        binding.mostPopularChipsGroup.addView(chip.root)
     }
 
     override fun setListeners() {
@@ -115,6 +123,6 @@ class MostPopularFragment : BaseFragment<FragmentMostPopularBinding>(), ProductI
     }
 
     override fun onClickItem(productEntity: ProductEntity) {
-
+        findNavController().navigate(MostPopularFragmentDirections.actionMostPopularFragmentToProductDetailsFragment(productEntity.id))
     }
 }

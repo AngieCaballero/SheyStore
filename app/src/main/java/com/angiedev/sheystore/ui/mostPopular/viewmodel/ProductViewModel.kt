@@ -19,7 +19,9 @@ class ProductViewModel @Inject constructor(
     private val _products: MutableLiveData<ApiResponse<List<ProductEntity>>> = MutableLiveData()
     val products get() = _products
 
-    val filteredList = MutableLiveData<List<ProductEntity>>()
+    private val _filteredProducts: MutableLiveData<List<ProductEntity>> = MutableLiveData()
+
+    val filteredProducts get() = _filteredProducts
 
     private val _productDetails: MutableLiveData<ApiResponse<ProductDetailsEntity>> = MutableLiveData()
     val productDetails get() = _productDetails
@@ -39,17 +41,16 @@ class ProductViewModel @Inject constructor(
     }
 
     fun setProductsList(newList: List<ProductEntity>) {
-        filteredList.postValue(newList)
+        _filteredProducts.postValue(newList)
     }
 
-    fun filterBy(query: String, originalList: MutableList<ProductEntity>) {
-        val filtered = mutableListOf<ProductEntity>()
-        filtered.addAll(filteredList.value.orEmpty())
-        if (query == "Todos" || query.isBlank()) {
-            filteredList.postValue(originalList)
-            return
+    fun filterBy(query: String, productList: List<ProductEntity>) {
+        var items = productList
+        if (query != "Todo" && query.isNotBlank()) {
+            items = items.filter {
+                it.category.contains(query)
+            }
         }
-        val filter = originalList.filter { it.category == query }
-        filteredList.postValue(filter)
+        _filteredProducts.postValue(items)
     }
 }

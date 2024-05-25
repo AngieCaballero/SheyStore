@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.angiedev.sheystore.R
 import com.angiedev.sheystore.data.entities.CartEntity
-import com.angiedev.sheystore.data.model.domain.CartItem
 import com.angiedev.sheystore.databinding.ItemCartBinding
 import com.angiedev.sheystore.ui.product.QuantityStepperListener
 import com.bumptech.glide.Glide
@@ -37,6 +36,7 @@ class CartAdapter (
     }
 
     inner class CartViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
         private val binding = ItemCartBinding.bind(view)
 
         fun render(cartItem: CartEntity) {
@@ -66,7 +66,7 @@ class CartAdapter (
                 })
 
                 itemCartRemoveIcon.setOnClickListener {
-                    cartItemListener.onRemoveItem(cartItem)
+                    cartItemListener.onRemoveItem(cartItem, adapterPosition)
                 }
             }
 

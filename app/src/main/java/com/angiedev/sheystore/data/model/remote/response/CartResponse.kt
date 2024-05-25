@@ -1,6 +1,7 @@
 package com.angiedev.sheystore.data.model.remote.response
 
 import android.os.Parcelable
+import com.angiedev.sheystore.data.entities.CartEntity
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -13,7 +14,9 @@ data class CartResponse(
     @SerializedName("price") val price: StringResponse?,
     @SerializedName("quantity") val quantity: StringResponse?,
     @SerializedName("totalPrice") val totalPrice: StringResponse?
-) : Parcelable
+) : Parcelable {
+
+}
 
 @Parcelize
 data class DocumentCartResponse(
@@ -26,7 +29,12 @@ data class DocumentCartResponse(
 @Parcelize
 data class CartValueResponse(
     @SerializedName("cart") val value: CartArrayValuesResponse?
-) : Parcelable
+) : Parcelable {
+
+    fun toCartEntityList() = value?.values?.values?.map {
+        CartEntity(it.values.fields)
+    }.orEmpty()
+}
 
 @Parcelize
 data class CartArrayValuesResponse(

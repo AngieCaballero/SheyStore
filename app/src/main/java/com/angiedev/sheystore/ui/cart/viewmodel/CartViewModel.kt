@@ -25,4 +25,11 @@ class CartViewModel @Inject constructor(
         }
     }
 
+    fun patchCartItems(documentId: String, cartItems: List<CartEntity>) {
+        runBlocking(Dispatchers.IO) {
+            val response = cartRepository.patchCartItems(documentId, cartItems)
+            _cartItems.postValue(response)
+        }
+    }
+
 }

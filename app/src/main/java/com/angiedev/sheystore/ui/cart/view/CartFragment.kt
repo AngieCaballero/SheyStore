@@ -3,15 +3,16 @@ package com.angiedev.sheystore.ui.cart.view
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.angiedev.sheystore.R
 import com.angiedev.sheystore.data.entities.CartEntity
-import com.angiedev.sheystore.data.model.domain.CartItem
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentCartBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
 import com.angiedev.sheystore.ui.cart.RemoveCartItemBottomSheetDialog
+import com.angiedev.sheystore.ui.cart.RemoveCartItemBottomSheetDialog.Companion.CART_ITEM
 import com.angiedev.sheystore.ui.cart.adapter.CartAdapter
 import com.angiedev.sheystore.ui.cart.adapter.CartItemListener
 import com.angiedev.sheystore.ui.cart.viewmodel.CartViewModel
@@ -42,15 +43,16 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), CartItemListener {
                 is ApiResponse.Error -> Toast.makeText(requireContext(), response.toString(), Toast.LENGTH_SHORT).show()
                 ApiResponse.Loading -> TODO()
                 is ApiResponse.Success -> {
+                    mainViewModel.cart.clear()
                     mainViewModel.cart.addAll(response.data)
-                    setUI()
+                    setUI(response.data)
                 }
             }
         }
     }
-    private fun setUI() {
-        cartAdapter?.submitList(mainViewModel.cart)
-        val totalPrice = mainViewModel.cart.sumOf { it.totalPrice.toDouble() }
+    private fun setUI(data: List<CartEntity>) {
+        cartAdapter?.submitList(data)
+        val totalPrice = data.sumOf { it.totalPrice.toDouble() }
         binding.fragmentCartPriceTotal.text = resources.getString(R.string.total_price, totalPrice.toString())
     }
 
@@ -59,8 +61,18 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), CartItemListener {
         binding.fragmentCartItemRv.adapter = cartAdapter
     }
 
-    override fun onRemoveItem(cartItem: CartEntity) {
-        RemoveCartItemBottomSheetDialog.newInstance().show(
+    override fun onRemoveItem(cartItem: CartEntity, position: Int) {
+        RemoveCartItemBottomSheetDialog.newInstance(
+            bundleOf(CART_ITEM to cartItem)
+        ).also {
+            it.setOnRemoveCartItemListener {
+                mainViewModel.cart.removeAt(position)
+                cartViewModel.patchCartItems(
+                    documentId = userDataViewModel.readValue(PreferencesKeys.EMAIL).orEmpty(),
+                    cartItems = mainViewModel.cart
+                )
+            }
+        }.show(
             childFragmentManager, "RemoveCartItemBottomSheetDialog"
         )
     }

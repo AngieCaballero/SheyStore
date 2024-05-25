@@ -6,6 +6,7 @@ import com.angiedev.sheystore.data.model.remote.response.CollectionResponse
 import com.angiedev.sheystore.data.model.remote.request.CreateUserFields
 import com.angiedev.sheystore.data.model.remote.response.ArrayResponse
 import com.angiedev.sheystore.data.model.remote.response.CartResponse
+import com.angiedev.sheystore.data.model.remote.response.CartValueResponse
 import com.angiedev.sheystore.data.model.remote.response.DocumentCartResponse
 import com.angiedev.sheystore.data.model.remote.response.DocumentResponse
 import com.angiedev.sheystore.data.model.remote.response.MapValueResponse
@@ -87,5 +88,14 @@ class ApiDataSource @Inject constructor(
 
     suspend fun getCartItems(documentId: String) = service.safeRequest(endpoint = "cart/$documentId/")
         .withMethod(HttpMethod.GET)
+        .execute<DocumentCartResponse>()
+
+    suspend fun patchCartItems(documentId: String, body: CartValueResponse) = service.safeRequest(endpoint = "cart/$documentId/")
+        .withMethod(HttpMethod.PATCH)
+        .withBody(
+            mapOf(
+                "fields" to body
+            )
+        )
         .execute<DocumentCartResponse>()
 }

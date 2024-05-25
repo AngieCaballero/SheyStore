@@ -37,7 +37,8 @@ class AuthenticationRepositoryImp @Inject constructor(
 
     override suspend fun createUserWithEmailAndPassword(
         email: String,
-        password: String
+        password: String,
+        timeSession: Long
     ): AuthResource<Boolean> {
         val authResult = apiDataSource.createAccount(email, password)
         val responseData = authResult.getOrNull()
@@ -45,6 +46,7 @@ class AuthenticationRepositoryImp @Inject constructor(
         return if (authResult.isSuccess && responseData != null) {
             dataStoreManager.storeValue(PreferencesKeys.TOKEN, responseData.idToken.toString())
             dataStoreManager.storeValue(PreferencesKeys.EMAIL, responseData.email.toString())
+            dataStoreManager.storeValue(PreferencesKeys.TIME_SESSION, timeSession)
             AuthResource.Success(true)
         } else {
             AuthResource.Error(authResult.exceptionOrNull()?.toString() ?: "Ha ocurrido un error al intentar crear la cuenta")
@@ -62,6 +64,7 @@ class AuthenticationRepositoryImp @Inject constructor(
         return if (authResult.isSuccess && responseData != null) {
             dataStoreManager.storeValue(PreferencesKeys.TOKEN, responseData.idToken.toString())
             dataStoreManager.storeValue(PreferencesKeys.EMAIL, responseData.email.toString())
+            dataStoreManager.storeValue(PreferencesKeys.TIME_SESSION, timeSession)
 
             val createdUserResponse = apiDataSource.fetchUserByDocumentId(responseData.email.orEmpty()).getOrNull()
             if (createdUserResponse != null) {

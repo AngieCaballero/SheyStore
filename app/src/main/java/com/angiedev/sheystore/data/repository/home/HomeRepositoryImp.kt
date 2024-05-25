@@ -35,7 +35,6 @@ class HomeRepositoryImp @Inject constructor(
             val data = response.getOrNull()?.documents?.map {
                 CategoryEntity(parseArray(Gson().toJson(it.fields)))
             }?.toMutableList()
-            data?.add(0, CategoryEntity("Todos", ""))
             ApiResponse.Success(data.orEmpty())
         } else {
             ApiResponse.Error(response.exceptionOrNull())

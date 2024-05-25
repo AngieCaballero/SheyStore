@@ -91,7 +91,7 @@
 
     <style name="TextAppearance.SheyStore.textAppearanceHeadline6" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="fontFamily">@font/roboto_medium</item>
-        <item name="android:textStyle">normal</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/color_text</item>

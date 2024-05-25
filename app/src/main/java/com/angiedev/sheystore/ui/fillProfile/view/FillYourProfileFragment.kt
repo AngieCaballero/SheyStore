@@ -17,8 +17,10 @@ import com.angiedev.sheystore.data.util.AuthResource
 import com.angiedev.sheystore.databinding.FragmentFillYourProfileBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
 import com.angiedev.sheystore.ui.fillProfile.viewmodel.FillYourProfileViewModel
+import com.angiedev.sheystore.ui.user.viewmodel.UserDataViewModel
 import com.angiedev.sheystore.ui.utils.TextFieldValidator
 import com.angiedev.sheystore.ui.utils.checkPermission
+import com.angiedev.sheystore.ui.utils.constant.PreferencesKeys
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class FillYourProfileFragment : BaseFragment<FragmentFillYourProfileBinding>() {
 
     private val fillYourProfileViewModel: FillYourProfileViewModel by viewModels()
+    private val userDataViewModel: UserDataViewModel by viewModels()
     private var firebaseStorageReference: StorageReference? = null
 
     override var isBottomNavVisible = View.GONE
@@ -108,7 +111,7 @@ class FillYourProfileFragment : BaseFragment<FragmentFillYourProfileBinding>() {
                 }, fillYourProfileTextInputLayoutRole)
             )
             validator.setRules(rules)
-            fillYourProfileTextInputEditEmail.setText(fillYourProfileViewModel.getEmail())
+            fillYourProfileTextInputEditEmail.setText(userDataViewModel.readValue(PreferencesKeys.EMAIL))
             fillYourProfileTextInputEditEmail.inputType = InputType.TYPE_NULL
         }
     }

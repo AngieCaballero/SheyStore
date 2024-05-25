@@ -45,4 +45,11 @@
     <string name="tipo_de_usuario">Tipo de usuario</string>
     <string name="continuar">Continuar</string>
     <string name="n_mero_de_tel_fono">Número de teléfono</string>
+    <string name="ordenar_y_filtrar">Ordenar &amp; Filtrar</string>
+    <string name="categor_as">Categorías</string>
+    <string name="rango_de_precio">Rango de precio</string>
+    <string name="ordenar_por">Ordenar por</string>
+    <string name="rating">Rating</string>
+    <string name="reset">Reset</string>
+    <string name="aplicar">Aplicar</string>
 </resources>

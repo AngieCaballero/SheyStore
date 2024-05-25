@@ -49,15 +49,26 @@ data class DoubleResponse(
 
 @Parcelize
 @JsonClass(generateAdapter = true)
-data class ArrayResponse(
+data class ArrayResponse<T>(
     @SerializedName("arrayValue")
-    val arrayValue: ArrayValuesResponse
+    val arrayValue: ArrayValuesResponse<T>
 ) : Parcelable
-
 
 @Parcelize
 @JsonClass(generateAdapter = true)
-data class ArrayValuesResponse(
+data class ArrayValuesResponse<T>(
     @SerializedName("values")
-    val values: ArrayList<StringResponse>
+    val values: @RawValue ArrayList<T>
+) : Parcelable
+
+@Parcelize
+@JsonClass(generateAdapter = true)
+data class MapValueResponse<T>(
+    @SerializedName("mapValue") val mapValue: DocumentMapValueResponse<T>
+) : Parcelable
+
+@Parcelize
+@JsonClass(generateAdapter = true)
+data class DocumentMapValueResponse<T>(
+    @SerializedName("fields") val fields: @RawValue T?
 ) : Parcelable

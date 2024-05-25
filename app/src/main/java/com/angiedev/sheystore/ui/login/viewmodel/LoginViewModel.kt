@@ -53,10 +53,10 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun createUserWithEmailAndPassword(username: String, password: String) {
+    private fun createUserWithEmailAndPassword(username: String, password: String, timeSession: Long) {
         viewModelScope.launch {
             val response = authenticationRepository.createUserWithEmailAndPassword(
-                username, password
+                username, password, timeSession
             )
             _createUserWithEmailAndPassword.postValue(response)
         }
@@ -92,7 +92,7 @@ class LoginViewModel @Inject constructor(
                 if (isSignInUser) {
                     signInWithEmailAndPassword(usernameToValidate, passwordToValidate, timeSession)
                 } else {
-                    createUserWithEmailAndPassword(usernameToValidate, passwordToValidate)
+                    createUserWithEmailAndPassword(usernameToValidate, passwordToValidate, timeSession)
                 }
             }
         }

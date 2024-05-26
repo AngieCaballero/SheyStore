@@ -18,5 +18,14 @@
         android:id="@+id/checkoutFragment"
         android:name="com.angiedev.sheystore.ui.checkout.view.CheckoutFragment"
         android:label="fragment_checkout"
-        tools:layout="@layout/fragment_checkout" />
+        tools:layout="@layout/fragment_checkout" >
+        <action
+            android:id="@+id/action_checkoutFragment_to_choiceMyShippingAddressFragment"
+            app:destination="@id/choiceMyShippingAddressFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/choiceMyShippingAddressFragment"
+        android:name="com.angiedev.sheystore.ui.choiceMyShippingAddress.view.ChoiceMyShippingAddressFragment"
+        android:label="fragment_choice_my_shipping_address"
+        tools:layout="@layout/fragment_choice_my_shipping_address" />
 </navigation>

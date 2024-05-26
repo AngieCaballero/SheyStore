@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.angiedev.sheystore.data.entities.ShippingAddressEntity
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentCheckoutBinding
@@ -48,6 +49,10 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding>() {
 
             binding.fragmentCheckoutToolbar.setNavigationOnClickListener {
                 findNavController().popBackStack()
+            }
+
+            fragmentCheckoutShippingAddress.itemShippingAddressData.setOnClickListener {
+                findNavController().navigate(CheckoutFragmentDirections.actionCheckoutFragmentToChoiceMyShippingAddressFragment())
             }
         }
     }

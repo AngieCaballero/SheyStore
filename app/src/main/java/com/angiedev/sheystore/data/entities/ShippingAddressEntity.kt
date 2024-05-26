@@ -14,7 +14,7 @@ import kotlinx.parcelize.Parcelize
 data class ShippingAddressEntity(
     val name: String,
     val details: String,
-    val default: Boolean
+    var default: Boolean
 ) : Parcelable {
 
     fun toShippingAddressResponse() = ShippingAddressResponse(

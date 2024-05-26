@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginHorizontal="10dp"
-            app:layout_constraintEnd_toStartOf="@id/item_shipping_address_end_icon"
+            app:layout_constraintEnd_toStartOf="@id/item_shipping_address_radio_button"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/item_shipping_address_start_icon">
@@ -47,6 +47,8 @@
                 android:id="@+id/item_shipping_address_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:ellipsize="end"
                 tools:text="61480 Sunbrook Park, PC 5679"
                 android:textColor="@color/color_text_hint"
                 android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceBody2"/>
@@ -59,6 +61,17 @@
             android:layout_height="24dp"
             app:srcCompat="@drawable/ic_edit"
             android:padding="4dp"
+            tools:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/item_shipping_address_radio_button"
+            android:layout_width="32dp"
+            android:layout_height="24dp"
+            android:padding="0dp"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>

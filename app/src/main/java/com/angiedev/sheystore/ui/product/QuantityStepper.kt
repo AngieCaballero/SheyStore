@@ -45,6 +45,10 @@ class QuantityStepper @JvmOverloads constructor(
         }
     }
 
+    fun setControlsVisibility(visibility: Int) {
+        binding.decreaseIb.visibility = visibility
+        binding.increaseIb.visibility = visibility
+    }
 
     private fun doDec() {
         if (currentValue > 0) {

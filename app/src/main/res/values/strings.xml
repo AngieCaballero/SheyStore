@@ -53,4 +53,9 @@
     <string name="reset">Reset</string>
     <string name="aplicar">Aplicar</string>
     <string name="todo">Todo</string>
+    <string name="verificar_compra">Verificar compra</string>
+    <string name="direcci_n_de_env_o">Dirección de envío</string>
+    <string name="lista_de_orden">Lista de Orden</string>
+    <string name="continuar_con_el_pago">Continuar con el Pago</string>
+    <string name="ooops_al_parecer_no_tienes_direcciones_de_entrega">¡Ooops! Al parecer no tienes direcciones de envío</string>
 </resources>

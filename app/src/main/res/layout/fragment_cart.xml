@@ -82,7 +82,7 @@
                 android:layout_height="60dp"
                 app:icon="@drawable/ic_arrow_right"
                 app:iconTint="@color/white"
-                android:text="@string/ir_a_pagar"
+                android:text="@string/verificar_compra"
                 style="@style/Widget.SheyStore.Button"
                 android:textColor="@color/white"
                 app:iconGravity="textEnd"

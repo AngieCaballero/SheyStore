@@ -9,9 +9,11 @@ import com.angiedev.sheystore.data.model.remote.response.CartResponse
 import com.angiedev.sheystore.data.model.remote.response.CartValueResponse
 import com.angiedev.sheystore.data.model.remote.response.DocumentCartResponse
 import com.angiedev.sheystore.data.model.remote.response.DocumentResponse
+import com.angiedev.sheystore.data.model.remote.response.DocumentShippingAddressResponse
 import com.angiedev.sheystore.data.model.remote.response.MapValueResponse
 import com.angiedev.sheystore.data.model.remote.response.ProductDetailsResponse
 import com.angiedev.sheystore.data.model.remote.response.ProductResponse
+import com.angiedev.sheystore.data.model.remote.response.ShippingAddressValueResponse
 import com.angiedev.sheystore.data.model.remote.response.SignInResponse
 import com.angiedev.sheystore.data.model.remote.response.SignUpResponse
 import com.angiedev.sheystore.data.model.remote.response.SpecialsOffersResponse
@@ -98,4 +100,17 @@ class ApiDataSource @Inject constructor(
             )
         )
         .execute<DocumentCartResponse>()
+
+    suspend fun getShippingAddress(documentId: String) = service.safeRequest(endpoint = "shipping_address/$documentId/")
+        .withMethod(HttpMethod.GET)
+        .execute<DocumentShippingAddressResponse>()
+
+    suspend fun patchShippingAddress(documentId: String, body: ShippingAddressValueResponse) = service.safeRequest(endpoint = "shipping_address/$documentId/")
+        .withMethod(HttpMethod.PATCH)
+        .withBody(
+            mapOf(
+                "fields" to body
+            )
+        )
+        .execute<DocumentShippingAddressResponse>()
 }

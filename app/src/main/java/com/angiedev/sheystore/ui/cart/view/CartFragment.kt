@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.angiedev.sheystore.R
 import com.angiedev.sheystore.data.entities.CartEntity
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
@@ -34,6 +35,14 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), CartItemListener {
         super.createView(view, savedInstanceState)
         setupCartAdapter()
         cartViewModel.getCartItems(userDataViewModel.readValue(PreferencesKeys.EMAIL).orEmpty())
+    }
+
+    override fun setListeners() {
+        with(binding) {
+            fragmentCartCheckout.setOnClickListener {
+                findNavController().navigate(CartFragmentDirections.actionCartFragmentToCheckoutFragment())
+            }
+        }
     }
 
     override fun setObservers() {

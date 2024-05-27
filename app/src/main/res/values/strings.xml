@@ -57,4 +57,8 @@
     <string name="continuar_con_el_pago">Continuar con el Pago</string>
     <string name="ooops_al_parecer_no_tienes_direcciones_de_entrega">¡Ooops! Al parecer no tienes direcciones de envío</string>
     <string name="agregar_nueva_direcci_n">Agregar nueva dirección</string>
+    <string name="detalles_de_la_direcci_n">Detalles de la dirección</string>
+    <string name="nombre_de_la_direcci_n">Nombre de la dirección</string>
+    <string name="hacer_esta_como_la_direcci_n_predeterminada">Hacer esta como la dirección predeterminada</string>
+    <string name="agregar">Agregar</string>
 </resources>

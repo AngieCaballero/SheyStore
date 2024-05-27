@@ -21,6 +21,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.maps.android.ktx.awaitMap
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -34,6 +35,7 @@ class AddNewAddressFragment : BaseFragment<FragmentAddNewAddressBinding>() {
     private var focusedLocationProvider: FusedLocationProviderClient? = null
     private var supportMapFragment: SupportMapFragment? = null
     private var googleMap: GoogleMap? = null
+    private var bottomSheetBehavior: BottomSheetBehavior<*>? = null
 
     private val requestReadImagesPermission =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -46,6 +48,7 @@ class AddNewAddressFragment : BaseFragment<FragmentAddNewAddressBinding>() {
 
     override fun createView(view: View, savedInstanceState: Bundle?) {
         super.createView(view, savedInstanceState)
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.fragmentAddNewBottomSheet.root)
         getGoogleMap()
     }
 
@@ -57,6 +60,7 @@ class AddNewAddressFragment : BaseFragment<FragmentAddNewAddressBinding>() {
             requestReadImagesPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
     }
+
 
     private fun getCurrentLocation() {
         focusedLocationProvider = LocationServices.getFusedLocationProviderClient(requireContext())
@@ -92,6 +96,17 @@ class AddNewAddressFragment : BaseFragment<FragmentAddNewAddressBinding>() {
             fragmentAddNewAddressToolbar.setNavigationOnClickListener {
                 findNavController().popBackStack()
             }
+
+            bottomSheetBehavior?.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback(){
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+
+                }
+
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
+                }
+
+            })
         }
     }
 

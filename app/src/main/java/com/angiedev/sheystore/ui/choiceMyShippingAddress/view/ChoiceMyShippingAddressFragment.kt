@@ -43,6 +43,10 @@ class ChoiceMyShippingAddressFragment : BaseFragment<FragmentChoiceMyShippingAdd
                 )
             }
 
+            fragmentChoiceMyShippingNewAddress.setOnClickListener {
+                findNavController().navigate(ChoiceMyShippingAddressFragmentDirections.actionChoiceMyShippingAddressFragmentToAddNewAddressFragment())
+            }
+
             fragmentChoiceMyShippingAddressToolbar.setNavigationOnClickListener {
                 findNavController().popBackStack()
             }

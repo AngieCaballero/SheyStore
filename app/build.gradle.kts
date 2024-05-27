@@ -6,7 +6,8 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.gms.google-services")
-    id ("kotlin-parcelize")
+    id("kotlin-parcelize")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -51,6 +52,22 @@ android {
             enable = true
         }
     }
+
+    secrets {
+        // Optionally specify a different file name containing your secrets.
+        // The plugin defaults to "local.properties"
+        propertiesFileName = "secrets.properties"
+
+        // A properties file containing default secret values. This file can be
+        // checked in version control.
+        defaultPropertiesFileName = "local.defaults.properties"
+
+        // Configure which keys should be ignored by the plugin by providing regular expressions.
+        // "sdk.dir" is ignored by default.
+        ignoreList.add("keyToIgnore") // Ignore the key "keyToIgnore"
+        ignoreList.add("sdk.*")       // Ignore all keys matching the regexp "sdk.*"
+    }
+
 }
 
 dependencies {
@@ -72,6 +89,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 
     implementation("com.google.dagger:hilt-android:2.51")
+    implementation("com.google.android.gms:play-services-location:21.2.0")
     kapt("com.google.dagger:hilt-android-compiler:2.51")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -102,6 +120,9 @@ dependencies {
     implementation("com.squareup.moshi:moshi:1.15.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
+
+    implementation("com.google.maps.android:maps-ktx:5.0.0")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/shape_white_bottom_sheet_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="60dp"
+    android:paddingBottom="30dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="50dp"
+        android:layout_height="4dp"
+        android:layout_marginTop="8dp"
+        app:strokeWidth="0dp"
+        app:cardForegroundColor="@color/color_primary_variant"
+        android:layout_gravity="center_horizontal"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceHeadline6"
+        android:text="@string/detalles_de_la_direcci_n"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_primary_variant"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:layout_marginHorizontal="20dp"
+        android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceSubtitle1"
+        android:text="@string/nombre_de_la_direcci_n"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/bottom_sheet_add_new_name_address_input_layout"
+        style="@style/TextInputLayout.Outline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="6dp"
+        app:boxStrokeWidth="0dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/bottom_sheet_add_new_name_address_edit_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:layout_marginHorizontal="20dp"
+        android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceSubtitle1"
+        android:text="@string/detalles_de_la_direcci_n"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/bottom_sheet_add_new_details_address_input_layout"
+        style="@style/TextInputLayout.Outline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="6dp"
+        app:boxStrokeWidth="0dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/bottom_sheet_add_new_detail_address_edit_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/bottom_sheet_add_new_mark_as_default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceCaption"
+        android:layout_marginHorizontal="16dp"
+        android:text="@string/hacer_esta_como_la_direcci_n_predeterminada"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bottom_sheet_add_new_accept_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:iconTint="@color/white"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="20dp"
+        android:text="@string/agregar"
+        style="@style/Widget.SheyStore.Button"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/black"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

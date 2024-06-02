@@ -27,5 +27,14 @@
         android:id="@+id/choiceMyShippingAddressFragment"
         android:name="com.angiedev.sheystore.ui.choiceMyShippingAddress.view.ChoiceMyShippingAddressFragment"
         android:label="fragment_choice_my_shipping_address"
-        tools:layout="@layout/fragment_choice_my_shipping_address" />
+        tools:layout="@layout/fragment_choice_my_shipping_address" >
+        <action
+            android:id="@+id/action_choiceMyShippingAddressFragment_to_addNewAddressFragment"
+            app:destination="@id/addNewAddressFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewAddressFragment"
+        android:name="com.angiedev.sheystore.ui.addNewAddress.view.AddNewAddressFragment"
+        android:label="fragment_add_new_address"
+        tools:layout="@layout/fragment_add_new_address" />
 </navigation>

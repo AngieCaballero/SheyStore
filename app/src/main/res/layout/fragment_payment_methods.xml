@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F8F8"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.paymentMethods.view.PaymentMethodsFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/payment_methods_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="9dp"
+        android:translationZ="90dp"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/payment_methods_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:title="Métodos de Pago"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            android:background="@android:color/transparent"
+            app:titleTextAppearance="@style/TextAppearance.SheyStore.textAppearanceSubtitle1" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/payment_methods_cards"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        tools:itemCount="4"
+        tools:listitem="@layout/item_payment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/payment_methods_app_bar"
+        app:layout_constraintBottom_toTopOf="@id/payment_methods_button_add"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/payment_methods_button_add"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:text="@string/agregar_nueva_tarjeta"
+        style="@style/Widget.SheyStore.Button"
+        android:textColor="@color/white"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/black"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

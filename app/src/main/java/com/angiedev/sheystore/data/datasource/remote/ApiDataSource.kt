@@ -11,6 +11,7 @@ import com.angiedev.sheystore.data.model.remote.response.ProductDetailsResponse
 import com.angiedev.sheystore.data.model.remote.response.ProductResponse
 import com.angiedev.sheystore.data.model.remote.response.ShippingAddressValueResponse
 import com.angiedev.sheystore.data.model.remote.response.SpecialsOffersResponse
+import com.angiedev.sheystore.data.model.remote.response.dto.category.CategoryResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.specialsOffers.SpecialOfferResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.user.SignInResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.user.SignUpResponseDTO
@@ -75,7 +76,7 @@ class ApiDataSource @Inject constructor(
 
     suspend fun getCategories() = service.safeRequest(endpoint = "category/")
         .withMethod(HttpMethod.GET)
-        .execute<CollectionResponse<CategoryResponse>>()
+        .execute<CategoryResponseDTO>()
 
     suspend fun getProducts() = service.safeRequest(endpoint = "product/")
         .withMethod(HttpMethod.GET)

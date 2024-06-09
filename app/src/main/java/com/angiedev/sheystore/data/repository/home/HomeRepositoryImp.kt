@@ -1,11 +1,9 @@
 package com.angiedev.sheystore.data.repository.home
 
 import com.angiedev.sheystore.data.datasource.remote.ApiDataSource
-import com.angiedev.sheystore.data.entities.CategoryEntity
+import com.angiedev.sheystore.data.model.domain.entities.category.CategoryEntity
 import com.angiedev.sheystore.data.model.domain.entities.specialsOffers.SpecialOfferEntity
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
-import com.angiedev.sheystore.data.util.parseArray
-import com.google.gson.Gson
 import javax.inject.Inject
 
 class HomeRepositoryImp @Inject constructor(
@@ -32,10 +30,10 @@ class HomeRepositoryImp @Inject constructor(
         val response = apiDataSource.getCategories()
 
         return if (response.isSuccess) {
-            val data = response.getOrNull()?.documents?.map {
-                CategoryEntity(parseArray(Gson().toJson(it.fields)))
-            }?.toMutableList()
-            ApiResponse.Success(data = data.orEmpty())
+            val data = response.getOrNull()?.data?.map {
+                CategoryEntity(it)
+            }.orEmpty()
+            ApiResponse.Success(data = data)
         } else {
             ApiResponse.Error(response.exceptionOrNull())
         }

@@ -1,6 +1,6 @@
 package com.angiedev.sheystore.ui.utils
 
-import com.angiedev.sheystore.data.entities.ProductEntity
+import com.angiedev.sheystore.data.model.domain.entities.product.ProductEntity
 
 class QuerySelector {
     data class Builder (
@@ -18,7 +18,7 @@ class QuerySelector {
 
         fun build() : List<ProductEntity> {
             val newList = listToFilter.filter {
-                it.category.contains(category) || it.rate.contains(rating) || it.price >= minPrice.toDouble() && it.price <= maxPrice.toDouble()
+                it.category.name.contains(category) || it.rate.contains(rating) || it.price >= minPrice.toDouble() && it.price <= maxPrice.toDouble()
             }
             return newList
         }

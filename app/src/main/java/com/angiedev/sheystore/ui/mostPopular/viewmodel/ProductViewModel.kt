@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.angiedev.sheystore.data.entities.CartEntity
 import com.angiedev.sheystore.data.entities.ProductDetailsEntity
-import com.angiedev.sheystore.data.entities.ProductEntity
+import com.angiedev.sheystore.data.model.domain.entities.product.ProductEntity
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.data.repository.cart.ICartRepository
 import com.angiedev.sheystore.data.repository.product.IProductRepository
@@ -46,7 +46,7 @@ class ProductViewModel @Inject constructor(
         }
     }
 
-    fun getProductDetails(productId: String) {
+    fun getProductDetails(productId: Int) {
         runBlocking(Dispatchers.IO) {
             val response = productRepository.getProductDetails(productId)
             _productDetails.postValue(response)
@@ -61,7 +61,7 @@ class ProductViewModel @Inject constructor(
         var items = productList
         if (query != "Todo" && query.isNotBlank()) {
             items = items.filter {
-                it.category.contains(query)
+                it.category.name.contains(query)
             }
         }
         _filteredProducts.postValue(items)

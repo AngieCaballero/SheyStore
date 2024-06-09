@@ -9,9 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.angiedev.sheystore.R
-import com.angiedev.sheystore.data.entities.ProductEntity
 import com.angiedev.sheystore.data.model.domain.ScreenProducts
 import com.angiedev.sheystore.data.model.domain.entities.category.CategoryEntity
+import com.angiedev.sheystore.data.model.domain.entities.product.ProductEntity
 import com.angiedev.sheystore.data.model.domain.entities.specialsOffers.SpecialOfferEntity
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentHomeBinding

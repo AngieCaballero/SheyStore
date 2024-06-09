@@ -2,7 +2,7 @@ package com.angiedev.sheystore.data.repository.product
 
 import com.angiedev.sheystore.data.datasource.remote.ApiDataSource
 import com.angiedev.sheystore.data.entities.ProductDetailsEntity
-import com.angiedev.sheystore.data.entities.ProductEntity
+import com.angiedev.sheystore.data.model.domain.entities.product.ProductEntity
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.data.model.remote.response.DocumentResponse
 import com.angiedev.sheystore.data.model.remote.response.ProductDetailsResponse
@@ -18,16 +18,16 @@ class ProductRepositoryResponseImp @Inject constructor(
         val response = apiDataSource.getProducts()
 
         return if (response.isSuccess) {
-            val data = response.getOrNull()?.documents?.map {
-                ProductEntity(parseArray(Gson().toJson(it.fields)))
-            }
-            ApiResponse.Success(data = data.orEmpty())
+            val data = response.getOrNull()?.data?.map {
+                ProductEntity(it)
+            }.orEmpty()
+            ApiResponse.Success(data = data)
         } else {
             ApiResponse.Error(response.exceptionOrNull())
         }
     }
 
-    override suspend fun getProductDetails(productId: String): ApiResponse<ProductDetailsEntity> {
+    override suspend fun getProductDetails(productId: Int): ApiResponse<ProductDetailsEntity> {
         val response = apiDataSource.getProductDetails(productId)
         return try {
             if (response.isSuccess) {

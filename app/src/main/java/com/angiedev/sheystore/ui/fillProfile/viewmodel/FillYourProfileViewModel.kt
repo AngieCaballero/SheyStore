@@ -2,14 +2,9 @@ package com.angiedev.sheystore.ui.fillProfile.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.angiedev.sheystore.data.model.remote.request.CreateUserFields
-import com.angiedev.sheystore.data.model.remote.response.StringResponse
 import com.angiedev.sheystore.data.model.remote.response.dto.user.UserDTO
-import com.angiedev.sheystore.data.repository.auth.AuthenticationRepositoryImp
 import com.angiedev.sheystore.data.repository.auth.IAuthenticationRepository
-import com.angiedev.sheystore.data.repository.datastorage.IDataStoragePreferences
 import com.angiedev.sheystore.data.util.AuthResource
-import com.angiedev.sheystore.ui.utils.constant.PreferencesKeys
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking

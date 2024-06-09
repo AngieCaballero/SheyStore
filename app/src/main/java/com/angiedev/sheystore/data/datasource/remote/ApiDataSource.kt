@@ -2,7 +2,6 @@ package com.angiedev.sheystore.data.datasource.remote
 
 import android.content.Context
 import com.angiedev.sheystore.data.model.remote.response.CartValueResponse
-import com.angiedev.sheystore.data.model.remote.response.CategoryResponse
 import com.angiedev.sheystore.data.model.remote.response.CollectionResponse
 import com.angiedev.sheystore.data.model.remote.response.DocumentCartResponse
 import com.angiedev.sheystore.data.model.remote.response.DocumentResponse
@@ -10,8 +9,8 @@ import com.angiedev.sheystore.data.model.remote.response.DocumentShippingAddress
 import com.angiedev.sheystore.data.model.remote.response.ProductDetailsResponse
 import com.angiedev.sheystore.data.model.remote.response.ProductResponse
 import com.angiedev.sheystore.data.model.remote.response.ShippingAddressValueResponse
-import com.angiedev.sheystore.data.model.remote.response.SpecialsOffersResponse
 import com.angiedev.sheystore.data.model.remote.response.dto.category.CategoryResponseDTO
+import com.angiedev.sheystore.data.model.remote.response.dto.product.ProductResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.specialsOffers.SpecialOfferResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.user.SignInResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.user.SignUpResponseDTO
@@ -80,9 +79,9 @@ class ApiDataSource @Inject constructor(
 
     suspend fun getProducts() = service.safeRequest(endpoint = "product/")
         .withMethod(HttpMethod.GET)
-        .execute<CollectionResponse<ProductResponse>>()
+        .execute<ProductResponseDTO>()
 
-    suspend fun getProductDetails(productId: String) = service.safeRequest(endpoint = "product_details/$productId/")
+    suspend fun getProductDetails(productId: Int) = service.safeRequest(endpoint = "product_details/$productId/")
         .withMethod(HttpMethod.GET)
         .execute<DocumentResponse<ProductDetailsResponse>>()
 

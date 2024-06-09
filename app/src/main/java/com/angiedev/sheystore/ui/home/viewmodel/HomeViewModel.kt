@@ -2,8 +2,8 @@ package com.angiedev.sheystore.ui.home.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.angiedev.sheystore.data.entities.ProductEntity
 import com.angiedev.sheystore.data.model.domain.entities.category.CategoryEntity
+import com.angiedev.sheystore.data.model.domain.entities.product.ProductEntity
 import com.angiedev.sheystore.data.model.domain.entities.specialsOffers.SpecialOfferEntity
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.data.repository.home.IHomeRepository
@@ -48,7 +48,7 @@ class HomeViewModel @Inject constructor(
             filteredList.postValue(originalList)
             return
         }
-        val filter = originalList.filter { it.category == query }
+        val filter = originalList.filter { it.category.name == query }
         filteredList.postValue(filter)
     }
 

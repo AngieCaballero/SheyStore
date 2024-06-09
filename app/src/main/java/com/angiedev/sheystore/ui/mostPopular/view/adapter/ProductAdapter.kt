@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.angiedev.sheystore.R
-import com.angiedev.sheystore.data.entities.ProductEntity
+import com.angiedev.sheystore.data.model.domain.entities.product.ProductEntity
 import com.angiedev.sheystore.databinding.ItemProductBinding
 import com.angiedev.sheystore.ui.product.adapter.ProductItemListener
 import com.bumptech.glide.Glide
@@ -40,7 +40,7 @@ class ProductAdapter(
 
         fun render(productEntity: ProductEntity) {
             with(binding) {
-                itemProductCategory.text = productEntity.category
+                itemProductCategory.text = productEntity.category.name
                 itemProductName.text = productEntity.name
                 itemProductPrice.text = productEntity.price.toString()
                 itemProductRate.text = productEntity.rate

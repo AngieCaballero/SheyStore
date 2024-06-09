@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.angiedev.sheystore.data.model.remote.request.CreateUserFields
 import com.angiedev.sheystore.data.model.remote.response.StringResponse
+import com.angiedev.sheystore.data.model.remote.response.dto.user.UserDTO
 import com.angiedev.sheystore.data.repository.auth.AuthenticationRepositoryImp
 import com.angiedev.sheystore.data.repository.auth.IAuthenticationRepository
 import com.angiedev.sheystore.data.repository.datastorage.IDataStoragePreferences
@@ -27,20 +28,20 @@ class FillYourProfileViewModel @Inject constructor(
         phone: String,
         gender: String,
         roleId: String,
-        email: String,
-        photo: String
+        photo: String,
+        userId: Int
     ) {
         runBlocking(Dispatchers.IO) {
             val response = authenticationRepository.saveUserProfileData(
-                createUserFields = CreateUserFields(
-                    fullName = StringResponse(fullName),
-                    username = StringResponse(username),
-                    phone = StringResponse(phone),
-                    gender = StringResponse(gender),
-                    role = StringResponse(roleId),
-                    photo = StringResponse(photo)
+                userDTO = UserDTO(
+                    fullName = fullName,
+                    username = username,
+                    phone = phone,
+                    gender = gender,
+                    role = roleId,
+                    photo = photo
                 ),
-                email = email
+                userId = userId
             )
 
             _userSavedSuccessfully.postValue(response)

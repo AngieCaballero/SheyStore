@@ -25,7 +25,7 @@ object NetworkModule {
     @NetworkingBaseUrl
     @Singleton
     @Provides
-    fun provideBaseUrl(): URL = URL("https://firestore.googleapis.com/v1/projects/sheystore-d7393/databases/(default)/documents/")
+    fun provideBaseUrl(): URL = URL("http://192.168.2.102:3001/")
 
     @NetworkingOkHttp
     @Singleton

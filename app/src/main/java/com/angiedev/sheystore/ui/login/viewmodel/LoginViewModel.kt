@@ -1,18 +1,11 @@
 package com.angiedev.sheystore.ui.login.viewmodel
 
-import android.content.Intent
-import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.angiedev.sheystore.data.model.remote.response.SignUpResponse
 import com.angiedev.sheystore.data.util.AuthResource
 import com.angiedev.sheystore.data.repository.auth.IAuthenticationRepository
 import com.angiedev.sheystore.ui.utils.extension.validatePassword
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -44,19 +37,19 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun signInWithEmailAndPassword(username: String, password: String, timeSession: Long) {
+    private fun signInWithEmailAndPassword(username: String, password: String) {
         viewModelScope.launch {
             val response = authenticationRepository.signInWithEmailAndPassword(
-                username, password, timeSession
+                username, password
             )
             _sigInWithEmailAndPassword.postValue(response)
         }
     }
 
-    private fun createUserWithEmailAndPassword(username: String, password: String, timeSession: Long) {
+    private fun createUserWithEmailAndPassword(username: String, password: String) {
         viewModelScope.launch {
             val response = authenticationRepository.createUserWithEmailAndPassword(
-                username, password, timeSession
+                username, password
             )
             _createUserWithEmailAndPassword.postValue(response)
         }
@@ -72,8 +65,7 @@ class LoginViewModel @Inject constructor(
     fun validateCredentials(
         usernameToValidate: String,
         passwordToValidate: String,
-        isSignInUser: Boolean,
-        timeSession: Long
+        isSignInUser: Boolean
     ) {
         when {
             usernameToValidate.isEmpty() && !passwordToValidate.validatePassword() -> {
@@ -90,9 +82,9 @@ class LoginViewModel @Inject constructor(
                 password.postValue("")
                 username.postValue("")
                 if (isSignInUser) {
-                    signInWithEmailAndPassword(usernameToValidate, passwordToValidate, timeSession)
+                    signInWithEmailAndPassword(usernameToValidate, passwordToValidate)
                 } else {
-                    createUserWithEmailAndPassword(usernameToValidate, passwordToValidate, timeSession)
+                    createUserWithEmailAndPassword(usernameToValidate, passwordToValidate)
                 }
             }
         }

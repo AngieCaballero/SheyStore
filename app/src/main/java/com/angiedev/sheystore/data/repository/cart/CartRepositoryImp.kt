@@ -16,7 +16,7 @@ class CartRepositoryImp @Inject constructor(
 
         return if (response.isSuccess) {
             val data = response.getOrNull()?.fields?.toCartEntityList().orEmpty()
-            ApiResponse.Success(data)
+            ApiResponse.Success(data = data)
         } else {
             ApiResponse.Error(response.exceptionOrNull())
         }
@@ -30,7 +30,7 @@ class CartRepositoryImp @Inject constructor(
 
         return if(response.isSuccess) {
             val data = response.getOrNull()?.fields?.toCartEntityList().orEmpty()
-            ApiResponse.Success(data)
+            ApiResponse.Success(data = data)
         } else {
             ApiResponse.Error(response.exceptionOrNull())
         }
@@ -41,7 +41,7 @@ class CartRepositoryImp @Inject constructor(
 
         return if (response.isSuccess) {
             val data = response.getOrNull()?.fields?.toShippingAddressEntityList().orEmpty()
-            ApiResponse.Success(data)
+            ApiResponse.Success(data = data)
         } else {
             ApiResponse.Error(response.exceptionOrNull())
         }
@@ -55,7 +55,7 @@ class CartRepositoryImp @Inject constructor(
 
         return if (response.isSuccess) {
             val data = response.getOrNull()?.fields?.toShippingAddressEntityList().orEmpty()
-            ApiResponse.Success(data)
+            ApiResponse.Success(data = data)
         } else {
             ApiResponse.Error(response.exceptionOrNull())
         }

@@ -21,7 +21,7 @@ class ProductRepositoryResponseImp @Inject constructor(
             val data = response.getOrNull()?.documents?.map {
                 ProductEntity(parseArray(Gson().toJson(it.fields)))
             }
-            ApiResponse.Success(data.orEmpty())
+            ApiResponse.Success(data = data.orEmpty())
         } else {
             ApiResponse.Error(response.exceptionOrNull())
         }
@@ -33,7 +33,7 @@ class ProductRepositoryResponseImp @Inject constructor(
             if (response.isSuccess) {
                 val data = response.getOrNull()
                 val productDetailsResponse = parseArray<DocumentResponse<ProductDetailsResponse>>(Gson().toJson(data))
-                ApiResponse.Success(ProductDetailsEntity(productDetailsResponse.fields, data?.name))
+                ApiResponse.Success(data = ProductDetailsEntity(productDetailsResponse.fields, data?.name))
             } else {
                 ApiResponse.Error(response.exceptionOrNull())
             }

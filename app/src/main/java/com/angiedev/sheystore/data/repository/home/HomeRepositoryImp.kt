@@ -20,7 +20,7 @@ class HomeRepositoryImp @Inject constructor(
             val data = response.getOrNull()?.documents?.map {
                 SpecialsOffersEntity(parseArray(Gson().toJson(it.fields)))
             }
-            ApiResponse.Success(data.orEmpty())
+            ApiResponse.Success(data = data.orEmpty())
         } else {
             // Return Exceptions
             ApiResponse.Error(response.exceptionOrNull())
@@ -35,7 +35,7 @@ class HomeRepositoryImp @Inject constructor(
             val data = response.getOrNull()?.documents?.map {
                 CategoryEntity(parseArray(Gson().toJson(it.fields)))
             }?.toMutableList()
-            ApiResponse.Success(data.orEmpty())
+            ApiResponse.Success(data = data.orEmpty())
         } else {
             ApiResponse.Error(response.exceptionOrNull())
         }

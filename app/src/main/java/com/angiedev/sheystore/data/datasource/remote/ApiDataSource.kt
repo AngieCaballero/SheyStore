@@ -1,24 +1,20 @@
 package com.angiedev.sheystore.data.datasource.remote
 
 import android.content.Context
+import com.angiedev.sheystore.data.model.remote.response.CartValueResponse
 import com.angiedev.sheystore.data.model.remote.response.CategoryResponse
 import com.angiedev.sheystore.data.model.remote.response.CollectionResponse
-import com.angiedev.sheystore.data.model.remote.request.CreateUserFields
-import com.angiedev.sheystore.data.model.remote.response.ArrayResponse
-import com.angiedev.sheystore.data.model.remote.response.CartResponse
-import com.angiedev.sheystore.data.model.remote.response.CartValueResponse
 import com.angiedev.sheystore.data.model.remote.response.DocumentCartResponse
 import com.angiedev.sheystore.data.model.remote.response.DocumentResponse
 import com.angiedev.sheystore.data.model.remote.response.DocumentShippingAddressResponse
-import com.angiedev.sheystore.data.model.remote.response.MapValueResponse
 import com.angiedev.sheystore.data.model.remote.response.ProductDetailsResponse
 import com.angiedev.sheystore.data.model.remote.response.ProductResponse
 import com.angiedev.sheystore.data.model.remote.response.ShippingAddressValueResponse
-import com.angiedev.sheystore.data.model.remote.response.SignInResponse
-import com.angiedev.sheystore.data.model.remote.response.SignUpResponse
 import com.angiedev.sheystore.data.model.remote.response.SpecialsOffersResponse
-import com.angiedev.sheystore.data.model.remote.response.StringResponse
-import com.angiedev.sheystore.data.model.remote.response.UserResponse
+import com.angiedev.sheystore.data.model.remote.response.dto.user.SignInResponseDTO
+import com.angiedev.sheystore.data.model.remote.response.dto.user.SignUpResponseDTO
+import com.angiedev.sheystore.data.model.remote.response.dto.user.UserDTO
+import com.angiedev.sheystore.data.model.remote.response.dto.user.UserResponseDTO
 import com.kmc.networking.HttpMethod
 import com.kmc.networking.NetworkCaller
 import com.kmc.networking.safeRequest
@@ -33,20 +29,19 @@ class ApiDataSource @Inject constructor(
 
     /*Log in request*/
     suspend fun createAccount(email: String, password: String) = service.safeRequest(
-        endpoint = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAFv5UYUlZuPZxQJB9XKkVm4mwcjHmUx64"
+        endpoint = "auth/register/"
     )
         .withMethod(HttpMethod.POST)
         .withBody(
             mapOf(
                 "email" to email,
-                "password" to password,
-                "returnSecureToken" to true
+                "password" to password
             )
         )
-        .execute<SignUpResponse>()
+        .execute<SignUpResponseDTO>()
 
     suspend fun signInWithPassword(email: String, password: String) = service.safeRequest(
-        endpoint = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAFv5UYUlZuPZxQJB9XKkVm4mwcjHmUx64"
+        endpoint = "auth/login/"
     )
         .withMethod(HttpMethod.POST)
         .withBody(
@@ -56,20 +51,22 @@ class ApiDataSource @Inject constructor(
                 "returnSecureToken" to true
             )
         )
-        .execute<SignInResponse>()
+        .execute<SignInResponseDTO>()
 
-    suspend fun saveUserProfileData(email: String, createUserFields: CreateUserFields) = service.safeRequest(endpoint = "users?documentId=${email}")
-        .withMethod(HttpMethod.POST)
+    suspend fun saveUserProfileData(userId: Int, userDTO: UserDTO) = service.safeRequest(endpoint = "users/${userId}")
+        .withMethod(HttpMethod.PATCH)
         .withBody(
             mapOf(
-                "fields" to createUserFields
+                "full_name" to userDTO.fullName,
+                "username" to userDTO.username,
+                "role" to userDTO.role,
+                "phone" to userDTO.phone,
+                "photo" to userDTO.photo,
+                "gender" to userDTO.gender
             )
         )
-        .execute<DocumentResponse<UserResponse>>()
+        .execute<UserResponseDTO>()
 
-    suspend fun fetchUserByDocumentId(email: String) = service.safeRequest(endpoint = "users/$email/")
-        .withMethod(HttpMethod.GET)
-        .execute<DocumentResponse<UserResponse>>()
 
     suspend fun getSpecialsOffers() = service.safeRequest(endpoint = "specials_offers/")
         .withMethod(HttpMethod.GET)

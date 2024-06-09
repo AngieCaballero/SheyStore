@@ -157,7 +157,7 @@ class FillYourProfileFragment : BaseFragment<FragmentFillYourProfileBinding>() {
                        gender = genderSelected,
                        roleId = roleSelected,
                        photo = downloadImageUrl,
-                       email = fillYourProfileTextInputEditEmail.text.toString()
+                       userDataViewModel.readValue(PreferencesKeys.USER_ID) ?: 0
                    )
                }
             }

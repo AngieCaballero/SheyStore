@@ -2,51 +2,41 @@ package com.angiedev.sheystore.data.repository.auth
 
 import com.angiedev.sheystore.data.datasource.local.DataStoreManager
 import com.angiedev.sheystore.data.datasource.remote.ApiDataSource
-import com.angiedev.sheystore.data.entities.UserEntity
-import com.angiedev.sheystore.data.model.remote.request.CreateUserFields
-import com.angiedev.sheystore.data.model.remote.response.DocumentResponse
-import com.angiedev.sheystore.data.model.remote.response.StringResponse
-import com.angiedev.sheystore.data.model.remote.response.UserResponse
+import com.angiedev.sheystore.data.model.domain.entities.user.UserEntity
+import com.angiedev.sheystore.data.model.domain.entities.user.SignInEntity
+import com.angiedev.sheystore.data.model.domain.entities.user.UseSignUpEntity
+import com.angiedev.sheystore.data.model.remote.response.dto.user.UserDTO
 import com.angiedev.sheystore.data.util.AuthResource
-import com.angiedev.sheystore.data.util.parseArray
 import com.angiedev.sheystore.ui.utils.constant.PreferencesKeys
-import com.angiedev.sheystore.ui.utils.extension.getHours
-import com.google.firebase.auth.FirebaseAuth
-import com.google.gson.Gson
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class AuthenticationRepositoryImp @Inject constructor(
     private val dataStoreManager: DataStoreManager,
-    private val firebaseAuth: FirebaseAuth,
     private val apiDataSource: ApiDataSource
 ) : IAuthenticationRepository {
 
     override suspend fun isAuthenticate(currentTime: Long): Boolean {
         var isAuthenticated = ""
-        var timeSession = -1L
         dataStoreManager.readValue(PreferencesKeys.TOKEN) {
             isAuthenticated = this
         }
-        dataStoreManager.readValue(PreferencesKeys.TIME_SESSION) {
-            timeSession = this
-        }
-        val hoursSession = currentTime.getHours(timeSession)
-        return isAuthenticated.isNotBlank() && hoursSession < 1
+        return isAuthenticated.isNotBlank()
     }
 
     override suspend fun createUserWithEmailAndPassword(
         email: String,
-        password: String,
-        timeSession: Long
+        password: String
     ): AuthResource<Boolean> {
         val authResult = apiDataSource.createAccount(email, password)
         val responseData = authResult.getOrNull()
 
         return if (authResult.isSuccess && responseData != null) {
-            dataStoreManager.storeValue(PreferencesKeys.TOKEN, responseData.idToken.toString())
-            dataStoreManager.storeValue(PreferencesKeys.EMAIL, responseData.email.toString())
-            dataStoreManager.storeValue(PreferencesKeys.TIME_SESSION, timeSession)
+            val data = UseSignUpEntity(responseData.data)
+            with(dataStoreManager) {
+                storeValue(PreferencesKeys.USER_ID, data.id)
+                storeValue(PreferencesKeys.TOKEN, data.token)
+                storeValue(PreferencesKeys.EMAIL, data.email)
+            }
             AuthResource.Success(true)
         } else {
             AuthResource.Error(authResult.exceptionOrNull()?.toString() ?: "Ha ocurrido un error al intentar crear la cuenta")
@@ -55,43 +45,27 @@ class AuthenticationRepositoryImp @Inject constructor(
 
     override suspend fun signInWithEmailAndPassword(
         email: String,
-        password: String,
-        timeSession: Long
+        password: String
     ): AuthResource<Boolean> {
         val authResult = apiDataSource.signInWithPassword(email, password)
-        val responseData = authResult.getOrNull()
+        val response = authResult.getOrNull()
+        val responseData = response?.data
 
         return if (authResult.isSuccess && responseData != null) {
-            dataStoreManager.storeValue(PreferencesKeys.TOKEN, responseData.idToken.toString())
-            dataStoreManager.storeValue(PreferencesKeys.EMAIL, responseData.email.toString())
-            dataStoreManager.storeValue(PreferencesKeys.TIME_SESSION, timeSession)
-
-            val createdUserResponse = apiDataSource.fetchUserByDocumentId(responseData.email.orEmpty()).getOrNull()
-            if (createdUserResponse != null) {
-                val createdUser = UserEntity(parseArray<DocumentResponse<UserResponse>>(Gson().toJson(createdUserResponse)).fields)
-                with(dataStoreManager) {
-                    storeValue(PreferencesKeys.ROLE, createdUser.role)
-                    storeValue(PreferencesKeys.USERNAME, createdUser.username)
-                    storeValue(PreferencesKeys.FULL_NAME, createdUser.fullName)
-                    storeValue(PreferencesKeys.PHOTO, createdUser.photo)
-                    storeValue(PreferencesKeys.PHONE, createdUser.phone)
-                }
+            val user = SignInEntity(responseData)
+            with(dataStoreManager) {
+                storeValue(PreferencesKeys.TOKEN, user.token)
+                storeValue(PreferencesKeys.PASSWORD, password)
+                storeValue(PreferencesKeys.EMAIL, user.email)
+                storeValue(PreferencesKeys.ROLE, user.role)
+                storeValue(PreferencesKeys.USERNAME, user.username)
+                storeValue(PreferencesKeys.FULL_NAME, user.fullName)
+                storeValue(PreferencesKeys.PHOTO, user.photo)
+                storeValue(PreferencesKeys.PHONE, user.phone)
             }
-
             AuthResource.Success(true)
         } else {
             AuthResource.Error(authResult.exceptionOrNull()?.toString() ?: "Ha ocurrido un error al intentar ingresar")
-        }
-    }
-
-
-
-    override suspend fun resetPassword(email: String): AuthResource<Unit> {
-        return try {
-            firebaseAuth.sendPasswordResetEmail(email).await()
-            AuthResource.Success(Unit)
-        } catch(e: Exception) {
-            AuthResource.Error(e.message ?: "Error al restablecer la contraseña")
         }
     }
 
@@ -100,21 +74,24 @@ class AuthenticationRepositoryImp @Inject constructor(
     }
 
     override suspend fun saveUserProfileData(
-        createUserFields: CreateUserFields,
-        email: String
+        userDTO: UserDTO,
+        userId: Int
     ): AuthResource<Boolean> {
         val response = apiDataSource.saveUserProfileData(
-            email =  email,
-            createUserFields = createUserFields
+            userId = userId,
+            userDTO = userDTO
         )
-        return if (response.isSuccess) {
-            val createdUser = UserEntity(parseArray<DocumentResponse<UserResponse>>(Gson().toJson(response)).fields)
+        val responseData = response.getOrNull()
+        val userData = responseData?.data
+        return if (response.isSuccess && userData != null) {
+            val user = UserEntity(userData)
             with(dataStoreManager) {
-                storeValue(PreferencesKeys.ROLE, createdUser.role)
-                storeValue(PreferencesKeys.USERNAME, createdUser.username)
-                storeValue(PreferencesKeys.FULL_NAME, createdUser.fullName)
-                storeValue(PreferencesKeys.PHOTO, createdUser.photo)
-                storeValue(PreferencesKeys.PHONE, createdUser.phone)
+                storeValue(PreferencesKeys.ROLE, user.role)
+                storeValue(PreferencesKeys.USERNAME, user.username)
+                storeValue(PreferencesKeys.FULL_NAME, user.fullName)
+                storeValue(PreferencesKeys.GENDER, user.gender)
+                storeValue(PreferencesKeys.PHOTO, user.photo)
+                storeValue(PreferencesKeys.PHONE, user.phone)
             }
             AuthResource.Success(true)
         } else {

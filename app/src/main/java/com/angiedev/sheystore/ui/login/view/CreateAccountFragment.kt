@@ -14,7 +14,6 @@ import com.angiedev.sheystore.ui.login.viewmodel.LoginViewModel
 import com.angiedev.sheystore.ui.utils.extension.validateEmail
 import com.angiedev.sheystore.ui.utils.extension.validatePassword
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Date
 
 @AndroidEntryPoint
 class CreateAccountFragment : BaseFragment<FragmentCreateAccountBinding>() {
@@ -36,8 +35,7 @@ class CreateAccountFragment : BaseFragment<FragmentCreateAccountBinding>() {
                 viewModel.validateCredentials(
                     createAccountEmail.text.toString(),
                     createAccountPassword.text.toString(),
-                    false,
-                    Date().time
+                    false
                 )
             }
 

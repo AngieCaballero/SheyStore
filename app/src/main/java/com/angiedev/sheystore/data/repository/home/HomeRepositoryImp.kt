@@ -2,7 +2,7 @@ package com.angiedev.sheystore.data.repository.home
 
 import com.angiedev.sheystore.data.datasource.remote.ApiDataSource
 import com.angiedev.sheystore.data.entities.CategoryEntity
-import com.angiedev.sheystore.data.entities.SpecialsOffersEntity
+import com.angiedev.sheystore.data.model.domain.entities.specialsOffers.SpecialOfferEntity
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.data.util.parseArray
 import com.google.gson.Gson
@@ -12,15 +12,15 @@ class HomeRepositoryImp @Inject constructor(
     private val apiDataSource: ApiDataSource
 ) : IHomeRepository {
 
-    override suspend fun getSpecialsOffers(): ApiResponse<List<SpecialsOffersEntity>> {
+    override suspend fun getSpecialsOffers(): ApiResponse<List<SpecialOfferEntity>> {
         val response = apiDataSource.getSpecialsOffers()
 
         return if (response.isSuccess) {
             // Retrieve data
-            val data = response.getOrNull()?.documents?.map {
-                SpecialsOffersEntity(parseArray(Gson().toJson(it.fields)))
-            }
-            ApiResponse.Success(data = data.orEmpty())
+            val data = response.getOrNull()?.data?.map {
+                SpecialOfferEntity(it)
+            }.orEmpty()
+            ApiResponse.Success(data)
         } else {
             // Return Exceptions
             ApiResponse.Error(response.exceptionOrNull())

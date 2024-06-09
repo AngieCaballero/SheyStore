@@ -11,8 +11,8 @@ import androidx.navigation.fragment.findNavController
 import com.angiedev.sheystore.R
 import com.angiedev.sheystore.data.entities.CategoryEntity
 import com.angiedev.sheystore.data.entities.ProductEntity
-import com.angiedev.sheystore.data.entities.SpecialsOffersEntity
 import com.angiedev.sheystore.data.model.domain.ScreenProducts
+import com.angiedev.sheystore.data.model.domain.entities.specialsOffers.SpecialOfferEntity
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentHomeBinding
 import com.angiedev.sheystore.databinding.ItemCategoryChipsBinding
@@ -20,7 +20,6 @@ import com.angiedev.sheystore.ui.base.BaseFragment
 import com.angiedev.sheystore.ui.home.SortFilterBottomSheetDialog
 import com.angiedev.sheystore.ui.home.view.adapter.CategoryAdapter
 import com.angiedev.sheystore.ui.home.viewmodel.HomeViewModel
-import com.angiedev.sheystore.ui.main.view.MainActivity
 import com.angiedev.sheystore.ui.mostPopular.view.adapter.ProductAdapter
 import com.angiedev.sheystore.ui.mostPopular.viewmodel.ProductViewModel
 import com.angiedev.sheystore.ui.product.adapter.ProductItemListener
@@ -168,7 +167,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductItemListener {
         binding.fragmentHomeMostPopular.mostPopularChipsGroup.addView(chip.root)
     }
 
-    private fun loadSpecialsOffers(specialsOffers: SpecialsOffersEntity) {
+    private fun loadSpecialsOffers(specialsOffers: SpecialOfferEntity) {
         with(binding.fragmentHomeSpecialsOffers) {
             specialsOffersDiscount.text = specialsOffers.percentDiscount
             specialsOffersTitle.text = specialsOffers.title

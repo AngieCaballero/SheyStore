@@ -6,14 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.angiedev.sheystore.R
-import com.angiedev.sheystore.data.entities.SpecialsOffersEntity
+import com.angiedev.sheystore.data.model.domain.entities.specialsOffers.SpecialOfferEntity
 import com.angiedev.sheystore.databinding.ItemSpecialsOffersBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 class SpecialsOffersAdapter : RecyclerView.Adapter<SpecialsOffersAdapter.SpecialsOffersViewHolder>() {
 
-    private val specialsOffersList = mutableListOf<SpecialsOffersEntity>()
+    private val specialsOffersList = mutableListOf<SpecialOfferEntity>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = SpecialsOffersViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_specials_offers, parent, false)
     )
@@ -24,7 +24,7 @@ class SpecialsOffersAdapter : RecyclerView.Adapter<SpecialsOffersAdapter.Special
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun submitList(newList: List<SpecialsOffersEntity>) {
+    fun submitList(newList: List<SpecialOfferEntity>) {
         specialsOffersList.clear()
         specialsOffersList.addAll(newList)
         notifyDataSetChanged()
@@ -34,7 +34,7 @@ class SpecialsOffersAdapter : RecyclerView.Adapter<SpecialsOffersAdapter.Special
 
         private val binding = ItemSpecialsOffersBinding.bind(view)
 
-        fun render(specialsOffers: SpecialsOffersEntity) {
+        fun render(specialsOffers: SpecialOfferEntity) {
             with(binding) {
                 specialsOffersDiscount.text = specialsOffers.percentDiscount
                 specialsOffersTitle.text = specialsOffers.title

@@ -277,6 +277,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductItemListener {
     }
 
     override fun onClickItem(productEntity: ProductEntity) {
-        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(productEntity.id))
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(productEntity))
     }
 }

@@ -70,7 +70,7 @@
         android:label="fragment_product_details"
         tools:layout="@layout/fragment_product_details" >
 
-        <argument android:name="productId"
-            app:argType="integer"/>
+        <argument android:name="product"
+            app:argType="com.angiedev.sheystore.data.model.domain.entities.product.ProductEntity"/>
     </fragment>
 </navigation>

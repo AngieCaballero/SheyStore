@@ -10,5 +10,7 @@ data class ProductDTO(
     @SerializedName("price") val price: Double?,
     @SerializedName("discount") val discount: Double?,
     @SerializedName("category") val category: CategoryDTO?,
-    @SerializedName("rate") val rate: String?
+    @SerializedName("rate") val rate: String?,
+    @SerializedName("description") val description: String?,
+    @SerializedName("presentation_images") val presentationImages: List<String>?
 )

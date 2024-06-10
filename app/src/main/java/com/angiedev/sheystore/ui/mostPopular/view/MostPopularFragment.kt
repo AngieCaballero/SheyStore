@@ -122,6 +122,6 @@ class MostPopularFragment : BaseFragment<FragmentMostPopularBinding>(), ProductI
     }
 
     override fun onClickItem(productEntity: ProductEntity) {
-        findNavController().navigate(MostPopularFragmentDirections.actionMostPopularFragmentToProductDetailsFragment(productEntity.id))
+        findNavController().navigate(MostPopularFragmentDirections.actionMostPopularFragmentToProductDetailsFragment(productEntity))
     }
 }

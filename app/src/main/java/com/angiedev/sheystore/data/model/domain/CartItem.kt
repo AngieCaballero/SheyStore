@@ -1,6 +1,6 @@
 package com.angiedev.sheystore.data.model.domain
 
-import com.angiedev.sheystore.data.entities.ProductDetailsEntity
+import com.angiedev.sheystore.data.model.domain.entities.product.ProductEntity
 
 data class CartItem (
     val id: String,
@@ -10,11 +10,11 @@ data class CartItem (
     val color: String,
     val quantity: Int
 ) {
-    constructor(productDetailsEntity: ProductDetailsEntity?, totalPrice: String, quantity: Int) : this (
-        id = productDetailsEntity?.documentId.orEmpty(),
-        name = productDetailsEntity?.name.orEmpty(),
+    constructor(productEntity: ProductEntity?, totalPrice: String, quantity: Int) : this (
+        id = productEntity?.id.toString(),
+        name = productEntity?.name.orEmpty(),
         totalPrice = totalPrice,
-        image = productDetailsEntity?.images?.firstOrNull().orEmpty(),
+        image = productEntity?.image.orEmpty(),
         color = "#8E8E8E",
         quantity = quantity
     )

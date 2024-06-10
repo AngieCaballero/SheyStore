@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.angiedev.sheystore.R
 import com.angiedev.sheystore.data.entities.CartEntity
-import com.angiedev.sheystore.data.entities.ProductDetailsEntity
+import com.angiedev.sheystore.data.model.domain.entities.product.ProductEntity
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentProductDetailsBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
@@ -30,14 +30,17 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding>() {
     private val mainViewModel: MainViewModel by activityViewModels()
     private val productDetailsFragmentArgs: ProductDetailsFragmentArgs by navArgs()
     private var quantity = 1
-    private var productDetailsEntity: ProductDetailsEntity? = null
+    private var productDetailsEntity: ProductEntity? = null
 
     override fun getViewBinding() = FragmentProductDetailsBinding.inflate(layoutInflater)
 
     override fun createView(view: View, savedInstanceState: Bundle?) {
         super.createView(view, savedInstanceState)
         mainViewModel.getCartItems(userDataViewModel.readValue(PreferencesKeys.EMAIL).orEmpty())
-        productViewModel.getProductDetails(productDetailsFragmentArgs.productId)
+        productDetailsEntity = productDetailsFragmentArgs.product
+        productDetailsEntity?.let {
+            setupUI(it)
+        }
     }
 
     override fun setListeners() {
@@ -73,22 +76,6 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding>() {
 
     override fun setObservers() {
         super.setObservers()
-        productViewModel.productDetails.observe(viewLifecycleOwner) {
-            when (it) {
-                is ApiResponse.Error -> Toast.makeText(
-                    requireContext(),
-                    it.toString(),
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                ApiResponse.Loading -> {}
-                is ApiResponse.Success -> {
-                    productDetailsEntity = it.data
-                    setupUI(it.data)
-                }
-            }
-        }
-
         productViewModel.cartItems.observe(viewLifecycleOwner) { response ->
             when(response) {
                 is ApiResponse.Error -> Toast.makeText(requireContext(), response.toString(), Toast.LENGTH_SHORT).show()
@@ -102,16 +89,17 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding>() {
         }
     }
 
-    private fun setupUI(data: ProductDetailsEntity) {
+    private fun setupUI(data: ProductEntity) {
         with(binding) {
-            productDetailsCategory.text = data.category
+            productDetailsCategory.text = data.category.name
             productDetailsDescription.text = data.description
             productDetailsName.text = data.name
-            productDetailsRate.text = data.rating
-            productDetailsPrice.text = data.price
-            setupViewPagerImageProducts(data.images)
+            productDetailsRate.text = data.rate
+            productDetailsPrice.text = data.price.toString()
+            setupViewPagerImageProducts(data.presentationImages)
             binding.productDetailsPriceTotal.text = resources.getString(R.string.total_price, String.format(
-                Locale.getDefault(),"%.2f", (data.price.toDoubleOrNull() ?: 0.0)))
+                Locale.getDefault(),"%.2f", data.price
+            ))
         }
     }
 

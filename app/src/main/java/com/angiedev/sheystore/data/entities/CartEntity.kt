@@ -1,6 +1,7 @@
 package com.angiedev.sheystore.data.entities
 
 import android.os.Parcelable
+import com.angiedev.sheystore.data.model.domain.entities.product.ProductEntity
 import com.angiedev.sheystore.data.model.remote.response.CartArrayValuesResponse
 import com.angiedev.sheystore.data.model.remote.response.CartMapResponse
 import com.angiedev.sheystore.data.model.remote.response.CartMapValueResponse
@@ -41,13 +42,13 @@ data class CartEntity(
         totalPrice = cartResponse?.totalPrice?.stringValue.orEmpty()
     )
 
-    constructor(productDetailsEntity: ProductDetailsEntity?, totalPrice: String, quantity: Int) : this (
-        id = productDetailsEntity?.id.orEmpty(),
+    constructor(productDetailsEntity: ProductEntity?, totalPrice: String, quantity: Int) : this (
+        id = productDetailsEntity?.id.toString(),
         color = "#FFFFFF",
-        image = productDetailsEntity?.images?.firstOrNull().orEmpty(),
+        image = productDetailsEntity?.image.orEmpty(),
         name = productDetailsEntity?.name.orEmpty(),
         quantity = quantity.toString(),
-        price = productDetailsEntity?.price.orEmpty(),
+        price = productDetailsEntity?.price.toString(),
         totalPrice = totalPrice
     )
 }

@@ -36,6 +36,12 @@ class CartAdapter (
         notifyDataSetChanged()
     }
 
+    fun removeItem(position: Int) {
+        if (position >= listCartItem.size) return
+        listCartItem.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
     inner class CartViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val binding = ItemCartBinding.bind(view)

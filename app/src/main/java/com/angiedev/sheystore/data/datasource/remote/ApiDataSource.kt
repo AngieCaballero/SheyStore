@@ -4,6 +4,7 @@ import android.content.Context
 import com.angiedev.sheystore.data.model.remote.request.cart.CreateCartItemDTO
 import com.angiedev.sheystore.data.model.remote.response.DocumentShippingAddressResponse
 import com.angiedev.sheystore.data.model.remote.response.ShippingAddressValueResponse
+import com.angiedev.sheystore.data.model.remote.response.dto.cart.CartItemDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.cart.CartResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.category.CategoryResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.product.ProductResponseDTO
@@ -93,6 +94,10 @@ class ApiDataSource @Inject constructor(
             )
         )
         .execute<CartResponseDTO>()
+
+    suspend fun removeProductFromCart(userId: Int, cartItemId: Int) = service.safeRequest(endpoint = "cart/$userId/$cartItemId/")
+        .withMethod(HttpMethod.DELETE)
+        .execute<CartItemDTO>()
 
     suspend fun getShippingAddress(documentId: String) = service.safeRequest(endpoint = "shipping_address/$documentId/")
         .withMethod(HttpMethod.GET)

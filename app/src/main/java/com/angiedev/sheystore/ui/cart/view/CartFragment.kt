@@ -26,10 +26,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class CartFragment : BaseFragment<FragmentCartBinding>(), CartItemListener {
 
-    private val mainViewModel: MainViewModel by activityViewModels()
     private val cartViewModel: CartViewModel by viewModels()
     private val userDataViewModel: UserDataViewModel by viewModels()
     private var cartAdapter: CartAdapter? = null
+    private var itemToRemove = 0
     override fun getViewBinding() = FragmentCartBinding.inflate(layoutInflater)
 
     override fun createView(view: View, savedInstanceState: Bundle?) {
@@ -57,6 +57,16 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), CartItemListener {
                 }
             }
         }
+
+        cartViewModel.deleteCartItem.observe(viewLifecycleOwner) {
+            when(it) {
+                is ApiResponse.Error -> Toast.makeText(requireContext(), "Ha ocurrido un error", Toast.LENGTH_SHORT).show()
+                ApiResponse.Loading -> TODO()
+                is ApiResponse.Success -> {
+                    cartAdapter?.removeItem(itemToRemove)
+                }
+            }
+        }
     }
     private fun setUI(data: List<CartItemEntity>) {
         cartAdapter?.submitList(data)
@@ -74,7 +84,11 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), CartItemListener {
             bundleOf(CART_ITEM to cartItem)
         ).also {
             it.setOnRemoveCartItemListener {
-
+                itemToRemove = position
+                cartViewModel.removeProductFromCart(
+                    userDataViewModel.readValue(PreferencesKeys.USER_ID) ?: 0,
+                    cartItem.id
+                )
             }
         }.show(
             childFragmentManager, "RemoveCartItemBottomSheetDialog"

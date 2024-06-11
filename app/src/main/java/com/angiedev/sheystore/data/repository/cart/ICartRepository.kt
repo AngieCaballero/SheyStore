@@ -10,6 +10,8 @@ interface ICartRepository {
 
     suspend fun addProductToCart(userId: Int, createCartItemDTO: CreateCartItemDTO): ApiResponse<CartEntity>
 
+    suspend fun removeProductFromCart(userId: Int, cartItemId: Int): ApiResponse<Boolean>
+
     suspend fun getShippingAddress(documentId: String) : ApiResponse<List<ShippingAddressEntity>>
 
     suspend fun patchShippingAddress(documentId: String, shippingAddressItems: List<ShippingAddressEntity>) : ApiResponse<List<ShippingAddressEntity>>

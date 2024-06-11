@@ -18,6 +18,9 @@ class CartViewModel @Inject constructor(
     private val _cartItems = MutableLiveData<ApiResponse<CartEntity>>()
     val cartItems get() = _cartItems
 
+    private val _deleteCartItem = MutableLiveData<ApiResponse<Boolean>>()
+    val deleteCartItem get() = _deleteCartItem
+
     fun getCartItems(userId: Int) {
         runBlocking(Dispatchers.IO) {
             val response = cartRepository.getCart(userId)
@@ -25,8 +28,11 @@ class CartViewModel @Inject constructor(
         }
     }
 
-    fun patchCartItems(documentId: String, cartItems: List<CartEntity>) {
-
+    fun removeProductFromCart(userId: Int, cartItemId: Int) {
+        runBlocking(Dispatchers.IO) {
+            val response = cartRepository.removeProductFromCart(userId, cartItemId)
+            _deleteCartItem.postValue(response)
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package com.angiedev.sheystore.ui.cart
 
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.View
 import com.angiedev.sheystore.R
@@ -7,6 +8,7 @@ import com.angiedev.sheystore.data.model.domain.entities.cart.CartItemEntity
 import com.angiedev.sheystore.databinding.BottomSheetRemoveCartItemDialogBinding
 import com.angiedev.sheystore.ui.base.BaseBottomSheetDialogFragment
 import com.angiedev.sheystore.ui.utils.extension.parcelable
+import com.angiedev.sheystore.ui.utils.extension.parseColor
 import com.angiedev.sheystore.ui.utils.extension.setInvisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -38,7 +40,12 @@ class RemoveCartItemBottomSheetDialog : BaseBottomSheetDialogFragment<BottomShee
             itemCartName.text = cartItem?.product?.name
             itemCartTotalPrice.text = cartItem?.product?.price.toString()
             itemCartQuantityStepper.value = cartItem?.quantity ?: 0
-
+            val gradientColor = GradientDrawable().apply {
+                setColor(cartItem?.color.orEmpty().parseColor())
+                setStroke(1, root.context.getColor(R.color.white))
+                cornerRadii = floatArrayOf(90f, 90f, 90f, 90f, 90f, 90f, 90f, 90f)
+            }
+            itemCartColor.background = gradientColor
             Glide.with(root.context)
                 .load(cartItem?.product?.image.orEmpty())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

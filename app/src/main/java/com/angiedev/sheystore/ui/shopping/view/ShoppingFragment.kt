@@ -115,7 +115,7 @@ class ShoppingFragment : BaseFragment<FragmentShoppingBinding>(), ProductItemLis
     }
 
     override fun onClickItem(productEntity: ProductEntity) {
-        findNavController().navigate(ShoppingFragmentDirections.actionShoppingFragmentToProductDetailsFragment(productEntity.id))
+        findNavController().navigate(ShoppingFragmentDirections.actionShoppingFragmentToProductDetailsFragment(productEntity))
     }
 
 }

@@ -8,9 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.angiedev.sheystore.R
-import com.angiedev.sheystore.data.entities.CartEntity
+import com.angiedev.sheystore.data.model.domain.entities.cart.CartItemEntity
 import com.angiedev.sheystore.databinding.ItemCartBinding
 import com.angiedev.sheystore.ui.product.QuantityStepperListener
+import com.angiedev.sheystore.ui.utils.extension.parseColor
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
@@ -18,7 +19,7 @@ class CartAdapter (
     private val cartItemListener: CartItemListener
 ) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
-    private val listCartItem = mutableListOf<CartEntity>()
+    private val listCartItem = mutableListOf<CartItemEntity>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CartViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_cart, parent, false)
     )
@@ -29,7 +30,7 @@ class CartAdapter (
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun submitList(newList: List<CartEntity>) {
+    fun submitList(newList: List<CartItemEntity>) {
         listCartItem.clear()
         listCartItem.addAll(newList)
         notifyDataSetChanged()
@@ -39,19 +40,19 @@ class CartAdapter (
 
         private val binding = ItemCartBinding.bind(view)
 
-        fun render(cartItem: CartEntity) {
+        fun render(cartItem: CartItemEntity) {
             with(binding) {
-                itemCartName.text = cartItem.name
-                itemCartQuantityStepper.value = cartItem.quantity.toInt()
-                itemCartTotalPrice.text = root.context.resources.getString(R.string.total_price, cartItem.totalPrice)
+                itemCartName.text = cartItem.product.name
+                itemCartQuantityStepper.value = cartItem.quantity
+                itemCartTotalPrice.text = root.context.resources.getString(R.string.total_price, cartItem.totalPrice.toString())
                 val gradientColor = GradientDrawable().apply {
-                    setColor(Color.parseColor(cartItem.color))
+                    setColor(cartItem.color.parseColor())
                     setStroke(1, root.context.getColor(R.color.white))
                     cornerRadii = floatArrayOf(90f, 90f, 90f, 90f, 90f, 90f, 90f, 90f)
                 }
                 itemCartColor.background = gradientColor
                 Glide.with(root.context)
-                    .load(cartItem.image)
+                    .load(cartItem.product.image)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .error(R.drawable.product_hint)
                     .into(itemCartImage)

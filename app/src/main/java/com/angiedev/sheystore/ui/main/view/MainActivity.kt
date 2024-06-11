@@ -56,17 +56,6 @@ class MainActivity: AppCompatActivity() {
         loginViewModel.isAuthored.observe(this) { isAuthored ->
             if (!isAuthored) navigateToLoginModule()
         }
-
-        mainViewModel.cart.observe(this) {
-            when(it) {
-                is ApiResponse.Error -> { }
-                ApiResponse.Loading -> { }
-                is ApiResponse.Success -> {
-                    mainViewModel.myCart.clear()
-                    mainViewModel.myCart.addAll(it.data)
-                }
-            }
-        }
     }
 
     private fun handleOnBackPressed() {

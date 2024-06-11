@@ -30,7 +30,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding>() {
     override fun createView(view: View, savedInstanceState: Bundle?) {
         super.createView(view, savedInstanceState)
         setupOrderListAdapter()
-        checkoutViewModel.getOrderList(userDataViewModel.readValue(PreferencesKeys.EMAIL).orEmpty())
+        checkoutViewModel.getOrderList(userDataViewModel.readValue(PreferencesKeys.USER_ID) ?: 0)
         checkoutViewModel.getShippingAddress(userDataViewModel.readValue(PreferencesKeys.EMAIL).orEmpty())
     }
 
@@ -74,7 +74,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding>() {
                 is ApiResponse.Error -> Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
                 ApiResponse.Loading -> TODO()
                 is ApiResponse.Success -> {
-                    orderListAdapter?.submitList(it.data)
+                    orderListAdapter?.submitList(it.data.cartItems)
                 }
             }
         }

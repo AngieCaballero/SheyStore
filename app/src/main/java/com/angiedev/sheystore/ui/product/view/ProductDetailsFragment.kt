@@ -8,7 +8,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.angiedev.sheystore.R
-import com.angiedev.sheystore.data.entities.CartEntity
 import com.angiedev.sheystore.data.model.domain.entities.product.ProductEntity
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentProductDetailsBinding
@@ -18,7 +17,6 @@ import com.angiedev.sheystore.ui.mostPopular.viewmodel.ProductViewModel
 import com.angiedev.sheystore.ui.product.QuantityStepperListener
 import com.angiedev.sheystore.ui.product.adapter.ProductDetailsImagesViewPagerAdapter
 import com.angiedev.sheystore.ui.user.viewmodel.UserDataViewModel
-import com.angiedev.sheystore.ui.utils.constant.PreferencesKeys
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
@@ -36,7 +34,6 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding>() {
 
     override fun createView(view: View, savedInstanceState: Bundle?) {
         super.createView(view, savedInstanceState)
-        mainViewModel.getCartItems(userDataViewModel.readValue(PreferencesKeys.EMAIL).orEmpty())
         productDetailsEntity = productDetailsFragmentArgs.product
         productDetailsEntity?.let {
             setupUI(it)
@@ -69,8 +66,6 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding>() {
 
         binding.productDetailsAddToCar.setOnClickListener {
             val totalPrice = binding.productDetailsPriceTotal.text.removePrefix("$").toString()
-            mainViewModel.myCart.add(CartEntity(productDetailsEntity, totalPrice, quantity))
-            productViewModel.putProductInCart(userDataViewModel.readValue(PreferencesKeys.EMAIL).orEmpty(), mainViewModel.myCart)
         }
     }
 
@@ -82,8 +77,6 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding>() {
                 ApiResponse.Loading -> TODO()
                 is ApiResponse.Success -> {
                     Toast.makeText(requireContext(), "Producto agregado al carrito", Toast.LENGTH_SHORT).show()
-                    mainViewModel.myCart.clear()
-                    mainViewModel.myCart.addAll(response.data)
                 }
             }
         }

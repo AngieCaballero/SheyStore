@@ -3,18 +3,17 @@ package com.angiedev.sheystore.ui.cart
 import android.os.Bundle
 import android.view.View
 import com.angiedev.sheystore.R
-import com.angiedev.sheystore.data.entities.CartEntity
+import com.angiedev.sheystore.data.model.domain.entities.cart.CartItemEntity
 import com.angiedev.sheystore.databinding.BottomSheetRemoveCartItemDialogBinding
 import com.angiedev.sheystore.ui.base.BaseBottomSheetDialogFragment
 import com.angiedev.sheystore.ui.utils.extension.parcelable
-import com.angiedev.sheystore.ui.utils.extension.setGone
 import com.angiedev.sheystore.ui.utils.extension.setInvisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 class RemoveCartItemBottomSheetDialog : BaseBottomSheetDialogFragment<BottomSheetRemoveCartItemDialogBinding>() {
 
-    private var cartItem: CartEntity? = null
+    private var cartItem: CartItemEntity? = null
     private var onRemoveCartItem: (() -> Unit)? = null
 
     override fun getViewBinding() = BottomSheetRemoveCartItemDialogBinding.inflate(layoutInflater)
@@ -36,12 +35,12 @@ class RemoveCartItemBottomSheetDialog : BaseBottomSheetDialogFragment<BottomShee
     private fun setupCartItem() {
         with(binding.bottomSheetItemCart) {
             itemCartRemoveIcon.setInvisible()
-            itemCartName.text = cartItem?.name
-            itemCartTotalPrice.text = cartItem?.price.toString()
-            itemCartQuantityStepper.value = cartItem?.quantity?.toIntOrNull() ?: 0
+            itemCartName.text = cartItem?.product?.name
+            itemCartTotalPrice.text = cartItem?.product?.price.toString()
+            itemCartQuantityStepper.value = cartItem?.quantity ?: 0
 
             Glide.with(root.context)
-                .load(cartItem?.image.orEmpty())
+                .load(cartItem?.product?.image.orEmpty())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.product_hint)
                 .into(itemCartImage)

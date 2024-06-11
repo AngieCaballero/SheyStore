@@ -2,7 +2,7 @@ package com.angiedev.sheystore.ui.mostPopular.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.angiedev.sheystore.data.entities.CartEntity
+import com.angiedev.sheystore.data.model.domain.entities.cart.CartEntity
 import com.angiedev.sheystore.data.model.domain.entities.product.ProductEntity
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.data.repository.cart.ICartRepository
@@ -18,7 +18,7 @@ class ProductViewModel @Inject constructor(
     private val categoryRepository: ICartRepository
 ) : ViewModel() {
 
-    private val _cartItems = MutableLiveData<ApiResponse<List<CartEntity>>>()
+    private val _cartItems = MutableLiveData<ApiResponse<CartEntity>>()
     val cartItems get() = _cartItems
 
     private val _products: MutableLiveData<ApiResponse<List<ProductEntity>>> = MutableLiveData()
@@ -38,8 +38,7 @@ class ProductViewModel @Inject constructor(
 
     fun putProductInCart(documentId: String, newList: MutableList<CartEntity>) {
         runBlocking(Dispatchers.IO) {
-            val response = categoryRepository.patchCartItems(documentId, newList)
-            _cartItems.postValue(response)
+
         }
     }
 

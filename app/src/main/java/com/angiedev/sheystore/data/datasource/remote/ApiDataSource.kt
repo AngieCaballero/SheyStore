@@ -1,10 +1,9 @@
 package com.angiedev.sheystore.data.datasource.remote
 
 import android.content.Context
-import com.angiedev.sheystore.data.model.remote.response.CartValueResponse
-import com.angiedev.sheystore.data.model.remote.response.DocumentCartResponse
 import com.angiedev.sheystore.data.model.remote.response.DocumentShippingAddressResponse
 import com.angiedev.sheystore.data.model.remote.response.ShippingAddressValueResponse
+import com.angiedev.sheystore.data.model.remote.response.dto.cart.CartResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.category.CategoryResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.product.ProductResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.specialsOffers.SpecialOfferResponseDTO
@@ -78,18 +77,9 @@ class ApiDataSource @Inject constructor(
         .execute<ProductResponseDTO>()
 
 
-    suspend fun getCartItems(documentId: String) = service.safeRequest(endpoint = "cart/$documentId/")
+    suspend fun getCartItems(userId: Int) = service.safeRequest(endpoint = "cart/$userId/")
         .withMethod(HttpMethod.GET)
-        .execute<DocumentCartResponse>()
-
-    suspend fun patchCartItems(documentId: String, body: CartValueResponse) = service.safeRequest(endpoint = "cart/$documentId/")
-        .withMethod(HttpMethod.PATCH)
-        .withBody(
-            mapOf(
-                "fields" to body
-            )
-        )
-        .execute<DocumentCartResponse>()
+        .execute<CartResponseDTO>()
 
     suspend fun getShippingAddress(documentId: String) = service.safeRequest(endpoint = "shipping_address/$documentId/")
         .withMethod(HttpMethod.GET)

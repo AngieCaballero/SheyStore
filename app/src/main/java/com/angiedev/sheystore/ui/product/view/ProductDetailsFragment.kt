@@ -59,7 +59,7 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding>() {
                         1f
                     }
                 }
-                val price = productDetailsEntity?.price?.toDouble() ?: 0.0
+                val price = productDetailsEntity?.price ?: 0.0
                 binding.productDetailsPriceTotal.text = resources.getString(R.string.total_price, String.format(
                     Locale.getDefault(),"%.2f", (value.times(price))))
             }

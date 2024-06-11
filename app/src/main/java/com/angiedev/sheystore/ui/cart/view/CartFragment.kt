@@ -95,8 +95,15 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), CartItemListener {
         )
     }
 
-    override fun onValueChangeQuantityStepper(value: Int) {
-        TODO("Not yet implemented")
+    override fun onValueChangeQuantityStepper(value: Int, cartItem: CartItemEntity) {
+        val totalPrice = value.times(cartItem.product.price)
+        cartViewModel.addProductToCart(
+            userId = userDataViewModel.readValue(PreferencesKeys.USER_ID) ?: 0,
+            productId = cartItem.productId,
+            quantity = value,
+            totalPrice = totalPrice,
+            color = "#FF018786"
+        )
     }
 
 }

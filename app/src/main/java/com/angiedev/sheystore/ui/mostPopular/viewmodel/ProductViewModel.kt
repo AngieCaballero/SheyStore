@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ProductViewModel @Inject constructor(
     private val productRepository: IProductRepository,
-    private val categoryRepository: ICartRepository
+    private val cartRepository: ICartRepository
 ) : ViewModel() {
 
     private val _cartItems = MutableLiveData<ApiResponse<CartEntity>>()
@@ -39,7 +39,7 @@ class ProductViewModel @Inject constructor(
 
     fun addProductToCart(userId: Int, color: String, quantity: Int, totalPrice: Double, productId: Int) {
         runBlocking(Dispatchers.IO) {
-            val response = categoryRepository.addProductToCart(
+            val response = cartRepository.addProductToCart(
                 userId = userId,
                 createCartItemDTO = CreateCartItemDTO(
                     color = color,

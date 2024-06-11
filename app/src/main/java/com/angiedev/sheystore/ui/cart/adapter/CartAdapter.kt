@@ -68,7 +68,7 @@ class CartAdapter (
                 itemCartQuantityStepper.setQuantityStepperListener(object :
                     QuantityStepperListener {
                     override fun onValueChanged(value: Int) {
-                        cartItemListener.onValueChangeQuantityStepper(value)
+                        cartItemListener.onValueChangeQuantityStepper(value, cartItem)
                     }
                 })
 

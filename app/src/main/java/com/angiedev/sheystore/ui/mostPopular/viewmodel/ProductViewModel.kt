@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.angiedev.sheystore.data.model.domain.entities.cart.CartEntity
 import com.angiedev.sheystore.data.model.domain.entities.product.ProductEntity
+import com.angiedev.sheystore.data.model.remote.request.cart.CreateCartItemDTO
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.data.repository.cart.ICartRepository
 import com.angiedev.sheystore.data.repository.product.IProductRepository
@@ -36,9 +37,18 @@ class ProductViewModel @Inject constructor(
         }
     }
 
-    fun putProductInCart(documentId: String, newList: MutableList<CartEntity>) {
+    fun addProductToCart(userId: Int, color: String, quantity: Int, totalPrice: Double, productId: Int) {
         runBlocking(Dispatchers.IO) {
-
+            val response = categoryRepository.addProductToCart(
+                userId = userId,
+                createCartItemDTO = CreateCartItemDTO(
+                    color = color,
+                    quantity = quantity,
+                    totalPrice = totalPrice,
+                    productId = productId
+                )
+            )
+            _cartItems.postValue(response)
         }
     }
 

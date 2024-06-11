@@ -17,6 +17,7 @@ import com.angiedev.sheystore.ui.mostPopular.viewmodel.ProductViewModel
 import com.angiedev.sheystore.ui.product.QuantityStepperListener
 import com.angiedev.sheystore.ui.product.adapter.ProductDetailsImagesViewPagerAdapter
 import com.angiedev.sheystore.ui.user.viewmodel.UserDataViewModel
+import com.angiedev.sheystore.ui.utils.constant.PreferencesKeys
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
@@ -65,7 +66,16 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding>() {
         })
 
         binding.productDetailsAddToCar.setOnClickListener {
-            val totalPrice = binding.productDetailsPriceTotal.text.removePrefix("$").toString()
+            val totalPrice = binding.productDetailsPriceTotal.text.removePrefix("$").toString().toDouble()
+            productDetailsEntity?.let { product ->
+                productViewModel.addProductToCart(
+                    userId = userDataViewModel.readValue(PreferencesKeys.USER_ID) ?: 0,
+                    productId = product.id,
+                    quantity = quantity,
+                    totalPrice = totalPrice,
+                    color = "#FF018786"
+                )
+            }
         }
     }
 

@@ -30,6 +30,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), CartItemListener {
     private val userDataViewModel: UserDataViewModel by viewModels()
     private var cartAdapter: CartAdapter? = null
     private var itemToRemove = 0
+
     override fun getViewBinding() = FragmentCartBinding.inflate(layoutInflater)
 
     override fun createView(view: View, savedInstanceState: Bundle?) {

@@ -89,7 +89,7 @@
                     android:paddingVertical="16dp">
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/fragment_cart_mount_label"
+                        android:id="@+id/fragment_checkout_mount_label"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="@string/monto"
@@ -97,10 +97,10 @@
                         android:textColor="@color/color_text_hint"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/fragment_cart_mount_value"/>
+                        app:layout_constraintEnd_toStartOf="@id/fragment_checkout_mount_value"/>
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/fragment_cart_mount_value"
+                        android:id="@+id/fragment_checkout_mount_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         tools:text="$615.23"
@@ -110,10 +110,10 @@
                         android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceBody2"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/fragment_cart_mount_label"/>
+                        app:layout_constraintStart_toEndOf="@id/fragment_checkout_mount_label"/>
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/fragment_cart_shipping_label"
+                        android:id="@+id/fragment_checkout_shipping_label"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="@string/env_o"
@@ -121,11 +121,11 @@
                         android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceBody2"
                         android:textColor="@color/color_text_hint"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/fragment_cart_mount_label"
-                        app:layout_constraintEnd_toStartOf="@id/fragment_cart_shipping_value"/>
+                        app:layout_constraintTop_toBottomOf="@id/fragment_checkout_mount_label"
+                        app:layout_constraintEnd_toStartOf="@id/fragment_checkout_shipping_value"/>
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/fragment_cart_shipping_value"
+                        android:id="@+id/fragment_checkout_shipping_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         tools:text="$15.23"
@@ -135,14 +135,14 @@
                         android:textColor="@color/color_text"
                         android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceBody2"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/fragment_cart_mount_label"
-                        app:layout_constraintStart_toEndOf="@id/fragment_cart_shipping_label"/>
+                        app:layout_constraintTop_toBottomOf="@id/fragment_checkout_mount_label"
+                        app:layout_constraintStart_toEndOf="@id/fragment_checkout_shipping_label"/>
 
                     <View android:id="@+id/fragment_checkout_resume_line"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="10dp"
-                        app:layout_constraintTop_toBottomOf="@id/fragment_cart_shipping_value"
+                        app:layout_constraintTop_toBottomOf="@id/fragment_checkout_shipping_value"
                         android:background="@color/color_secondary"/>
 
                     <com.google.android.material.textview.MaterialTextView
@@ -155,10 +155,10 @@
                         android:textColor="@color/color_text_hint"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/fragment_checkout_resume_line"
-                        app:layout_constraintEnd_toStartOf="@id/fragment_cart_shipping_value"/>
+                        app:layout_constraintEnd_toStartOf="@id/fragment_checkout_shipping_value"/>
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/fragment_cart_total_value"
+                        android:id="@+id/fragment_checkout_total_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         tools:text="$630.46"
@@ -169,7 +169,7 @@
                         android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceBody2"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/fragment_checkout_resume_line"
-                        app:layout_constraintStart_toEndOf="@id/fragment_cart_shipping_label"/>
+                        app:layout_constraintStart_toEndOf="@id/fragment_checkout_shipping_label"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

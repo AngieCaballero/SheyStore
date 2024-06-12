@@ -5,9 +5,11 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.angiedev.sheystore.R
 import com.angiedev.sheystore.domain.entities.shippingAddres.ShippingAddressEntity
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentCheckoutBinding
+import com.angiedev.sheystore.domain.entities.cart.CartItemEntity
 import com.angiedev.sheystore.ui.base.BaseFragment
 import com.angiedev.sheystore.ui.checkout.adapter.OrderListAdapter
 import com.angiedev.sheystore.ui.checkout.viewmodel.CheckoutViewModel
@@ -82,7 +84,21 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding>() {
                 ApiResponse.Loading -> TODO()
                 is ApiResponse.Success -> {
                     orderListAdapter?.submitList(it.data.cartItems)
+                    setInfoPayment(it.data.cartItems)
                 }
+            }
+        }
+    }
+
+    private fun setInfoPayment(cartItems: List<CartItemEntity>) {
+        if (cartItems.isNotEmpty()) {
+            with(binding) {
+                val amount = cartItems.sumOf { it.totalPrice }
+                val shipping = amount * 0.01
+                val total = amount + shipping
+                fragmentCheckoutMountValue.text= resources.getString(R.string.total_price, amount.toString())
+                fragmentCheckoutShippingValue.text = resources.getString(R.string.total_price, shipping.toString())
+                fragmentCheckoutTotalValue.text = resources.getString(R.string.total_price, total.toString())
             }
         }
     }

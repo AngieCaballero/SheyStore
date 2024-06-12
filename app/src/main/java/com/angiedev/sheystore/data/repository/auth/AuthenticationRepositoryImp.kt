@@ -54,6 +54,7 @@ class AuthenticationRepositoryImp @Inject constructor(
         return if (authResult.isSuccess && responseData != null) {
             val user = SignInEntity(responseData)
             with(dataStoreManager) {
+                storeValue(PreferencesKeys.USER_ID, user.id)
                 storeValue(PreferencesKeys.TOKEN, user.token)
                 storeValue(PreferencesKeys.PASSWORD, password)
                 storeValue(PreferencesKeys.EMAIL, user.email)

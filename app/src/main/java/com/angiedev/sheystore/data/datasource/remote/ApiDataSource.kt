@@ -124,4 +124,17 @@ class ApiDataSource @Inject constructor(
             )
             .execute<ShippingAddressResponseDTO>()
 
+    suspend fun createShippingAddress(
+        userId: Int,
+        updateOrCreateShippingAddressDTO: UpdateOrCreateShippingAddressDTO
+    ) = service.safeRequest(endpoint = "shipping-address/${userId}/")
+        .withMethod(HttpMethod.POST)
+        .withBody(
+            mapOf(
+                "name" to updateOrCreateShippingAddressDTO.name,
+                "details" to updateOrCreateShippingAddressDTO.details,
+                "default" to updateOrCreateShippingAddressDTO.default
+            )
+        )
+        .execute<ShippingAddressResponseDTO>()
 }

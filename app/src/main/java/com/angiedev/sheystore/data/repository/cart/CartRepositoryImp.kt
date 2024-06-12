@@ -75,4 +75,17 @@ class CartRepositoryImp @Inject constructor(
             ApiResponse.Error(response.exceptionOrNull())
         }
     }
+
+    override suspend fun createShippingAddress(
+        userId: Int,
+        updateOrCreateShippingAddressDTO: UpdateOrCreateShippingAddressDTO
+    ): ApiResponse<Boolean> {
+        val response = apiDataSource.createShippingAddress(userId, updateOrCreateShippingAddressDTO)
+
+        return if (response.isSuccess) {
+            ApiResponse.Success(data = true)
+        } else {
+            ApiResponse.Error(response.exceptionOrNull())
+        }
+    }
 }

@@ -16,4 +16,6 @@ interface ICartRepository {
     suspend fun getShippingAddress(userId: Int) : ApiResponse<List<ShippingAddressEntity>>
 
     suspend fun updateShippingAddress(userId: Int, shippingAddressId: Int, updateOrCreateShippingAddressDTO: UpdateOrCreateShippingAddressDTO): ApiResponse<Boolean>
+
+    suspend fun createShippingAddress(userId: Int, updateOrCreateShippingAddressDTO: UpdateOrCreateShippingAddressDTO): ApiResponse<Boolean>
 }

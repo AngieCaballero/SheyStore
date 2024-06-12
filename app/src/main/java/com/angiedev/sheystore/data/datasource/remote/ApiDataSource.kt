@@ -2,11 +2,13 @@ package com.angiedev.sheystore.data.datasource.remote
 
 import android.content.Context
 import com.angiedev.sheystore.data.model.remote.request.cart.CreateCartItemDTO
+import com.angiedev.sheystore.data.model.remote.request.shippingAddress.UpdateOrCreateShippingAddressDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.cart.CartItemDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.cart.CartResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.category.CategoryResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.product.ProductResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.shppingAddress.ShippingAddressResponseDTO
+import com.angiedev.sheystore.data.model.remote.response.dto.shppingAddress.ShippingAddressResponseListDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.specialsOffers.SpecialOfferResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.user.SignInResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.user.SignUpResponseDTO
@@ -50,19 +52,20 @@ class ApiDataSource @Inject constructor(
         )
         .execute<SignInResponseDTO>()
 
-    suspend fun saveUserProfileData(userId: Int, userDTO: UserDTO) = service.safeRequest(endpoint = "users/${userId}")
-        .withMethod(HttpMethod.PATCH)
-        .withBody(
-            mapOf(
-                "full_name" to userDTO.fullName,
-                "username" to userDTO.username,
-                "role" to userDTO.role,
-                "phone" to userDTO.phone,
-                "photo" to userDTO.photo,
-                "gender" to userDTO.gender
+    suspend fun saveUserProfileData(userId: Int, userDTO: UserDTO) =
+        service.safeRequest(endpoint = "users/${userId}")
+            .withMethod(HttpMethod.PATCH)
+            .withBody(
+                mapOf(
+                    "full_name" to userDTO.fullName,
+                    "username" to userDTO.username,
+                    "role" to userDTO.role,
+                    "phone" to userDTO.phone,
+                    "photo" to userDTO.photo,
+                    "gender" to userDTO.gender
+                )
             )
-        )
-        .execute<UserResponseDTO>()
+            .execute<UserResponseDTO>()
 
 
     suspend fun getSpecialsOffers() = service.safeRequest(endpoint = "specials-offers/")
@@ -82,24 +85,43 @@ class ApiDataSource @Inject constructor(
         .withMethod(HttpMethod.GET)
         .execute<CartResponseDTO>()
 
-    suspend fun addProductToCart(userId: Int, createCartItemDTO: CreateCartItemDTO) = service.safeRequest(endpoint = "cart/$userId/")
-        .withMethod(HttpMethod.PUT)
-        .withBody(
-            mapOf(
-                "product_id" to createCartItemDTO.productId,
-                "quantity" to createCartItemDTO.quantity,
-                "total_price" to createCartItemDTO.totalPrice,
-                "color" to createCartItemDTO.color
+    suspend fun addProductToCart(userId: Int, createCartItemDTO: CreateCartItemDTO) =
+        service.safeRequest(endpoint = "cart/$userId/")
+            .withMethod(HttpMethod.PUT)
+            .withBody(
+                mapOf(
+                    "product_id" to createCartItemDTO.productId,
+                    "quantity" to createCartItemDTO.quantity,
+                    "total_price" to createCartItemDTO.totalPrice,
+                    "color" to createCartItemDTO.color
+                )
             )
-        )
-        .execute<CartResponseDTO>()
+            .execute<CartResponseDTO>()
 
-    suspend fun removeProductFromCart(userId: Int, cartItemId: Int) = service.safeRequest(endpoint = "cart/$userId/$cartItemId/")
-        .withMethod(HttpMethod.DELETE)
-        .execute<CartItemDTO>()
+    suspend fun removeProductFromCart(userId: Int, cartItemId: Int) =
+        service.safeRequest(endpoint = "cart/$userId/$cartItemId/")
+            .withMethod(HttpMethod.DELETE)
+            .execute<CartItemDTO>()
 
-    suspend fun getShippingAddress(userId: Int) = service.safeRequest(endpoint = "shipping-address/user/${userId}/")
-        .withMethod(HttpMethod.GET)
-        .execute<ShippingAddressResponseDTO>()
+    suspend fun getShippingAddress(userId: Int) =
+        service.safeRequest(endpoint = "shipping-address/user/${userId}/")
+            .withMethod(HttpMethod.GET)
+            .execute<ShippingAddressResponseListDTO>()
+
+    suspend fun updateShippingAddress(
+        userId: Int,
+        shippingAddressId: Int,
+        updateOrCreateShippingAddressDTO: UpdateOrCreateShippingAddressDTO
+    ) =
+        service.safeRequest(endpoint = "shipping-address/user/${userId}/shipping-address/${shippingAddressId}/")
+            .withMethod(HttpMethod.PUT)
+            .withBody(
+                mapOf(
+                    "name" to updateOrCreateShippingAddressDTO.name,
+                    "details" to updateOrCreateShippingAddressDTO.details,
+                    "default" to updateOrCreateShippingAddressDTO.default
+                )
+            )
+            .execute<ShippingAddressResponseDTO>()
 
 }

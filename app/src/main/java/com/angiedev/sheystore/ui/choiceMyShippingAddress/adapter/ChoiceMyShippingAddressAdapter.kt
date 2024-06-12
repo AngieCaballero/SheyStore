@@ -57,8 +57,6 @@ class ChoiceMyShippingAddressAdapter(
         }
     }
 
-    fun getDataSource() = shippingAddressList
-
     @SuppressLint("NotifyDataSetChanged")
     fun submitList(newList: List<ShippingAddressEntity>) {
         shippingAddressList.clear()

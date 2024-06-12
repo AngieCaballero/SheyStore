@@ -4,6 +4,7 @@ import com.angiedev.sheystore.data.datasource.remote.ApiDataSource
 import com.angiedev.sheystore.domain.entities.cart.CartEntity
 import com.angiedev.sheystore.domain.entities.shippingAddres.ShippingAddressEntity
 import com.angiedev.sheystore.data.model.remote.request.cart.CreateCartItemDTO
+import com.angiedev.sheystore.data.model.remote.request.shippingAddress.UpdateOrCreateShippingAddressDTO
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import javax.inject.Inject
 
@@ -56,6 +57,20 @@ class CartRepositoryImp @Inject constructor(
                 ShippingAddressEntity(it)
             }.orEmpty()
             ApiResponse.Success(data = data)
+        } else {
+            ApiResponse.Error(response.exceptionOrNull())
+        }
+    }
+
+    override suspend fun updateShippingAddress(
+        userId: Int,
+        shippingAddressId: Int,
+        updateOrCreateShippingAddressDTO: UpdateOrCreateShippingAddressDTO
+    ): ApiResponse<Boolean> {
+        val response = apiDataSource.updateShippingAddress(userId, shippingAddressId, updateOrCreateShippingAddressDTO)
+
+        return if (response.isSuccess) {
+            ApiResponse.Success(data = true)
         } else {
             ApiResponse.Error(response.exceptionOrNull())
         }

@@ -23,6 +23,7 @@ class ChoiceMyShippingAddressFragment : BaseFragment<FragmentChoiceMyShippingAdd
     private val userDataViewModel: UserDataViewModel by viewModels()
 
     private var choiceMyShippingAddressAdapter: ChoiceMyShippingAddressAdapter? = null
+    private var shippingAddressSelected: ShippingAddressEntity? = null
     override fun getViewBinding() = FragmentChoiceMyShippingAddressBinding.inflate(layoutInflater)
 
     override fun createView(view: View, savedInstanceState: Bundle?) {
@@ -37,7 +38,10 @@ class ChoiceMyShippingAddressFragment : BaseFragment<FragmentChoiceMyShippingAdd
         super.setListeners()
         with(binding) {
             fragmentChoiceMyShippingApply.setOnClickListener {
-
+                choiceMyShippingAddressViewModel.updateShippingAddress(
+                    userId = userDataViewModel.readValue(PreferencesKeys.USER_ID) ?: 0,
+                    shippingAddressEntity = shippingAddressSelected
+                )
             }
 
             fragmentChoiceMyShippingNewAddress.setOnClickListener {
@@ -61,6 +65,15 @@ class ChoiceMyShippingAddressFragment : BaseFragment<FragmentChoiceMyShippingAdd
                 }
             }
         }
+        choiceMyShippingAddressViewModel.shippingAddressUpdated.observe(viewLifecycleOwner) {
+            when(it) {
+                is ApiResponse.Error -> Toast.makeText(requireContext(), "Ha ocurrido un error", Toast.LENGTH_SHORT).show()
+                ApiResponse.Loading -> TODO()
+                is ApiResponse.Success -> {
+                    Toast.makeText(requireContext(), "Direeción actualizada", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     private fun setupAdapter() {
@@ -69,6 +82,6 @@ class ChoiceMyShippingAddressFragment : BaseFragment<FragmentChoiceMyShippingAdd
     }
 
     override fun onCheckedItemListener(shippingAddressEntity: ShippingAddressEntity) {
-        // Make something
+        shippingAddressSelected = shippingAddressEntity
     }
 }

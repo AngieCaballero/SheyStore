@@ -56,6 +56,7 @@
     <string name="lista_de_orden">Lista de Orden</string>
     <string name="continuar_con_el_pago">Continuar con el Pago</string>
     <string name="ooops_al_parecer_no_tienes_direcciones_de_entrega">¡Ooops! Al parecer no tienes direcciones de envío</string>
+    <string name="default_shipping_address_not_default_selected">Presiona para seleccionar la dirección de envío</string>
     <string name="agregar_nueva_direcci_n">Agregar nueva dirección</string>
     <string name="detalles_de_la_direcci_n">Detalles de la dirección</string>
     <string name="nombre_de_la_direcci_n">Nombre de la dirección</string>

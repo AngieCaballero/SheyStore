@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.angiedev.sheystore.R
-import com.angiedev.sheystore.data.entities.PaymentMethodEntity
+import com.angiedev.sheystore.domain.entities.payment.PaymentMethodEntity
 import com.angiedev.sheystore.databinding.ItemPaymentBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy

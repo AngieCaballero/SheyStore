@@ -1,7 +1,7 @@
-package com.angiedev.sheystore.data.model.domain.entities.product
+package com.angiedev.sheystore.domain.entities.product
 
 import android.os.Parcelable
-import com.angiedev.sheystore.data.model.domain.entities.category.CategoryEntity
+import com.angiedev.sheystore.domain.entities.category.CategoryEntity
 import com.angiedev.sheystore.data.model.remote.response.dto.product.ProductDTO
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize

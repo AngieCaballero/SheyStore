@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.angiedev.sheystore.R
-import com.angiedev.sheystore.data.model.domain.entities.cart.CartItemEntity
+import com.angiedev.sheystore.domain.entities.cart.CartItemEntity
 import com.angiedev.sheystore.databinding.ItemCartBinding
 import com.angiedev.sheystore.ui.utils.extension.setInvisible
 import com.bumptech.glide.Glide

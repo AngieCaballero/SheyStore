@@ -1,4 +1,4 @@
-package com.angiedev.sheystore.data.model.domain.entities.specialsOffers
+package com.angiedev.sheystore.domain.entities.specialsOffers
 
 import com.angiedev.sheystore.data.model.remote.response.dto.specialsOffers.SpecialOfferDTO
 import com.google.gson.annotations.SerializedName

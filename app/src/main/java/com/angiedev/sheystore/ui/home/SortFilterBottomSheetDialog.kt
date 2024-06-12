@@ -5,7 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.angiedev.sheystore.R
-import com.angiedev.sheystore.data.model.domain.entities.category.CategoryEntity
+import com.angiedev.sheystore.domain.entities.category.CategoryEntity
 import com.angiedev.sheystore.databinding.BottomSheetSortFilterDialogBinding
 import com.angiedev.sheystore.databinding.ItemCategoryChipsBinding
 import com.angiedev.sheystore.ui.base.BaseBottomSheetDialogFragment

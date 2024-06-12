@@ -2,12 +2,11 @@ package com.angiedev.sheystore.data.datasource.remote
 
 import android.content.Context
 import com.angiedev.sheystore.data.model.remote.request.cart.CreateCartItemDTO
-import com.angiedev.sheystore.data.model.remote.response.DocumentShippingAddressResponse
-import com.angiedev.sheystore.data.model.remote.response.ShippingAddressValueResponse
 import com.angiedev.sheystore.data.model.remote.response.dto.cart.CartItemDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.cart.CartResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.category.CategoryResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.product.ProductResponseDTO
+import com.angiedev.sheystore.data.model.remote.response.dto.shppingAddress.ShippingAddressResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.specialsOffers.SpecialOfferResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.user.SignInResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.user.SignUpResponseDTO
@@ -99,16 +98,8 @@ class ApiDataSource @Inject constructor(
         .withMethod(HttpMethod.DELETE)
         .execute<CartItemDTO>()
 
-    suspend fun getShippingAddress(documentId: String) = service.safeRequest(endpoint = "shipping_address/$documentId/")
+    suspend fun getShippingAddress(userId: Int) = service.safeRequest(endpoint = "shipping-address/user/${userId}/")
         .withMethod(HttpMethod.GET)
-        .execute<DocumentShippingAddressResponse>()
+        .execute<ShippingAddressResponseDTO>()
 
-    suspend fun patchShippingAddress(documentId: String, body: ShippingAddressValueResponse) = service.safeRequest(endpoint = "shipping_address/$documentId/")
-        .withMethod(HttpMethod.PATCH)
-        .withBody(
-            mapOf(
-                "fields" to body
-            )
-        )
-        .execute<DocumentShippingAddressResponse>()
 }

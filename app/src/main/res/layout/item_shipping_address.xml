@@ -87,6 +87,7 @@
         android:paddingVertical="20dp">
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_shipping_address_data_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"

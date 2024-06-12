@@ -1,6 +1,6 @@
 package com.angiedev.sheystore.ui.cart.adapter
 
-import com.angiedev.sheystore.data.model.domain.entities.cart.CartItemEntity
+import com.angiedev.sheystore.domain.entities.cart.CartItemEntity
 
 interface CartItemListener {
     fun onRemoveItem(cartItem: CartItemEntity, position: Int)

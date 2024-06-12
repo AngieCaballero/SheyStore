@@ -9,10 +9,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.angiedev.sheystore.R
-import com.angiedev.sheystore.data.model.domain.ScreenProducts
-import com.angiedev.sheystore.data.model.domain.entities.category.CategoryEntity
-import com.angiedev.sheystore.data.model.domain.entities.product.ProductEntity
-import com.angiedev.sheystore.data.model.domain.entities.specialsOffers.SpecialOfferEntity
+import com.angiedev.sheystore.domain.ScreenProducts
+import com.angiedev.sheystore.domain.entities.category.CategoryEntity
+import com.angiedev.sheystore.domain.entities.product.ProductEntity
+import com.angiedev.sheystore.domain.entities.specialsOffers.SpecialOfferEntity
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentHomeBinding
 import com.angiedev.sheystore.databinding.ItemCategoryChipsBinding
@@ -187,7 +187,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductItemListener {
             }
 
             headerProfileInfoHeart.setOnClickListener {
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMostPopularFragment(ScreenProducts.MY_WISH_LIST.typeScreen))
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMostPopularFragment(
+                    ScreenProducts.MY_WISH_LIST.typeScreen))
             }
         }
 
@@ -197,7 +198,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductItemListener {
 
         binding.fragmentHomeMostPopular.apply {
             categoryMostPopularViewAll.setOnClickListener {
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMostPopularFragment(ScreenProducts.MOST_POPULAR.typeScreen))
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMostPopularFragment(
+                    ScreenProducts.MOST_POPULAR.typeScreen))
             }
 
             mostPopularChipsGroup.setOnCheckedStateChangeListener { chipGroup, ints ->

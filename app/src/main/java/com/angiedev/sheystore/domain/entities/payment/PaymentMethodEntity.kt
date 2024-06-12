@@ -1,4 +1,4 @@
-package com.angiedev.sheystore.data.entities
+package com.angiedev.sheystore.domain.entities.payment
 
 data class PaymentMethodEntity(
     val icon: String,

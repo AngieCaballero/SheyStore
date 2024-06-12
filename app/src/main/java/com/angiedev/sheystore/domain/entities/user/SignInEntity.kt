@@ -1,4 +1,4 @@
-package com.angiedev.sheystore.data.model.domain.entities.user
+package com.angiedev.sheystore.domain.entities.user
 
 import com.angiedev.sheystore.data.model.remote.response.dto.user.SignInDTO
 

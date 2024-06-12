@@ -4,7 +4,7 @@ import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.View
 import com.angiedev.sheystore.R
-import com.angiedev.sheystore.data.model.domain.entities.cart.CartItemEntity
+import com.angiedev.sheystore.domain.entities.cart.CartItemEntity
 import com.angiedev.sheystore.databinding.BottomSheetRemoveCartItemDialogBinding
 import com.angiedev.sheystore.ui.base.BaseBottomSheetDialogFragment
 import com.angiedev.sheystore.ui.utils.extension.parcelable

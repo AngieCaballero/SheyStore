@@ -2,9 +2,9 @@ package com.angiedev.sheystore.data.repository.auth
 
 import com.angiedev.sheystore.data.datasource.local.DataStoreManager
 import com.angiedev.sheystore.data.datasource.remote.ApiDataSource
-import com.angiedev.sheystore.data.model.domain.entities.user.UserEntity
-import com.angiedev.sheystore.data.model.domain.entities.user.SignInEntity
-import com.angiedev.sheystore.data.model.domain.entities.user.UseSignUpEntity
+import com.angiedev.sheystore.domain.entities.user.UserEntity
+import com.angiedev.sheystore.domain.entities.user.SignInEntity
+import com.angiedev.sheystore.domain.entities.user.UseSignUpEntity
 import com.angiedev.sheystore.data.model.remote.response.dto.user.UserDTO
 import com.angiedev.sheystore.data.util.AuthResource
 import com.angiedev.sheystore.ui.utils.constant.PreferencesKeys

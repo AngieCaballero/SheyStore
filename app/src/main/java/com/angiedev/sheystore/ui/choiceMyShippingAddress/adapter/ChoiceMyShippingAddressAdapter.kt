@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.angiedev.sheystore.R
-import com.angiedev.sheystore.data.entities.ShippingAddressEntity
 import com.angiedev.sheystore.databinding.ItemShippingAddressBinding
+import com.angiedev.sheystore.domain.entities.shippingAddres.ShippingAddressEntity
 import com.angiedev.sheystore.ui.utils.extension.dpToPx
 import com.angiedev.sheystore.ui.utils.extension.setInvisible
 import com.angiedev.sheystore.ui.utils.extension.setVisible
@@ -48,10 +48,6 @@ class ChoiceMyShippingAddressAdapter(
                 shippingAddressList[temp].default = false
                 notifyItemChanged(temp, 12)
             }
-        }
-
-        fun unCheckedAddress() {
-            binding.itemShippingAddressRadioButton.isChecked = false
         }
 
         private fun updateMargins() {

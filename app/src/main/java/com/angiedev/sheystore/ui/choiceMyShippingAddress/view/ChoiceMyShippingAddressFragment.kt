@@ -5,9 +5,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.angiedev.sheystore.data.entities.ShippingAddressEntity
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentChoiceMyShippingAddressBinding
+import com.angiedev.sheystore.domain.entities.shippingAddres.ShippingAddressEntity
 import com.angiedev.sheystore.ui.base.BaseFragment
 import com.angiedev.sheystore.ui.choiceMyShippingAddress.adapter.ChoiceMyShippingAddressAdapter
 import com.angiedev.sheystore.ui.choiceMyShippingAddress.adapter.ChoiceMyShippingAddressListener
@@ -29,7 +29,7 @@ class ChoiceMyShippingAddressFragment : BaseFragment<FragmentChoiceMyShippingAdd
         super.createView(view, savedInstanceState)
         setupAdapter()
         choiceMyShippingAddressViewModel.getShippingAddressList(
-            userDataViewModel.readValue(PreferencesKeys.EMAIL).orEmpty()
+            userDataViewModel.readValue(PreferencesKeys.USER_ID) ?: 0
         )
     }
 
@@ -37,10 +37,7 @@ class ChoiceMyShippingAddressFragment : BaseFragment<FragmentChoiceMyShippingAdd
         super.setListeners()
         with(binding) {
             fragmentChoiceMyShippingApply.setOnClickListener {
-                choiceMyShippingAddressViewModel.updateShippingAddress(
-                    documentId =  userDataViewModel.readValue(PreferencesKeys.EMAIL).orEmpty(),
-                    choiceMyShippingAddressAdapter?.getDataSource().orEmpty()
-                )
+
             }
 
             fragmentChoiceMyShippingNewAddress.setOnClickListener {

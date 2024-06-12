@@ -1,6 +1,6 @@
 package com.angiedev.sheystore.ui.utils
 
-import com.angiedev.sheystore.data.model.domain.entities.product.ProductEntity
+import com.angiedev.sheystore.domain.entities.product.ProductEntity
 
 class QuerySelector {
     data class Builder (

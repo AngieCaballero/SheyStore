@@ -1,7 +1,7 @@
-package com.angiedev.sheystore.data.model.domain.entities.cart
+package com.angiedev.sheystore.domain.entities.cart
 
 import android.os.Parcelable
-import com.angiedev.sheystore.data.model.domain.entities.product.ProductEntity
+import com.angiedev.sheystore.domain.entities.product.ProductEntity
 import com.angiedev.sheystore.data.model.remote.response.dto.cart.CartItemDTO
 import kotlinx.parcelize.Parcelize
 

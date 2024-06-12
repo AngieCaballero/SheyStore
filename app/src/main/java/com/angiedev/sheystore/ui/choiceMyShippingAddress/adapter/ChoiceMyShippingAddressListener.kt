@@ -1,6 +1,6 @@
 package com.angiedev.sheystore.ui.choiceMyShippingAddress.adapter
 
-import com.angiedev.sheystore.data.entities.ShippingAddressEntity
+import com.angiedev.sheystore.domain.entities.shippingAddres.ShippingAddressEntity
 
 interface ChoiceMyShippingAddressListener {
 

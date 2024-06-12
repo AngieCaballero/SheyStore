@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.angiedev.sheystore.R
-import com.angiedev.sheystore.data.model.domain.entities.category.CategoryEntity
+import com.angiedev.sheystore.domain.entities.category.CategoryEntity
 import com.angiedev.sheystore.databinding.ItemCategoryBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy

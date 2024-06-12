@@ -2,7 +2,7 @@ package com.angiedev.sheystore.ui.cart.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.angiedev.sheystore.data.model.domain.entities.cart.CartEntity
+import com.angiedev.sheystore.domain.entities.cart.CartEntity
 import com.angiedev.sheystore.data.model.remote.request.cart.CreateCartItemDTO
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.data.repository.cart.ICartRepository

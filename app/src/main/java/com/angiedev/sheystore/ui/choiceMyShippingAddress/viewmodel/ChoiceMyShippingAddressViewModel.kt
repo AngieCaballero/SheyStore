@@ -2,9 +2,9 @@ package com.angiedev.sheystore.ui.choiceMyShippingAddress.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.angiedev.sheystore.data.entities.ShippingAddressEntity
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.data.repository.cart.ICartRepository
+import com.angiedev.sheystore.domain.entities.shippingAddres.ShippingAddressEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -18,16 +18,9 @@ class ChoiceMyShippingAddressViewModel @Inject constructor(
     private val _shippingAddressList = MutableLiveData<ApiResponse<List<ShippingAddressEntity>>>()
     val shippingAddressList get() = _shippingAddressList
 
-    fun getShippingAddressList(documentId: String) {
+    fun getShippingAddressList(userId: Int) {
         runBlocking(Dispatchers.IO) {
-            val response = cartRepository.getShippingAddress(documentId)
-            _shippingAddressList.postValue(response)
-        }
-    }
-
-    fun updateShippingAddress(documentId: String, newAddressShipping: List<ShippingAddressEntity>) {
-        runBlocking(Dispatchers.IO) {
-            val response = cartRepository.patchShippingAddress(documentId, newAddressShipping)
+            val response = cartRepository.getShippingAddress(userId)
             _shippingAddressList.postValue(response)
         }
     }

@@ -8,8 +8,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.angiedev.sheystore.R
-import com.angiedev.sheystore.data.model.domain.entities.cart.CartEntity
-import com.angiedev.sheystore.data.model.domain.entities.cart.CartItemEntity
+import com.angiedev.sheystore.domain.entities.cart.CartEntity
+import com.angiedev.sheystore.domain.entities.cart.CartItemEntity
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentCartBinding
 import com.angiedev.sheystore.ui.base.BaseFragment

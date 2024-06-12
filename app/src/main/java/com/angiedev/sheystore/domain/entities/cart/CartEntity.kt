@@ -1,4 +1,4 @@
-package com.angiedev.sheystore.data.model.domain.entities.cart
+package com.angiedev.sheystore.domain.entities.cart
 
 import com.angiedev.sheystore.data.model.remote.response.dto.cart.CartDTO
 

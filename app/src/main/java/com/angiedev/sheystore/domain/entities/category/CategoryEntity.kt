@@ -1,4 +1,4 @@
-package com.angiedev.sheystore.data.model.domain.entities.category
+package com.angiedev.sheystore.domain.entities.category
 
 import android.os.Parcelable
 import com.angiedev.sheystore.data.model.remote.response.dto.category.CategoryDTO

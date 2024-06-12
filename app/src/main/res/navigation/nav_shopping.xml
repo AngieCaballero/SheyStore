@@ -26,6 +26,6 @@
         tools:layout="@layout/fragment_product_details" >
 
         <argument android:name="product"
-            app:argType="com.angiedev.sheystore.data.model.domain.entities.product.ProductEntity"/>
+            app:argType="com.angiedev.sheystore.domain.entities.product.ProductEntity"/>
     </fragment>
 </navigation>

@@ -1,12 +1,13 @@
 package com.angiedev.sheystore.ui.paymentMethods.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.angiedev.sheystore.R
-import com.angiedev.sheystore.domain.entities.payment.PaymentMethodEntity
 import com.angiedev.sheystore.databinding.ItemPaymentBinding
+import com.angiedev.sheystore.domain.entities.paymentMethod.PaymentMethodEntity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
@@ -19,11 +20,10 @@ class PaymentMethodsAdapter : RecyclerView.Adapter<PaymentMethodsAdapter.Payment
 
         fun render(paymentMethodEntity: PaymentMethodEntity) {
             with(binding) {
-                itemPaymentCardNumber.text = paymentMethodEntity.numberCard
-                itemPaymentCardStatus.text = paymentMethodEntity.status
+                itemPaymentCardNumber.text = paymentMethodEntity.cardNumber
 
                 Glide.with(root.context)
-                    .load(paymentMethodEntity.icon)
+                    .load("")
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .error(R.drawable.ic_mastercard)
                     .into(itemPaymentCardIcon)
@@ -39,5 +39,12 @@ class PaymentMethodsAdapter : RecyclerView.Adapter<PaymentMethodsAdapter.Payment
 
     override fun onBindViewHolder(holder: PaymentMethodsViewHolder, position: Int) {
         holder.render(paymentMethodsList[position])
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun submitList(data: List<PaymentMethodEntity>) {
+        paymentMethodsList.clear()
+        paymentMethodsList.addAll(data)
+        notifyDataSetChanged()
     }
 }

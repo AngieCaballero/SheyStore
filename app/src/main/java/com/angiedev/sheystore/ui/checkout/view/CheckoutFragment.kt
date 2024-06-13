@@ -22,10 +22,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class CheckoutFragment : BaseFragment<FragmentCheckoutBinding>() {
 
+    override var isBottomNavVisible = View.GONE
     private val checkoutViewModel: CheckoutViewModel by viewModels()
     private val userDataViewModel: UserDataViewModel by viewModels()
 
     private var shippingAddressIsEmpty = false
+    private var defaultShippingAddress: ShippingAddressEntity? = null
     private var orderListAdapter: OrderListAdapter? = null
     override fun getViewBinding() = FragmentCheckoutBinding.inflate(layoutInflater)
 
@@ -46,11 +48,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding>() {
         super.setListeners()
         with(binding) {
             fragmentCheckoutShippingAddress.itemShippingAddressNoData.setOnClickListener {
-                if (shippingAddressIsEmpty) {
-                    Toast.makeText(requireContext(), "Go to Add Shipping Address", Toast.LENGTH_SHORT).show()
-                } else {
-                    findNavController().navigate(CheckoutFragmentDirections.actionCheckoutFragmentToChoiceMyShippingAddressFragment())
-                }
+                findNavController().navigate(CheckoutFragmentDirections.actionCheckoutFragmentToChoiceMyShippingAddressFragment())
             }
 
             binding.fragmentCheckoutToolbar.setNavigationOnClickListener {
@@ -59,6 +57,14 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding>() {
 
             fragmentCheckoutShippingAddress.itemShippingAddressData.setOnClickListener {
                 findNavController().navigate(CheckoutFragmentDirections.actionCheckoutFragmentToChoiceMyShippingAddressFragment())
+            }
+
+            fragmentCheckoutCheckout.setOnClickListener {
+                if (defaultShippingAddress != null) {
+                    findNavController().navigate(CheckoutFragmentDirections.actionCheckoutFragmentToPaymentMethodsFragment())
+                } else {
+                    Toast.makeText(requireContext(), "Selecciona una dirección de envío", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -111,12 +117,12 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding>() {
                 itemShippingAddressNoData.setVisible()
                 itemShippingAddressData.setGone()
             } else {
-                val defaultShippingAddress = data.firstOrNull { it.default }
+                defaultShippingAddress = data.firstOrNull { it.default }
                 if (defaultShippingAddress != null) {
                     itemShippingAddressData.setVisible()
                     itemShippingAddressNoData.setGone()
-                    itemShippingAddressName.text = defaultShippingAddress.name
-                    itemShippingAddressDetails.text = defaultShippingAddress.details
+                    itemShippingAddressName.text = defaultShippingAddress?.name
+                    itemShippingAddressDetails.text = defaultShippingAddress?.details
                 } else {
                     shippingAddressIsEmpty = false
                     itemShippingAddressDataMessage.text = getString(com.angiedev.sheystore.R.string.default_shipping_address_not_default_selected)

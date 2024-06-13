@@ -19,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ChoiceMyShippingAddressFragment : BaseFragment<FragmentChoiceMyShippingAddressBinding>(), ChoiceMyShippingAddressListener {
 
+    override var isBottomNavVisible = View.GONE
     private val choiceMyShippingAddressViewModel: ChoiceMyShippingAddressViewModel by viewModels()
     private val userDataViewModel: UserDataViewModel by viewModels()
 

@@ -2,10 +2,13 @@ package com.angiedev.sheystore.data.datasource.remote
 
 import android.content.Context
 import com.angiedev.sheystore.data.model.remote.request.cart.CreateCartItemDTO
+import com.angiedev.sheystore.data.model.remote.request.paymentMethod.CreatePaymentMethodDTO
 import com.angiedev.sheystore.data.model.remote.request.shippingAddress.UpdateOrCreateShippingAddressDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.cart.CartItemDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.cart.CartResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.category.CategoryResponseDTO
+import com.angiedev.sheystore.data.model.remote.response.dto.paymentMethod.PaymentMethodResponseDTO
+import com.angiedev.sheystore.data.model.remote.response.dto.paymentMethod.PaymentMethodResponseListDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.product.ProductResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.shppingAddress.ShippingAddressResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.shppingAddress.ShippingAddressResponseListDTO
@@ -137,4 +140,24 @@ class ApiDataSource @Inject constructor(
             )
         )
         .execute<ShippingAddressResponseDTO>()
+
+    suspend fun createPaymentMethod(
+        userId: Int,
+        createPaymentMethodDTO: CreatePaymentMethodDTO
+    ) = service.safeRequest(endpoint = "payment-method/user/${userId}/")
+        .withMethod(HttpMethod.POST)
+        .withBody(
+            mapOf(
+                "card_name" to createPaymentMethodDTO.cardName,
+                "card_number" to createPaymentMethodDTO.cardNumber,
+                "expired_at" to createPaymentMethodDTO.expiredAt,
+                "cvc_number" to createPaymentMethodDTO.cvcNumber
+            )
+        )
+        .execute<PaymentMethodResponseDTO>()
+
+    suspend fun getPaymentMethod(userId: Int) =
+        service.safeRequest(endpoint = "payment-method/user/${userId}/")
+            .withMethod(HttpMethod.GET)
+            .execute<PaymentMethodResponseListDTO>()
 }

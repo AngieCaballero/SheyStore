@@ -91,11 +91,12 @@
             app:boxStrokeWidth="0dp"
             app:layout_constraintTop_toBottomOf="@id/add_new_card_number_label">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.angiedev.sheystore.ui.utils.FormattedNumberEditText
                 android:id="@+id/add_new_card_number_edit_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="text"
+                android:hint="@string/_1234_5678_9012_3456"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,10 +125,13 @@
             app:layout_constraintEnd_toStartOf="@id/add_new_card_cvv_input_layout"
             app:layout_constraintTop_toBottomOf="@id/add_new_card_expired_date_label">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.angiedev.sheystore.ui.utils.FormattedNumberEditText
                 android:id="@+id/add_new_card_expired_date_edit_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:groupSeparator="/"
+                app:groupLength="2"
+                app:numberOfGroups="2"
                 android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -143,7 +147,7 @@
             app:layout_constraintStart_toStartOf="@id/add_new_card_cvv_input_layout"
             app:layout_constraintTop_toBottomOf="@id/add_new_card_number_input_layout"
             android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceSubtitle1"
-            android:text="@string/fecha_de_vencimiento"/>
+            android:text="@string/cvc"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/add_new_card_cvv_input_layout"
@@ -162,6 +166,7 @@
                 android:id="@+id/add_new_card_cvv_edit_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLength="3"
                 android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>

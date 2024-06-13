@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_checkoutFragment_to_choiceMyShippingAddressFragment"
             app:destination="@id/choiceMyShippingAddressFragment" />
+        <action
+            android:id="@+id/action_checkoutFragment_to_paymentMethodsFragment"
+            app:destination="@id/paymentMethodsFragment" />
     </fragment>
     <fragment
         android:id="@+id/choiceMyShippingAddressFragment"
@@ -37,4 +40,18 @@
         android:name="com.angiedev.sheystore.ui.addNewAddress.view.AddNewAddressFragment"
         android:label="fragment_add_new_address"
         tools:layout="@layout/fragment_add_new_address" />
+    <fragment
+        android:id="@+id/paymentMethodsFragment"
+        android:name="com.angiedev.sheystore.ui.paymentMethods.view.PaymentMethodsFragment"
+        android:label="fragment_payment_methods"
+        tools:layout="@layout/fragment_payment_methods" >
+        <action
+            android:id="@+id/action_paymentMethodsFragment_to_addNewCardFragment"
+            app:destination="@id/addNewCardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewCardFragment"
+        android:name="com.angiedev.sheystore.ui.addNewCard.view.AddNewCardFragment"
+        android:label="fragment_add_new_card"
+        tools:layout="@layout/fragment_add_new_card" />
 </navigation>

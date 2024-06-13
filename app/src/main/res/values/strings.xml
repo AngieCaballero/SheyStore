@@ -73,4 +73,9 @@
     <string name="monto">Monto</string>
     <string name="env_o">Envío</string>
     <string name="total">Total</string>
+    <string name="cvc">CVC</string>
+    <string name="_1234_5678_9012_3456">1234 5678 9012 3456</string>
+    <string name="confirmar_pago">Confirmar pago</string>
+    <string name="agregar_nueva_tarjeta_de_pago">Agregar nueva tarjeta de pago</string>
+    <string name="conectado">Conectado</string>
 </resources>

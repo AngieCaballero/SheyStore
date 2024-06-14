@@ -7,7 +7,8 @@ data class PaymentMethodEntity(
     val cardName: String,
     val cardNumber: String,
     val expiredAt: String,
-    val cvc: Int
+    val cvc: Int,
+    var selected: Boolean = false
 ) {
     constructor(paymentMethodDTO: PaymentMethodDTO?) : this(
         id = paymentMethodDTO?.id ?: 0,

@@ -11,7 +11,9 @@ import com.angiedev.sheystore.domain.entities.paymentMethod.PaymentMethodEntity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
-class PaymentMethodsAdapter : RecyclerView.Adapter<PaymentMethodsAdapter.PaymentMethodsViewHolder>() {
+class PaymentMethodsAdapter (
+    private val paymentMethodsListener: PaymentMethodsListener
+): RecyclerView.Adapter<PaymentMethodsAdapter.PaymentMethodsViewHolder>() {
 
     private val paymentMethodsList = mutableListOf<PaymentMethodEntity>()
 
@@ -27,6 +29,25 @@ class PaymentMethodsAdapter : RecyclerView.Adapter<PaymentMethodsAdapter.Payment
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .error(R.drawable.ic_mastercard)
                     .into(itemPaymentCardIcon)
+
+                itemPaymentCardRadioButton.isChecked = paymentMethodEntity.selected
+
+                root.setOnClickListener {
+                    if (!paymentMethodEntity.selected) {
+                        isAnyChecked(adapterPosition)
+                        paymentMethodsList[adapterPosition].selected = !paymentMethodsList[adapterPosition].selected
+                        notifyItemChanged(adapterPosition)
+                        paymentMethodsListener.onCheckedItemListener(paymentMethodEntity)
+                    }
+                }
+            }
+        }
+
+        private fun isAnyChecked(position: Int) {
+            val temp = paymentMethodsList.indexOfFirst { it.selected }
+            if (temp >= 0 && temp != position) {
+                paymentMethodsList[temp].selected = false
+                notifyItemChanged(temp, 12)
             }
         }
     }

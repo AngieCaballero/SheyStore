@@ -39,9 +39,21 @@
             android:layout_height="match_parent"
             android:layout_weight="0"
             android:textStyle="bold"
+            android:layout_marginStart="10dp"
             android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceCaption"
             android:gravity="center_vertical"
             android:text="@string/conectado"/>
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/item_payment_card_radio_button"
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
+            android:padding="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </com.google.android.material.card.MaterialCardView>

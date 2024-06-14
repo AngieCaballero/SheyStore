@@ -51,10 +51,14 @@ class PaymentMethodsFragment : BaseFragment<FragmentPaymentMethodsBinding>(), Pa
         with(binding) {
             paymentMethodsButtonPaymentConfirm.setOnClickListener {
                 if (paymentMethodSelected != null) {
-                    // Go to next screen
+                    findNavController().navigate(PaymentMethodsFragmentDirections.actionPaymentMethodsFragmentToPaymentConfirmFragment(paymentMethodSelected?.cvc.toString()))
                 } else {
                     Toast.makeText(requireContext(), "Selecciona un método de pago", Toast.LENGTH_SHORT).show()
                 }
+            }
+
+            paymentMethodsToolbar.setNavigationOnClickListener {
+                findNavController().popBackStack()
             }
 
             paymentMethodsAddNewCard.setOnClickListener {

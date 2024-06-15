@@ -50,8 +50,8 @@ object GetProfileItems {
         ProfileItem(
             id = 6,
             startIcon = R.drawable.ic_language,
-            endIcon = R.drawable.ic_arrow_angle_right,
-            title = "Lenguaje",
+            endIcon = R.drawable.ic_cart,
+            title = "Pedidos",
             type = ProfileItemsType.Language
         ),
         ProfileItem(

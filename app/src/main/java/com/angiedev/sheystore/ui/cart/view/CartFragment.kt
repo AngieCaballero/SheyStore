@@ -26,6 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class CartFragment : BaseFragment<FragmentCartBinding>(), CartItemListener {
 
+    private val mainViewModel: MainViewModel by activityViewModels()
     private val cartViewModel: CartViewModel by viewModels()
     private val userDataViewModel: UserDataViewModel by viewModels()
     private var cartAdapter: CartAdapter? = null
@@ -54,6 +55,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), CartItemListener {
                 is ApiResponse.Error -> Toast.makeText(requireContext(), response.toString(), Toast.LENGTH_SHORT).show()
                 ApiResponse.Loading -> TODO()
                 is ApiResponse.Success -> {
+                    mainViewModel.cartId = response.data.id
                     setUI(response.data.cartItems)
                 }
             }

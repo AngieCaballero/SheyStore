@@ -79,4 +79,8 @@
     <string name="agregar_nueva_tarjeta_de_pago">Agregar nueva tarjeta de pago</string>
     <string name="conectado">Conectado</string>
     <string name="ingresa_tu_cvc_para_confirmar_tu_compra">Ingresa tu CVC para confirmar tu compra</string>
+    <string name="orden_confirmada">Orden confirmada</string>
+    <string name="has_realizado_el_pedido_con_xito">Has realizado el pedido con éxito</string>
+    <string name="ver_pedido">Ver pedido</string>
+    <string name="ir_a_la_tienda">Ir a la tienda</string>
 </resources>

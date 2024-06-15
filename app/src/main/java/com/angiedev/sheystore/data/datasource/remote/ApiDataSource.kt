@@ -2,11 +2,13 @@ package com.angiedev.sheystore.data.datasource.remote
 
 import android.content.Context
 import com.angiedev.sheystore.data.model.remote.request.cart.CreateCartItemDTO
+import com.angiedev.sheystore.data.model.remote.request.order.CreateOrderDTO
 import com.angiedev.sheystore.data.model.remote.request.paymentMethod.CreatePaymentMethodDTO
 import com.angiedev.sheystore.data.model.remote.request.shippingAddress.UpdateOrCreateShippingAddressDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.cart.CartItemDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.cart.CartResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.category.CategoryResponseDTO
+import com.angiedev.sheystore.data.model.remote.response.dto.order.OrderResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.paymentMethod.PaymentMethodResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.paymentMethod.PaymentMethodResponseListDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.product.ProductResponseDTO
@@ -160,4 +162,14 @@ class ApiDataSource @Inject constructor(
         service.safeRequest(endpoint = "payment-method/user/${userId}/")
             .withMethod(HttpMethod.GET)
             .execute<PaymentMethodResponseListDTO>()
+
+    suspend fun createOrder(userId: Int, createOrderDTO: CreateOrderDTO) = service.safeRequest(endpoint = "order/user/${userId}/")
+        .withMethod(HttpMethod.POST)
+        .withBody(
+            mapOf(
+                "orderStatus" to createOrderDTO.orderStatus,
+                "cart_id" to createOrderDTO.cartId
+            )
+        )
+        .execute<OrderResponseDTO>()
 }

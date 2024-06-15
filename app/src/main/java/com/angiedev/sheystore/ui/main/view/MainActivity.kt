@@ -98,10 +98,16 @@ class MainActivity: AppCompatActivity() {
         binding.bottomNavigation.visibility = visibility
     }
 
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        mainViewModel.onRestoreInstanceState(savedInstanceState)
+    }
+
     // Needed to maintain correct state over rotations
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putInt(BOTTOM_NAV_SELECTED_ITEM_ID_KEY, bottomNavSelectedItemId)
         super.onSaveInstanceState(outState)
+        outState.putInt(BOTTOM_NAV_SELECTED_ITEM_ID_KEY, bottomNavSelectedItemId)
+        mainViewModel.onSaveInstanceState(outState)
     }
 
 }

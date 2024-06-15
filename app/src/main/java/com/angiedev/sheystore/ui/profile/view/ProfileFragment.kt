@@ -57,7 +57,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(), ProfileItemsList
             }
             ProfileItemsType.HelpCenter -> TODO()
             ProfileItemsType.InviteFriends -> TODO()
-            ProfileItemsType.Order -> TODO()
+            ProfileItemsType.Order -> {
+                findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToOrdersTabsFragment2())
+            }
             ProfileItemsType.Logout -> TODO()
             ProfileItemsType.Notification -> TODO()
             ProfileItemsType.Payment -> TODO()

@@ -64,5 +64,15 @@
         tools:layout="@layout/fragment_payment_confirm">
         <argument app:argType="string"
             android:name="cvc" />
+        <action
+            android:id="@+id/action_paymentConfirmFragment_to_ordersTabsFragment"
+            app:destination="@id/ordersTabsFragment"
+            app:popUpTo="@id/checkoutFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
+    <fragment
+        android:id="@+id/ordersTabsFragment"
+        android:name="com.angiedev.sheystore.ui.order.view.OrdersTabsFragment"
+        android:label="fragment_orders_tabs"
+        tools:layout="@layout/fragment_orders_tabs" />
 </navigation>

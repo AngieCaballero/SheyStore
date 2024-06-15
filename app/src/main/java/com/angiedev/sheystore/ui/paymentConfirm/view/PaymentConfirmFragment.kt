@@ -74,7 +74,7 @@ class PaymentConfirmFragment : BaseFragment<FragmentPaymentConfirmBinding>() {
                 }
 
                 override fun goToOrder() {
-
+                    findNavController().navigate(PaymentConfirmFragmentDirections.actionPaymentConfirmFragmentToOrdersTabsFragment())
                 }
 
             })

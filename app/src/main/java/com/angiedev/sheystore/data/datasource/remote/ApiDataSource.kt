@@ -174,7 +174,7 @@ class ApiDataSource @Inject constructor(
         )
         .execute<OrderResponseDTO>()
 
-    suspend fun getOrders(userId: Int) = service.safeRequest(endpoint = "order/user/${userId}/")
+    suspend fun getOrders(userId: Int, orderStatus: String) = service.safeRequest(endpoint = "order/user/${userId}/status/${orderStatus}/")
         .withMethod(HttpMethod.GET)
         .execute<OrderResponseListDTO>()
 }

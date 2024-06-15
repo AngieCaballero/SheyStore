@@ -132,8 +132,8 @@ class CartRepositoryImp @Inject constructor(
         }
     }
 
-    override suspend fun getOrders(userId: Int): ApiResponse<List<OrderEntity>> {
-        val response = apiDataSource.getOrders(userId)
+    override suspend fun getOrders(userId: Int, orderStatus: String): ApiResponse<List<OrderEntity>> {
+        val response = apiDataSource.getOrders(userId, orderStatus)
 
         return if (response.isSuccess) {
             val data = response.getOrNull()?.data?.map {

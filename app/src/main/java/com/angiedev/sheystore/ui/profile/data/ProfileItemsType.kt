@@ -7,7 +7,7 @@ sealed class ProfileItemsType {
     data object Notification : ProfileItemsType()
     data object Payment : ProfileItemsType()
     data object Security : ProfileItemsType()
-    data object Language : ProfileItemsType()
+    data object Order : ProfileItemsType()
     data object PrivacyPolicy : ProfileItemsType()
     data object HelpCenter : ProfileItemsType()
     data object InviteFriends : ProfileItemsType()

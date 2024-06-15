@@ -9,6 +9,7 @@ import com.angiedev.sheystore.data.model.remote.response.dto.cart.CartItemDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.cart.CartResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.category.CategoryResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.order.OrderResponseDTO
+import com.angiedev.sheystore.data.model.remote.response.dto.order.OrderResponseListDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.paymentMethod.PaymentMethodResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.paymentMethod.PaymentMethodResponseListDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.product.ProductResponseDTO
@@ -172,4 +173,8 @@ class ApiDataSource @Inject constructor(
             )
         )
         .execute<OrderResponseDTO>()
+
+    suspend fun getOrders(userId: Int) = service.safeRequest(endpoint = "order/user/${userId}/")
+        .withMethod(HttpMethod.GET)
+        .execute<OrderResponseListDTO>()
 }

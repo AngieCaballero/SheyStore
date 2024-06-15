@@ -8,6 +8,7 @@ import com.angiedev.sheystore.data.model.remote.request.order.CreateOrderDTO
 import com.angiedev.sheystore.data.model.remote.request.paymentMethod.CreatePaymentMethodDTO
 import com.angiedev.sheystore.data.model.remote.request.shippingAddress.UpdateOrCreateShippingAddressDTO
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
+import com.angiedev.sheystore.domain.entities.order.OrderEntity
 import com.angiedev.sheystore.domain.entities.paymentMethod.PaymentMethodEntity
 import javax.inject.Inject
 
@@ -126,6 +127,19 @@ class CartRepositoryImp @Inject constructor(
 
         return if (response.isSuccess) {
             ApiResponse.Success(data = true)
+        } else {
+            ApiResponse.Error(response.exceptionOrNull())
+        }
+    }
+
+    override suspend fun getOrders(userId: Int): ApiResponse<List<OrderEntity>> {
+        val response = apiDataSource.getOrders(userId)
+
+        return if (response.isSuccess) {
+            val data = response.getOrNull()?.data?.map {
+                OrderEntity(it)
+            }.orEmpty()
+            ApiResponse.Success(data = data)
         } else {
             ApiResponse.Error(response.exceptionOrNull())
         }

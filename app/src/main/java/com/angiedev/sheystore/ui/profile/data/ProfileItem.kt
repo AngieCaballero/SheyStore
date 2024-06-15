@@ -52,7 +52,7 @@ object GetProfileItems {
             startIcon = R.drawable.ic_language,
             endIcon = R.drawable.ic_cart,
             title = "Pedidos",
-            type = ProfileItemsType.Language
+            type = ProfileItemsType.Order
         ),
         ProfileItem(
             id = 7,

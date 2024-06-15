@@ -57,7 +57,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(), ProfileItemsList
             }
             ProfileItemsType.HelpCenter -> TODO()
             ProfileItemsType.InviteFriends -> TODO()
-            ProfileItemsType.Language -> TODO()
+            ProfileItemsType.Order -> TODO()
             ProfileItemsType.Logout -> TODO()
             ProfileItemsType.Notification -> TODO()
             ProfileItemsType.Payment -> TODO()

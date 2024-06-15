@@ -29,5 +29,5 @@ interface ICartRepository {
 
     suspend fun createOrder(userId: Int, createOrderDTO: CreateOrderDTO) : ApiResponse<Boolean>
 
-    suspend fun getOrders(userId: Int, orderStatus: String) : ApiResponse<List<OrderEntity>>
+    suspend fun getOrders(userId: Int, orderStatus: Int) : ApiResponse<List<OrderEntity>>
 }

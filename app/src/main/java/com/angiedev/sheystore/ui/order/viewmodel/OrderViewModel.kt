@@ -18,7 +18,7 @@ class OrderViewModel @Inject constructor(
     private val _order = MutableLiveData<ApiResponse<List<OrderEntity>>>()
     val order get() = _order
 
-    fun getOrders(userId: Int, orderStatus: String) {
+    fun getOrders(userId: Int, orderStatus: Int) {
         runBlocking(Dispatchers.IO) {
             val response = cartRepository.getOrders(userId, orderStatus)
 

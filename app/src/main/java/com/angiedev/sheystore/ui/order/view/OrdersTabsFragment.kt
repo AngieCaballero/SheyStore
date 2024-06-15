@@ -2,7 +2,6 @@ package com.angiedev.sheystore.ui.order.view
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.angiedev.sheystore.databinding.FragmentOrdersTabsBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
@@ -14,8 +13,8 @@ class OrdersTabsFragment : BaseFragment<FragmentOrdersTabsBinding>() {
     override var isBottomNavVisible = View.GONE
 
     private val tabsScreen = listOf(
-        Pair("Activos", Fragment()),
-        Pair("Completados", Fragment())
+        Pair("Activos", OrdersFragment.newInstance(1)),
+        Pair("Completados", OrdersFragment.newInstance(2))
     )
 
     override fun getViewBinding() = FragmentOrdersTabsBinding.inflate(layoutInflater)

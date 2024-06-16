@@ -16,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class OrdersFragment : BaseFragment<FragmentOrdersBinding>() {
 
+    override var isBottomNavVisible = View.GONE
     private val viewModel: OrderViewModel by viewModels()
     private val userDataViewModel: UserDataViewModel by viewModels()
     private var statusId = 1

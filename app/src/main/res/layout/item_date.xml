@@ -10,5 +10,6 @@
         android:text="Hello World!"
         android:textAlignment="center"
         android:paddingVertical="8dp"
+        android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceBody2"/>
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -13,7 +13,8 @@ import com.angiedev.sheystore.databinding.ItemDateBinding
 import com.angiedev.sheystore.domain.entities.cart.CartItemEntity
 import com.angiedev.sheystore.domain.entities.order.OrderEntity
 import com.angiedev.sheystore.ui.utils.extension.parseColor
-import com.angiedev.sheystore.ui.utils.extension.setGone
+import com.angiedev.sheystore.ui.utils.extension.setInvisible
+import com.angiedev.sheystore.ui.utils.extension.setVisible
 import com.angiedev.sheystore.ui.utils.helper.getFormattedDate
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -24,14 +25,14 @@ class OrdersAdapter : RecyclerView.Adapter<ViewHolder>() {
 
     sealed class OrderViewType {
         data class ItemHeader(val title: String) : OrderViewType()
-        data class ItemOrder(val order: CartItemEntity) : OrderViewType()
+        data class ItemOrder(val order: CartItemEntity, val status: String) : OrderViewType()
     }
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         when(holder) {
             is HeaderViewHolder -> holder.bind((orderList[position] as OrderViewType.ItemHeader).title)
-            is OrdersViewHolder -> holder.bind((orderList[position] as OrderViewType.ItemOrder).order)
+            is OrdersViewHolder -> holder.bind((orderList[position] as OrderViewType.ItemOrder).order, (orderList[position] as OrderViewType.ItemOrder).status)
         }
     }
 
@@ -39,9 +40,9 @@ class OrdersAdapter : RecyclerView.Adapter<ViewHolder>() {
     fun submitList(newList: List<OrderEntity>) {
         orderList.clear()
         newList.forEach { orderEntity ->
-            orderList.add(OrderViewType.ItemHeader(orderEntity.createdAt.getFormattedDate("dd/MM/yyyy")))
+            orderList.add(OrderViewType.ItemHeader(orderEntity.createdAt.getFormattedDate("dd MMM, yyyy")))
             orderEntity.cart.cartItems.forEach {
-                orderList.add(OrderViewType.ItemOrder(it))
+                orderList.add(OrderViewType.ItemOrder(it, orderEntity.status))
             }
         }
         notifyDataSetChanged()
@@ -76,10 +77,13 @@ class OrdersAdapter : RecyclerView.Adapter<ViewHolder>() {
     inner class OrdersViewHolder(itemView: View) : ViewHolder(itemView) {
         private val binding = ItemCartBinding.bind(itemView)
 
-        fun bind(order: CartItemEntity) {
+        fun bind(order: CartItemEntity, status: String) {
             with(binding) {
                 itemCartName.text = order.product.name
-                itemCartQuantityStepper.setGone()
+                itemCartQuantityStepper.setInvisible()
+                itemCartRemoveIcon.setInvisible()
+                itemCartStatus.text = status
+                itemCartStatus.setVisible()
                 itemCartTotalPrice.text = root.context.resources.getString(R.string.total_price, order.totalPrice.toString())
                 val gradientColor = GradientDrawable().apply {
                     setColor(order.color.parseColor())

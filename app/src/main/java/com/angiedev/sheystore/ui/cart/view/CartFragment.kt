@@ -52,7 +52,9 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), CartItemListener {
         super.setObservers()
         cartViewModel.cartItems.observe(viewLifecycleOwner) { response ->
             when(response) {
-                is ApiResponse.Error -> Toast.makeText(requireContext(), response.toString(), Toast.LENGTH_SHORT).show()
+                is ApiResponse.Error -> {
+                    setUI(emptyList())
+                }
                 ApiResponse.Loading -> TODO()
                 is ApiResponse.Success -> {
                     mainViewModel.cartId = response.data.id

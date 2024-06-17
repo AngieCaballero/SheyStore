@@ -149,6 +149,14 @@
         <item name="backgroundTint">@color/white</item>
     </style>
 
+    <style name="Widget.SheyStore.SmallButton" parent="Widget.Material3.Button.ElevatedButton">
+        <item name="android:textColor">@color/color_text</item>
+        <item name="cornerRadius">14dp</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textAppearance">@style/TextAppearance.SheyStore.textAppearanceButton</item>
+        <item name="backgroundTint">@color/white</item>
+    </style>
+
     <!-- End Button Styles-->
 
     <!-- Begin BottomNavigationView Styles -->

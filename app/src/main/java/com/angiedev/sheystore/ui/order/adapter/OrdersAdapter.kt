@@ -5,9 +5,11 @@ import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.Keep
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.angiedev.sheystore.R
+import com.angiedev.sheystore.data.model.remote.request.order.OrderType
 import com.angiedev.sheystore.databinding.ItemCartBinding
 import com.angiedev.sheystore.databinding.ItemDateBinding
 import com.angiedev.sheystore.domain.entities.cart.CartItemEntity
@@ -19,12 +21,18 @@ import com.angiedev.sheystore.ui.utils.helper.getFormattedDate
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
-class OrdersAdapter : RecyclerView.Adapter<ViewHolder>() {
+class OrdersAdapter(
+    private val orderItemListener: OrderItemListener
+) : RecyclerView.Adapter<ViewHolder>() {
 
     private val orderList: MutableList<OrderViewType> = mutableListOf()
 
+    @Keep
     sealed class OrderViewType {
+        @Keep
         data class ItemHeader(val title: String) : OrderViewType()
+
+        @Keep
         data class ItemOrder(val order: CartItemEntity, val status: String) : OrderViewType()
     }
 
@@ -83,6 +91,14 @@ class OrdersAdapter : RecyclerView.Adapter<ViewHolder>() {
                 itemCartQuantityStepper.setInvisible()
                 itemCartRemoveIcon.setInvisible()
                 itemCartStatus.text = status
+                if (status == OrderType.COMPLETED) {
+                    itemCartLeaveReview.setVisible()
+                } else {
+                    itemCartLeaveReview.setInvisible()
+                }
+                itemCartLeaveReview.setOnClickListener {
+                    orderItemListener.onItemLeaveReview(order)
+                }
                 itemCartStatus.setVisible()
                 itemCartTotalPrice.text = root.context.resources.getString(R.string.total_price, order.totalPrice.toString())
                 val gradientColor = GradientDrawable().apply {

@@ -50,6 +50,6 @@
         android:text="@string/ir_a_la_tienda"
         style="@style/Widget.SheyStore.Button"
         android:textColor="@color/black"
-        android:backgroundTint="@color/color_primary_variant"/>
+        android:backgroundTint="#D8D8D8"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

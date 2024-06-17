@@ -83,4 +83,10 @@
     <string name="has_realizado_el_pedido_con_xito">Has realizado el pedido con éxito</string>
     <string name="ver_pedido">Ver pedido</string>
     <string name="ir_a_la_tienda">Ir a la tienda</string>
+    <string name="dejar_opini_n">Dejar opinión</string>
+    <string name="dejar_una_opini_n">Dejar una opinión</string>
+    <string name="c_mo_estuvo_tu_pedido">¿Cómo estuvo tu pedido?</string>
+    <string name="por_favor_da_tu_calificaci_n_y_tambi_n_tu_rese_a">Por favor da tu calificación y también tu reseña...</string>
+    <string name="escribe_tu_opini_n">Escribe tu opinión</string>
+    <string name="enviar">Enviar</string>
 </resources>

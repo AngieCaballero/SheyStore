@@ -6,7 +6,9 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentOrdersBinding
+import com.angiedev.sheystore.domain.entities.cart.CartItemEntity
 import com.angiedev.sheystore.ui.base.BaseFragment
+import com.angiedev.sheystore.ui.order.adapter.OrderItemListener
 import com.angiedev.sheystore.ui.order.adapter.OrdersAdapter
 import com.angiedev.sheystore.ui.order.viewmodel.OrderViewModel
 import com.angiedev.sheystore.ui.user.viewmodel.UserDataViewModel
@@ -14,7 +16,7 @@ import com.angiedev.sheystore.ui.utils.constant.PreferencesKeys
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OrdersFragment : BaseFragment<FragmentOrdersBinding>() {
+class OrdersFragment : BaseFragment<FragmentOrdersBinding>(), OrderItemListener {
 
     override var isBottomNavVisible = View.GONE
     private val viewModel: OrderViewModel by viewModels()
@@ -39,7 +41,7 @@ class OrdersFragment : BaseFragment<FragmentOrdersBinding>() {
     }
 
     private fun setupAdapter() {
-        ordersAdapter = OrdersAdapter()
+        ordersAdapter = OrdersAdapter(this)
         binding.fragmentOrdersRecyclerView.adapter = ordersAdapter
     }
 
@@ -50,7 +52,7 @@ class OrdersFragment : BaseFragment<FragmentOrdersBinding>() {
                 is ApiResponse.Error -> Toast.makeText(requireContext(), "Ha ocurrido un error", Toast.LENGTH_SHORT).show()
                 ApiResponse.Loading -> TODO()
                 is ApiResponse.Success -> {
-                    ordersAdapter?.submitList(it.data)
+                    ordersAdapter?.submitList(it.data.reversed())
                 }
             }
         }
@@ -64,5 +66,9 @@ class OrdersFragment : BaseFragment<FragmentOrdersBinding>() {
                 putInt(STATUS_ID, statusId)
             }
         }
+    }
+
+    override fun onItemLeaveReview(orderItem: CartItemEntity) {
+        LeaveReviewBottomSheetFragment.newInstance().show(childFragmentManager, LeaveReviewBottomSheetFragment.TAG)
     }
 }

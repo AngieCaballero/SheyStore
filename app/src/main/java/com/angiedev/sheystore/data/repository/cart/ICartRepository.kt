@@ -5,6 +5,7 @@ import com.angiedev.sheystore.domain.entities.shippingAddres.ShippingAddressEnti
 import com.angiedev.sheystore.data.model.remote.request.cart.CreateCartItemDTO
 import com.angiedev.sheystore.data.model.remote.request.order.CreateOrderDTO
 import com.angiedev.sheystore.data.model.remote.request.paymentMethod.CreatePaymentMethodDTO
+import com.angiedev.sheystore.data.model.remote.request.review.CreateReviewDTO
 import com.angiedev.sheystore.data.model.remote.request.shippingAddress.UpdateOrCreateShippingAddressDTO
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.domain.entities.order.OrderEntity
@@ -30,4 +31,6 @@ interface ICartRepository {
     suspend fun createOrder(userId: Int, createOrderDTO: CreateOrderDTO) : ApiResponse<Boolean>
 
     suspend fun getOrders(userId: Int, orderStatus: Int) : ApiResponse<List<OrderEntity>>
+
+    suspend fun sendReview(userId: Int, productId: Int, createReviewDTO: CreateReviewDTO) : ApiResponse<Boolean>
 }

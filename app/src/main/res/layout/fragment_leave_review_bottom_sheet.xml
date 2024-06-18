@@ -92,6 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                app:endIconMode="custom"
                 android:hint="@string/escribe_tu_opini_n"
                 app:boxStrokeWidth="0dp"
                 app:endIconDrawable="@drawable/ic_add_image"

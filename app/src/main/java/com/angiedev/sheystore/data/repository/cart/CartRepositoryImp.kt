@@ -6,6 +6,7 @@ import com.angiedev.sheystore.domain.entities.shippingAddres.ShippingAddressEnti
 import com.angiedev.sheystore.data.model.remote.request.cart.CreateCartItemDTO
 import com.angiedev.sheystore.data.model.remote.request.order.CreateOrderDTO
 import com.angiedev.sheystore.data.model.remote.request.paymentMethod.CreatePaymentMethodDTO
+import com.angiedev.sheystore.data.model.remote.request.review.CreateReviewDTO
 import com.angiedev.sheystore.data.model.remote.request.shippingAddress.UpdateOrCreateShippingAddressDTO
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.domain.entities.order.OrderEntity
@@ -140,6 +141,20 @@ class CartRepositoryImp @Inject constructor(
                 OrderEntity(it)
             }.orEmpty()
             ApiResponse.Success(data = data)
+        } else {
+            ApiResponse.Error(response.exceptionOrNull())
+        }
+    }
+
+    override suspend fun sendReview(
+        userId: Int,
+        productId: Int,
+        createReviewDTO: CreateReviewDTO
+    ): ApiResponse<Boolean> {
+        val response = apiDataSource.sendReview(userId, productId, createReviewDTO)
+
+        return if (response.isSuccess && response.getOrNull()?.data != null) {
+            ApiResponse.Success(data = true)
         } else {
             ApiResponse.Error(response.exceptionOrNull())
         }

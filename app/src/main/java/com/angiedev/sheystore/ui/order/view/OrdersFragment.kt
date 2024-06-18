@@ -3,6 +3,7 @@ package com.angiedev.sheystore.ui.order.view
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentOrdersBinding
@@ -56,6 +57,14 @@ class OrdersFragment : BaseFragment<FragmentOrdersBinding>(), OrderItemListener 
                 }
             }
         }
+
+        viewModel.review.observe(viewLifecycleOwner) {
+            when(it) {
+                is ApiResponse.Error -> Toast.makeText(requireContext(), "Ha ocurrido un error", Toast.LENGTH_SHORT).show()
+                ApiResponse.Loading -> TODO()
+                is ApiResponse.Success -> Toast.makeText(requireContext(), "Gracias por tu opinión", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     companion object {
@@ -69,6 +78,21 @@ class OrdersFragment : BaseFragment<FragmentOrdersBinding>(), OrderItemListener 
     }
 
     override fun onItemLeaveReview(orderItem: CartItemEntity) {
-        LeaveReviewBottomSheetFragment.newInstance().show(childFragmentManager, LeaveReviewBottomSheetFragment.TAG)
+        LeaveReviewBottomSheetFragment.newInstance(
+            bundleOf(LeaveReviewBottomSheetFragment.CART_ITEM to orderItem)
+        ).also {
+            it.setOrderReviewListener(object : OrderReviewListener{
+                override fun onSubmit(rating: Float, comment: String, image: String) {
+                    viewModel.sendReview(
+                        userId = userDataViewModel.readValue(PreferencesKeys.USER_ID) ?: 0,
+                        productId = orderItem.product.id,
+                        rating = rating,
+                        comment = comment,
+                        image = image
+                    )
+                }
+
+            })
+        }.show(childFragmentManager, LeaveReviewBottomSheetFragment.TAG)
     }
 }

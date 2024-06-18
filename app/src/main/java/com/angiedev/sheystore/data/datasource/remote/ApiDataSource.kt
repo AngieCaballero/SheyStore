@@ -4,6 +4,7 @@ import android.content.Context
 import com.angiedev.sheystore.data.model.remote.request.cart.CreateCartItemDTO
 import com.angiedev.sheystore.data.model.remote.request.order.CreateOrderDTO
 import com.angiedev.sheystore.data.model.remote.request.paymentMethod.CreatePaymentMethodDTO
+import com.angiedev.sheystore.data.model.remote.request.review.CreateReviewDTO
 import com.angiedev.sheystore.data.model.remote.request.shippingAddress.UpdateOrCreateShippingAddressDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.cart.CartItemDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.cart.CartResponseDTO
@@ -13,6 +14,7 @@ import com.angiedev.sheystore.data.model.remote.response.dto.order.OrderResponse
 import com.angiedev.sheystore.data.model.remote.response.dto.paymentMethod.PaymentMethodResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.paymentMethod.PaymentMethodResponseListDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.product.ProductResponseDTO
+import com.angiedev.sheystore.data.model.remote.response.dto.review.ReviewResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.shppingAddress.ShippingAddressResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.shppingAddress.ShippingAddressResponseListDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.specialsOffers.SpecialOfferResponseDTO
@@ -177,4 +179,15 @@ class ApiDataSource @Inject constructor(
     suspend fun getOrders(userId: Int, orderStatus: Int) = service.safeRequest(endpoint = "order/user/${userId}/status/${orderStatus}/")
         .withMethod(HttpMethod.GET)
         .execute<OrderResponseListDTO>()
+
+    suspend fun sendReview(userId: Int, productId: Int, createReviewDTO: CreateReviewDTO) = service.safeRequest(endpoint = "review/user/$userId/product/$productId/")
+        .withMethod(HttpMethod.POST)
+        .withBody(
+            mapOf(
+                "comment" to createReviewDTO.comment,
+                "rating" to createReviewDTO.rating,
+                "image" to createReviewDTO.image.orEmpty()
+            )
+        )
+        .execute<ReviewResponseDTO>()
 }

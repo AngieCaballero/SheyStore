@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".ui.fillProfile.view.FillYourProfileFragment">
+    tools:context=".ui.modules.buyer.fillProfile.view.FillYourProfileFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/fill_your_profile_app_bar"

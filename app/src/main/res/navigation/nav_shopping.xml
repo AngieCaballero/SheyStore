@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/shoppingFragment"
-        android:name="com.angiedev.sheystore.ui.shopping.view.ShoppingFragment"
+        android:name="com.angiedev.sheystore.ui.modules.buyer.shopping.view.ShoppingFragment"
         android:label="fragment_shopping"
         tools:layout="@layout/fragment_shopping" >
         <action
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/productDetailsFragment"
-        android:name="com.angiedev.sheystore.ui.product.view.ProductDetailsFragment"
+        android:name="com.angiedev.sheystore.ui.modules.buyer.product.view.ProductDetailsFragment"
         android:label="fragment_product_details"
         tools:layout="@layout/fragment_product_details" >
 

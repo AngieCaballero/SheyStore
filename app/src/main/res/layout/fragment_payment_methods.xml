@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#F8F8F8"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.paymentMethods.view.PaymentMethodsFragment">
+    tools:context=".ui.modules.buyer.paymentMethods.view.PaymentMethodsFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/payment_methods_app_bar"

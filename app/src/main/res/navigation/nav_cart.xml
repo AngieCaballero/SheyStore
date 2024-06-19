@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.angiedev.sheystore.ui.cart.view.CartFragment"
+        android:name="com.angiedev.sheystore.ui.modules.buyer.cart.view.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/checkoutFragment"
-        android:name="com.angiedev.sheystore.ui.checkout.view.CheckoutFragment"
+        android:name="com.angiedev.sheystore.ui.modules.buyer.checkout.view.CheckoutFragment"
         android:label="fragment_checkout"
         tools:layout="@layout/fragment_checkout" >
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/choiceMyShippingAddressFragment"
-        android:name="com.angiedev.sheystore.ui.choiceMyShippingAddress.view.ChoiceMyShippingAddressFragment"
+        android:name="com.angiedev.sheystore.ui.modules.buyer.choiceMyShippingAddress.view.ChoiceMyShippingAddressFragment"
         android:label="fragment_choice_my_shipping_address"
         tools:layout="@layout/fragment_choice_my_shipping_address" >
         <action
@@ -37,12 +37,12 @@
     </fragment>
     <fragment
         android:id="@+id/addNewAddressFragment"
-        android:name="com.angiedev.sheystore.ui.addNewAddress.view.AddNewAddressFragment"
+        android:name="com.angiedev.sheystore.ui.modules.buyer.addNewAddress.view.AddNewAddressFragment"
         android:label="fragment_add_new_address"
         tools:layout="@layout/fragment_add_new_address" />
     <fragment
         android:id="@+id/paymentMethodsFragment"
-        android:name="com.angiedev.sheystore.ui.paymentMethods.view.PaymentMethodsFragment"
+        android:name="com.angiedev.sheystore.ui.modules.buyer.paymentMethods.view.PaymentMethodsFragment"
         android:label="fragment_payment_methods"
         tools:layout="@layout/fragment_payment_methods" >
         <action
@@ -54,12 +54,12 @@
     </fragment>
     <fragment
         android:id="@+id/addNewCardFragment"
-        android:name="com.angiedev.sheystore.ui.addNewCard.view.AddNewCardFragment"
+        android:name="com.angiedev.sheystore.ui.modules.buyer.addNewCard.view.AddNewCardFragment"
         android:label="fragment_add_new_card"
         tools:layout="@layout/fragment_add_new_card" />
     <fragment
         android:id="@+id/paymentConfirmFragment"
-        android:name="com.angiedev.sheystore.ui.paymentConfirm.view.PaymentConfirmFragment"
+        android:name="com.angiedev.sheystore.ui.modules.buyer.paymentConfirm.view.PaymentConfirmFragment"
         android:label="fragment_payment_confirm"
         tools:layout="@layout/fragment_payment_confirm">
         <argument app:argType="string"
@@ -72,7 +72,7 @@
     </fragment>
     <fragment
         android:id="@+id/ordersTabsFragment"
-        android:name="com.angiedev.sheystore.ui.order.view.OrdersTabsFragment"
+        android:name="com.angiedev.sheystore.ui.modules.buyer.order.view.OrdersTabsFragment"
         android:label="fragment_orders_tabs"
         tools:layout="@layout/fragment_orders_tabs" />
 </navigation>

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.angiedev.sheystore.ui.home.view.HomeFragment"
+        android:name="com.angiedev.sheystore.ui.modules.buyer.home.view.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -41,17 +41,17 @@
     </fragment>
     <fragment
         android:id="@+id/notificationsFragment"
-        android:name="com.angiedev.sheystore.ui.notifications.view.NotificationsFragment"
+        android:name="com.angiedev.sheystore.ui.modules.buyer.notifications.view.NotificationsFragment"
         android:label="fragment_notifications"
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/specialsOffersFragment"
-        android:name="com.angiedev.sheystore.ui.specialsOffers.view.SpecialsOffersFragment"
+        android:name="com.angiedev.sheystore.ui.modules.buyer.specialsOffers.view.SpecialsOffersFragment"
         android:label="fragment_specials_offers"
         tools:layout="@layout/fragment_specials_offers" />
     <fragment
         android:id="@+id/mostPopularFragment"
-        android:name="com.angiedev.sheystore.ui.mostPopular.view.MostPopularFragment"
+        android:name="com.angiedev.sheystore.ui.modules.buyer.mostPopular.view.MostPopularFragment"
         android:label="fragment_most_popular"
         tools:layout="@layout/fragment_most_popular" >
         <argument app:argType="string"
@@ -66,7 +66,7 @@
     </fragment>
     <fragment
         android:id="@+id/productDetailsFragment"
-        android:name="com.angiedev.sheystore.ui.product.view.ProductDetailsFragment"
+        android:name="com.angiedev.sheystore.ui.modules.buyer.product.view.ProductDetailsFragment"
         android:label="fragment_product_details"
         tools:layout="@layout/fragment_product_details" >
 

@@ -6,7 +6,7 @@
     android:background="#F8F8F8"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".ui.checkout.view.CheckoutFragment">
+    tools:context=".ui.modules.buyer.checkout.view.CheckoutFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/fragment_checkout_app_bar"

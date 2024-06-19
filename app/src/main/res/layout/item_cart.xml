@@ -104,7 +104,7 @@
                 app:layout_constraintTop_toTopOf="@id/item_cart_quantity_stepper"
                 app:layout_constraintBottom_toBottomOf="@id/item_cart_quantity_stepper"/>
 
-            <com.angiedev.sheystore.ui.product.QuantityStepper
+            <com.angiedev.sheystore.ui.modules.buyer.product.QuantityStepper
                 android:id="@+id/item_cart_quantity_stepper"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/shape_gray_background"
-    tools:context=".ui.notifications.view.NotificationsFragment">
+    tools:context=".ui.modules.buyer.notifications.view.NotificationsFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

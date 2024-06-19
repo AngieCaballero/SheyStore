@@ -4,14 +4,13 @@ import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.angiedev.sheystore.R
-import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.databinding.ActivityMainBinding
-import com.angiedev.sheystore.ui.login.viewmodel.LoginViewModel
+import com.angiedev.sheystore.ui.modules.login.login.viewmodel.LoginViewModel
 import com.angiedev.sheystore.ui.main.viewmodel.MainViewModel
 import com.angiedev.sheystore.ui.utils.extension.BackButtonBehaviour
 import com.angiedev.sheystore.ui.utils.extension.setupWithNavController
@@ -28,6 +27,7 @@ class MainActivity: AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
+    private lateinit var splashScreen: SplashScreen
     private lateinit var navController: NavController
     private val mainViewModel: MainViewModel by viewModels()
     private val loginViewModel: LoginViewModel by viewModels()
@@ -42,23 +42,24 @@ class MainActivity: AppCompatActivity() {
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val splashScreen = installSplashScreen()
+        splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        splashScreen.setKeepOnScreenCondition { false}
+        splashScreen.setKeepOnScreenCondition { true }
         handleOnBackPressed()
         setObservers()
         savedInstanceState?.let {
             bottomNavSelectedItemId = savedInstanceState.getInt(BOTTOM_NAV_SELECTED_ITEM_ID_KEY)
         }
-        setupNavigationView()
         loginViewModel.isAuthored(Date().time)
     }
 
     private fun setObservers() {
         loginViewModel.isAuthored.observe(this) { isAuthored ->
             if (!isAuthored) navigateToLoginModule()
+            else setupNavigationView()
+            splashScreen.setKeepOnScreenCondition { false }
         }
     }
 
@@ -85,15 +86,17 @@ class MainActivity: AppCompatActivity() {
 
         binding.bottomNavigation.selectedItemId = bottomNavSelectedItemId
 
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_fragment_container_view) as NavHostFragment
+        navController = navHostFragment.navController
         controller.observe(this) { selectedItemId ->
             bottomNavSelectedItemId = selectedItemId
-            navController = Navigation.findNavController(this@MainActivity, R.id.main_fragment_container_view)
         }
     }
 
     private fun navigateToLoginModule() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_fragment_container_view) as NavHostFragment
-        val inflater = navHostFragment.navController.navInflater
+        navController = navHostFragment.navController
+        val inflater = navController.navInflater
         val graph = inflater.inflate(R.navigation.nav_login)
         navController.graph = graph
     }

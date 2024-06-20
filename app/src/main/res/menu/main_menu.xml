@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/item_login"
+        android:enabled="true"
+        android:visible="false"
+        android:title="Login" />
+
+    <item
         android:id="@+id/item_home"
         android:enabled="true"
         android:icon="@drawable/selector_ic_home"

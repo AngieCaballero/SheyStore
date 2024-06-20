@@ -84,10 +84,13 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
         viewModel.signInWithEmailAndPassword.observe(viewLifecycleOwner) { response ->
             when(response) {
                 is AuthResource.Error -> {
-                    Toast.makeText(requireContext(), response.errorMessage, Toast.LENGTH_SHORT).show()
+                    if (response.errorMessage.isNotBlank()) {
+                        Toast.makeText(requireContext(), response.errorMessage, Toast.LENGTH_SHORT).show()
+                    }
                 }
                 is AuthResource.Success -> {
-                    findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToNavHome())
+                    viewModel.resetSignInState()
+                    (activity as MainActivity).selectBottomNav(R.id.item_home)
                 }
             }
         }

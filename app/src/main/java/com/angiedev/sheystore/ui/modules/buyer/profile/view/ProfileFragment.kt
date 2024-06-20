@@ -36,7 +36,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(), ProfileItemsList
         super.setObservers()
         loginViewModel.signOut.observe(viewLifecycleOwner) {
             if (it) {
-                (activity as MainActivity).navigateToLoginModule()
+                (activity as MainActivity).selectBottomNav(R.id.item_login)
+                loginViewModel.resetSignOutState()
             }
         }
     }

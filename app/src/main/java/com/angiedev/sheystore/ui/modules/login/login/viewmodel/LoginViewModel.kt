@@ -3,6 +3,7 @@ package com.angiedev.sheystore.ui.modules.login.login.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.data.util.AuthResource
 import com.angiedev.sheystore.data.repository.auth.IAuthenticationRepository
 import com.angiedev.sheystore.ui.utils.extension.validatePassword
@@ -30,6 +31,14 @@ class LoginViewModel @Inject constructor(
 
     private val _signOut = MutableLiveData(false)
     val signOut get() = _signOut
+
+    fun resetSignOutState() {
+        _signOut.postValue(false)
+    }
+
+    fun resetSignInState() {
+        _sigInWithEmailAndPassword.postValue(AuthResource.Error(""))
+    }
 
     fun isAuthored(currentTime: Long) {
         runBlocking(Dispatchers.IO) {

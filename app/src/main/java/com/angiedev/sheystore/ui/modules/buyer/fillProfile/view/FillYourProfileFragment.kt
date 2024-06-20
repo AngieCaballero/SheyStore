@@ -16,6 +16,7 @@ import com.angiedev.sheystore.R
 import com.angiedev.sheystore.data.util.AuthResource
 import com.angiedev.sheystore.databinding.FragmentFillYourProfileBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
+import com.angiedev.sheystore.ui.main.view.MainActivity
 import com.angiedev.sheystore.ui.modules.buyer.fillProfile.viewmodel.FillYourProfileViewModel
 import com.angiedev.sheystore.ui.user.viewmodel.UserDataViewModel
 import com.angiedev.sheystore.ui.utils.TextFieldValidator
@@ -170,7 +171,8 @@ class FillYourProfileFragment : BaseFragment<FragmentFillYourProfileBinding>() {
             when(it) {
                 is AuthResource.Error -> Toast.makeText(requireContext(), it.errorMessage, Toast.LENGTH_SHORT).show()
                 is AuthResource.Success -> {
-                    findNavController().navigate(FillYourProfileFragmentDirections.actionFillYourProfileFragmentToNavHome())
+
+                    (activity as MainActivity).selectBottomNav(R.id.item_home)
                 }
             }
         }

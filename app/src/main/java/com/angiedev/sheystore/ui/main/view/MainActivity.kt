@@ -57,8 +57,9 @@ class MainActivity: AppCompatActivity() {
 
     private fun setObservers() {
         loginViewModel.isAuthored.observe(this) { isAuthored ->
-            if (!isAuthored) navigateToLoginModule()
-            else setupNavigationView()
+            val module = if (!isAuthored) Pair(R.id.item_login, R.id.nav_login)
+            else Pair(R.id.item_home, R.id.nav_home)
+            setupNavigationView(module.first, module.second)
             splashScreen.setKeepOnScreenCondition { false }
         }
     }
@@ -73,14 +74,19 @@ class MainActivity: AppCompatActivity() {
         })
     }
 
-    private fun setupNavigationView() {
+    fun selectBottomNav(itemId: Int) {
+        binding.bottomNavigation.selectedItemId = itemId
+    }
+
+    private fun setupNavigationView(firsItemName: Int, firstItemId: Int) {
         binding.bottomNavigation.itemIconTintList = null
         val controller = binding.bottomNavigation.setupWithNavController(
             navGraphIds = navGraphId,
             fragmentManager = supportFragmentManager,
             containerId = R.id.main_fragment_container_view,
             backButtonBehaviour = BackButtonBehaviour.POP_HOST_FRAGMENT,
-            firstItemId = R.id.nav_home,
+            firstSelectedItemId = firsItemName,
+            firstItemId = firstItemId,
             intent = intent
         )
 

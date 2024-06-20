@@ -93,7 +93,7 @@ class MainActivity: AppCompatActivity() {
         }
     }
 
-    private fun navigateToLoginModule() {
+    fun navigateToLoginModule() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_fragment_container_view) as NavHostFragment
         navController = navHostFragment.navController
         val inflater = navController.navInflater

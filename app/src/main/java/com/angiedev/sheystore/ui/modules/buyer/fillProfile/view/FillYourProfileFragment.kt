@@ -37,12 +37,12 @@ class FillYourProfileFragment : BaseFragment<FragmentFillYourProfileBinding>() {
     private lateinit var validator: TextFieldValidator
 
     private val roleList = listOf(
-        Pair("Vendedor", "1"),
-        Pair("Comprador", "2")
+        "Vendedor",
+        "Comprador"
     )
     private val genderList = listOf("Hombre", "Mujer")
     private var genderSelected = ""
-    private var roleSelected = ""
+    private var roleSelected = "Comprador"
     private var downloadImageUrl = ""
 
 
@@ -118,7 +118,7 @@ class FillYourProfileFragment : BaseFragment<FragmentFillYourProfileBinding>() {
 
     private fun setupAutoCompleteFields() {
         val roleAdapter =
-            ArrayAdapter(requireContext(), R.layout.item_auto_complete, roleList.map { it.first })
+            ArrayAdapter(requireContext(), R.layout.item_auto_complete, roleList.map { it })
         val genderAdapter = ArrayAdapter(requireContext(), R.layout.item_auto_complete, genderList)
         binding.fillYourProfileAutoCompleteRole.setAdapter(roleAdapter)
         binding.fillYourProfileAutoCompleteGender.setAdapter(genderAdapter)

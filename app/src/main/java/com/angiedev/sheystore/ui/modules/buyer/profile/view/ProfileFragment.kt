@@ -1,19 +1,18 @@
 package com.angiedev.sheystore.ui.modules.buyer.profile.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.angiedev.sheystore.R
 import com.angiedev.sheystore.databinding.FragmentProfileBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
+import com.angiedev.sheystore.ui.main.view.MainActivity
 import com.angiedev.sheystore.ui.modules.buyer.profile.adapter.ProfileItemsAdapter
 import com.angiedev.sheystore.ui.modules.buyer.profile.adapter.ProfileItemsListener
 import com.angiedev.sheystore.ui.modules.buyer.profile.data.ProfileItem
 import com.angiedev.sheystore.ui.modules.buyer.profile.data.ProfileItemsType
+import com.angiedev.sheystore.ui.modules.login.login.viewmodel.LoginViewModel
 import com.angiedev.sheystore.ui.user.viewmodel.UserDataViewModel
 import com.angiedev.sheystore.ui.utils.constant.PreferencesKeys
 import com.bumptech.glide.Glide
@@ -24,12 +23,22 @@ import dagger.hilt.android.AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(), ProfileItemsListener {
 
     private val userDataViewModel: UserDataViewModel by viewModels()
+    private val loginViewModel: LoginViewModel by viewModels()
 
     override fun getViewBinding() = FragmentProfileBinding.inflate(layoutInflater)
 
     override fun createView(view: View, savedInstanceState: Bundle?) {
         super.createView(view, savedInstanceState)
         setUI()
+    }
+
+    override fun setObservers() {
+        super.setObservers()
+        loginViewModel.signOut.observe(viewLifecycleOwner) {
+            if (it) {
+                (activity as MainActivity).navigateToLoginModule()
+            }
+        }
     }
 
     private fun setUI() {
@@ -60,7 +69,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(), ProfileItemsList
             ProfileItemsType.Order -> {
                 findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToOrdersTabsFragment2())
             }
-            ProfileItemsType.Logout -> TODO()
+            ProfileItemsType.Logout -> {
+                loginViewModel.signOut()
+            }
             ProfileItemsType.Notification -> TODO()
             ProfileItemsType.Payment -> TODO()
             ProfileItemsType.PrivacyPolicy -> TODO()

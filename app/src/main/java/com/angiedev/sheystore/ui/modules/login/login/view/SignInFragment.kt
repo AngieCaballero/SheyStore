@@ -11,6 +11,7 @@ import com.angiedev.sheystore.data.util.AuthResource
 import com.angiedev.sheystore.databinding.FragmentSignInBinding
 import com.angiedev.sheystore.databinding.LoginComponentBinding
 import com.angiedev.sheystore.ui.base.BaseFragment
+import com.angiedev.sheystore.ui.main.view.MainActivity
 import com.angiedev.sheystore.ui.modules.login.login.viewmodel.LoginViewModel
 import com.angiedev.sheystore.ui.utils.extension.validateEmail
 import com.angiedev.sheystore.ui.utils.extension.validatePassword

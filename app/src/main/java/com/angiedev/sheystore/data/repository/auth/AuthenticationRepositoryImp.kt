@@ -70,8 +70,9 @@ class AuthenticationRepositoryImp @Inject constructor(
         }
     }
 
-    override suspend fun signOut() {
+    override suspend fun signOut(): Boolean {
         dataStoreManager.storeValue(PreferencesKeys.TOKEN, "")
+        return true
     }
 
     override suspend fun saveUserProfileData(

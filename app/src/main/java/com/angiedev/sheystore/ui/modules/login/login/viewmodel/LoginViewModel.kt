@@ -55,10 +55,10 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun sigOut() {
+    fun signOut() {
         viewModelScope.launch {
-            authenticationRepository.signOut()
-            _signOut.postValue(true)
+            val response = authenticationRepository.signOut()
+            _signOut.postValue(response)
         }
     }
 

@@ -11,7 +11,7 @@ interface IAuthenticationRepository {
 
     suspend fun signInWithEmailAndPassword(email: String, password: String): AuthResource<Boolean>
 
-    suspend fun signOut()
+    suspend fun signOut(): Boolean
 
     suspend fun saveUserProfileData(userDTO: UserDTO, userId: Int) : AuthResource<Boolean>
 }

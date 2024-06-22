@@ -15,6 +15,7 @@ import com.angiedev.sheystore.ui.base.BaseFragment
 import com.angiedev.sheystore.ui.main.viewmodel.MainViewModel
 import com.angiedev.sheystore.ui.modules.buyer.mostPopular.viewmodel.ProductViewModel
 import com.angiedev.sheystore.ui.modules.buyer.product.QuantityStepperListener
+import com.angiedev.sheystore.ui.modules.buyer.product.adapter.ProductColorsAdapter
 import com.angiedev.sheystore.ui.modules.buyer.product.adapter.ProductDetailsImagesViewPagerAdapter
 import com.angiedev.sheystore.ui.user.viewmodel.UserDataViewModel
 import com.angiedev.sheystore.ui.utils.constant.PreferencesKeys
@@ -28,6 +29,7 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding>() {
     private val userDataViewModel: UserDataViewModel by viewModels()
     private val mainViewModel: MainViewModel by activityViewModels()
     private val productDetailsFragmentArgs: ProductDetailsFragmentArgs by navArgs()
+    private var productColorsAdapter: ProductColorsAdapter? = null
     private var quantity = 1
     private var productDetailsEntity: ProductEntity? = null
 
@@ -39,6 +41,13 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding>() {
         productDetailsEntity?.let {
             setupUI(it)
         }
+    }
+
+    private fun setupColorAdapter(colors: List<String>) {
+        productColorsAdapter = ProductColorsAdapter(colors) {
+            productViewModel.setColorSelected(it)
+        }
+        binding.productDetailsColors.adapter = productColorsAdapter
     }
 
     override fun setListeners() {
@@ -72,8 +81,7 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding>() {
                     userId = userDataViewModel.readValue(PreferencesKeys.USER_ID) ?: 0,
                     productId = product.id,
                     quantity = quantity,
-                    totalPrice = totalPrice,
-                    color = "#FF018786"
+                    totalPrice = totalPrice
                 )
             }
         }
@@ -100,6 +108,7 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding>() {
             productDetailsRate.text = data.rate
             productDetailsPrice.text = data.price.toString()
             setupViewPagerImageProducts(data.presentationImages)
+            setupColorAdapter(data.colors)
             binding.productDetailsPriceTotal.text = resources.getString(R.string.total_price, String.format(
                 Locale.getDefault(),"%.2f", data.price
             ))

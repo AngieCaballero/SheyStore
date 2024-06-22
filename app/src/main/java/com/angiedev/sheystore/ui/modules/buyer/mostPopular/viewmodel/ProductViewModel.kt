@@ -29,6 +29,12 @@ class ProductViewModel @Inject constructor(
 
     val filteredProducts get() = _filteredProducts
 
+    private var _colorSelected = ""
+
+    fun setColorSelected(color: String) {
+        _colorSelected = color
+    }
+
 
     fun getProducts() {
         runBlocking(Dispatchers.IO) {
@@ -37,12 +43,12 @@ class ProductViewModel @Inject constructor(
         }
     }
 
-    fun addProductToCart(userId: Int, color: String, quantity: Int, totalPrice: Double, productId: Int) {
+    fun addProductToCart(userId: Int, quantity: Int, totalPrice: Double, productId: Int) {
         runBlocking(Dispatchers.IO) {
             val response = cartRepository.addProductToCart(
                 userId = userId,
                 createCartItemDTO = CreateCartItemDTO(
-                    color = color,
+                    color = _colorSelected,
                     quantity = quantity,
                     totalPrice = totalPrice,
                     productId = productId

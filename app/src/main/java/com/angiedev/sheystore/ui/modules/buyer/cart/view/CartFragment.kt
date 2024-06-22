@@ -107,7 +107,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), CartItemListener {
             productId = cartItem.productId,
             quantity = value,
             totalPrice = totalPrice,
-            color = "#FF018786"
+            color = cartItem.color
         )
     }
 

@@ -16,7 +16,8 @@ data class ProductEntity(
     val category: CategoryEntity,
     val rate: String,
     val description: String,
-    val presentationImages: List<String>
+    val presentationImages: List<String>,
+    val colors: List<String>
 ) : Parcelable {
     constructor(productDTO: ProductDTO?) : this(
         id = productDTO?.id ?: 0,
@@ -27,6 +28,7 @@ data class ProductEntity(
         category = CategoryEntity(productDTO?.category),
         rate = productDTO?.rate.orEmpty(),
         description = productDTO?.description.orEmpty(),
-        presentationImages = productDTO?.presentationImages.orEmpty()
+        presentationImages = productDTO?.presentationImages.orEmpty(),
+        colors = productDTO?.colors.orEmpty()
     )
 }

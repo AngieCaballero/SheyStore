@@ -10,9 +10,11 @@ import com.angiedev.sheystore.R
 import com.angiedev.sheystore.data.util.AuthResource
 import com.angiedev.sheystore.databinding.FragmentSignInBinding
 import com.angiedev.sheystore.databinding.LoginComponentBinding
+import com.angiedev.sheystore.domain.entities.user.RoleType
 import com.angiedev.sheystore.ui.base.BaseFragment
 import com.angiedev.sheystore.ui.main.view.MainActivity
 import com.angiedev.sheystore.ui.modules.login.login.viewmodel.LoginViewModel
+import com.angiedev.sheystore.ui.utils.constant.PreferencesKeys
 import com.angiedev.sheystore.ui.utils.extension.validateEmail
 import com.angiedev.sheystore.ui.utils.extension.validatePassword
 import dagger.hilt.android.AndroidEntryPoint
@@ -90,7 +92,23 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
                 }
                 is AuthResource.Success -> {
                     viewModel.resetSignInState()
-                    (activity as MainActivity).selectBottomNav(R.id.item_home)
+                    val role = response.data.role
+                    val selectItemId = when (role) {
+                        RoleType.Buyer.value -> {
+                            (activity as MainActivity).setupBuyerBottomNav()
+                            Pair(R.id.item_home, R.id.nav_home)
+                        }
+                        RoleType.Seller.value -> {
+                            (activity as MainActivity).setupSellerBottomNav()
+                            Pair(R.id.item_seller_home, R.id.nav_seller_home)
+                        }
+                        else -> {
+                            // Setup admin bottom nav
+                            (activity as MainActivity).setupBuyerBottomNav()
+                            Pair(R.id.item_home, R.id.nav_home)
+                        }
+                    }
+                    (activity as MainActivity).selectBottomNav(selectItemId.first)
                 }
             }
         }

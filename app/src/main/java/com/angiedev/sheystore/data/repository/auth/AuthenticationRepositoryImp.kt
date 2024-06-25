@@ -46,7 +46,7 @@ class AuthenticationRepositoryImp @Inject constructor(
     override suspend fun signInWithEmailAndPassword(
         email: String,
         password: String
-    ): AuthResource<Boolean> {
+    ): AuthResource<SignInEntity> {
         val authResult = apiDataSource.signInWithPassword(email, password)
         val response = authResult.getOrNull()
         val responseData = response?.data
@@ -64,7 +64,7 @@ class AuthenticationRepositoryImp @Inject constructor(
                 storeValue(PreferencesKeys.PHOTO, user.photo)
                 storeValue(PreferencesKeys.PHONE, user.phone)
             }
-            AuthResource.Success(true)
+            AuthResource.Success(SignInEntity(responseData))
         } else {
             AuthResource.Error(authResult.exceptionOrNull()?.toString() ?: "Ha ocurrido un error al intentar ingresar")
         }

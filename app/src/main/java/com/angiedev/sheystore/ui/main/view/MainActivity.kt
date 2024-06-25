@@ -10,8 +10,11 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.angiedev.sheystore.R
 import com.angiedev.sheystore.databinding.ActivityMainBinding
+import com.angiedev.sheystore.domain.entities.user.RoleType
 import com.angiedev.sheystore.ui.modules.login.login.viewmodel.LoginViewModel
 import com.angiedev.sheystore.ui.main.viewmodel.MainViewModel
+import com.angiedev.sheystore.ui.user.viewmodel.UserDataViewModel
+import com.angiedev.sheystore.ui.utils.constant.PreferencesKeys
 import com.angiedev.sheystore.ui.utils.extension.BackButtonBehaviour
 import com.angiedev.sheystore.ui.utils.extension.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,6 +34,7 @@ class MainActivity: AppCompatActivity() {
     private lateinit var navController: NavController
     private val mainViewModel: MainViewModel by viewModels()
     private val loginViewModel: LoginViewModel by viewModels()
+    private val userDataViewModel: UserDataViewModel by viewModels()
 
     private var bottomNavSelectedItemId = R.id.nav_home
     private val navGraphId = listOf(
@@ -38,7 +42,9 @@ class MainActivity: AppCompatActivity() {
         R.navigation.nav_home,
         R.navigation.nav_shopping,
         R.navigation.nav_cart,
-        R.navigation.nav_my_profile
+        R.navigation.nav_my_profile,
+        R.navigation.nav_seller_home,
+        R.navigation.nav_seller_product
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,8 +63,26 @@ class MainActivity: AppCompatActivity() {
 
     private fun setObservers() {
         loginViewModel.isAuthored.observe(this) { isAuthored ->
-            val module = if (!isAuthored) Pair(R.id.item_login, R.id.nav_login)
-            else Pair(R.id.item_home, R.id.nav_home)
+            val module = if (!isAuthored) {
+                Pair(R.id.item_login, R.id.nav_login)
+            }
+            else {
+                val role = userDataViewModel.readValue(PreferencesKeys.ROLE)
+                when (role) {
+                    RoleType.Buyer.value -> {
+                        setupBuyerBottomNav()
+                        Pair(R.id.item_home, R.id.nav_home)
+                    }
+                    RoleType.Seller.value -> {
+                        setupSellerBottomNav()
+                        Pair(R.id.item_seller_home, R.id.nav_seller_home)
+                    }
+                    else -> {
+                        setupBuyerBottomNav()
+                        Pair(R.id.item_home, R.id.nav_home)
+                    }
+                }
+            }
             setupNavigationView(module.first, module.second)
             splashScreen.setKeepOnScreenCondition { false }
         }
@@ -78,8 +102,31 @@ class MainActivity: AppCompatActivity() {
         binding.bottomNavigation.selectedItemId = itemId
     }
 
+    fun setupSellerBottomNav() {
+        binding.bottomNavigation.menu.apply {
+            findItem(R.id.item_home).isVisible = false
+            findItem(R.id.item_cart).isVisible = false
+            findItem(R.id.item_shopping).isVisible = false
+            findItem(R.id.item_my_profile).isVisible = true
+            findItem(R.id.item_seller_home).isVisible = true
+            findItem(R.id.item_seller_product).isVisible = true
+        }
+        binding.bottomNavigation.selectedItemId = R.id.item_seller_home
+    }
+
+    fun setupBuyerBottomNav() {
+        binding.bottomNavigation.menu.apply {
+            findItem(R.id.item_home).isVisible = true
+            findItem(R.id.item_cart).isVisible = true
+            findItem(R.id.item_shopping).isVisible = true
+            findItem(R.id.item_my_profile).isVisible = true
+            findItem(R.id.item_seller_home).isVisible = false
+            findItem(R.id.item_seller_product).isVisible = false
+        }
+        binding.bottomNavigation.selectedItemId = R.id.item_home
+    }
+
     private fun setupNavigationView(firsItemName: Int, firstItemId: Int) {
-        binding.bottomNavigation.itemIconTintList = null
         val controller = binding.bottomNavigation.setupWithNavController(
             navGraphIds = navGraphId,
             fragmentManager = supportFragmentManager,
@@ -97,14 +144,6 @@ class MainActivity: AppCompatActivity() {
         controller.observe(this) { selectedItemId ->
             bottomNavSelectedItemId = selectedItemId
         }
-    }
-
-    fun navigateToLoginModule() {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_fragment_container_view) as NavHostFragment
-        navController = navHostFragment.navController
-        val inflater = navController.navInflater
-        val graph = inflater.inflate(R.navigation.nav_login)
-        navController.graph = graph
     }
 
     fun isBottomNavVisible(visibility: Int){

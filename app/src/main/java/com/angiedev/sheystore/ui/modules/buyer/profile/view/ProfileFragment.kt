@@ -61,22 +61,22 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(), ProfileItemsList
 
     override fun onProfileItemClickListener(item: ProfileItem) {
         when(item.type) {
-            ProfileItemsType.Address -> TODO()
+            ProfileItemsType.Address -> { /* TODO */ }
             ProfileItemsType.EditProfile -> {
                 findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToFillYourProfileFragment2())
             }
-            ProfileItemsType.HelpCenter -> TODO()
-            ProfileItemsType.InviteFriends -> TODO()
+            ProfileItemsType.HelpCenter -> { /* TODO */ }
+            ProfileItemsType.InviteFriends -> { /* TODO */ }
             ProfileItemsType.Order -> {
                 findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToOrdersTabsFragment2())
             }
             ProfileItemsType.Logout -> {
                 loginViewModel.signOut()
             }
-            ProfileItemsType.Notification -> TODO()
-            ProfileItemsType.Payment -> TODO()
-            ProfileItemsType.PrivacyPolicy -> TODO()
-            ProfileItemsType.Security -> TODO()
+            ProfileItemsType.Notification -> { /* TODO */ }
+            ProfileItemsType.Payment -> { /* TODO */ }
+            ProfileItemsType.PrivacyPolicy -> { /* TODO */ }
+            ProfileItemsType.Security -> { /* TODO */ }
         }
     }
 

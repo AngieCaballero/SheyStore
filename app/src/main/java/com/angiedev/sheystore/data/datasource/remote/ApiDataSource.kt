@@ -22,6 +22,7 @@ import com.angiedev.sheystore.data.model.remote.response.dto.user.SignInResponse
 import com.angiedev.sheystore.data.model.remote.response.dto.user.SignUpResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.user.UserDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.user.UserResponseDTO
+import com.angiedev.sheystore.domain.entities.product.ProductEntity
 import com.kmc.networking.HttpMethod
 import com.kmc.networking.NetworkCaller
 import com.kmc.networking.safeRequest
@@ -87,6 +88,22 @@ class ApiDataSource @Inject constructor(
     suspend fun getProducts() = service.safeRequest(endpoint = "product/")
         .withMethod(HttpMethod.GET)
         .execute<ProductResponseDTO>()
+
+    suspend fun saveProduct(product: ProductEntity) = service.safeRequest(endpoint = "product/")
+        .withMethod(HttpMethod.POST)
+        .withBody(
+            mapOf(
+                "name" to product.name,
+                "description" to product.description,
+                "price" to product.price,
+                "category" to product.category.id,
+                "colors" to product.colors,
+                "presentation_images" to product.presentationImages,
+                "rate" to product.rate,
+
+            )
+        )
+        .execute<Boolean>()
 
 
     suspend fun getCartItems(userId: Int) = service.safeRequest(endpoint = "cart/$userId/")

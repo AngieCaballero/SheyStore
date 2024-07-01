@@ -22,4 +22,14 @@ class ProductRepositoryResponseImp @Inject constructor(
         }
     }
 
+    override suspend fun saveProduct(product: ProductEntity): ApiResponse<Boolean> {
+        val response = apiDataSource.saveProduct(product)
+
+        return if (response.isSuccess) {
+            ApiResponse.Success(data = response.isSuccess)
+        } else {
+            ApiResponse.Error(response.exceptionOrNull())
+        }
+    }
+
 }

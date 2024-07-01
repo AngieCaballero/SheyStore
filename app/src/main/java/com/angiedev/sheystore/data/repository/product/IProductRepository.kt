@@ -6,4 +6,6 @@ import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 interface IProductRepository {
 
     suspend fun getProducts(): ApiResponse<List<ProductEntity>>
+
+    suspend fun saveProduct(product: ProductEntity): ApiResponse<Boolean>
 }

@@ -17,7 +17,7 @@
             android:layout_height="20dp"
             android:layout_margin="10dp"
             app:srcCompat="@drawable/ic_cancel"
-            android:elevation="2"
+            android:elevation="2dp"
             app:tint="@color/color_primary_variant"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>

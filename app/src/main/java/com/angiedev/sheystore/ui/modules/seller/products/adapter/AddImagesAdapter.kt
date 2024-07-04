@@ -8,9 +8,10 @@ import com.angiedev.sheystore.R
 import com.angiedev.sheystore.databinding.ItemPhotoBinding
 
 class AddImagesAdapter (
-    private val photos: List<String>,
     private val onPhotoSelected: (String) -> Unit
 ): RecyclerView.Adapter<AddImagesAdapter.AddImagesViewHolder>() {
+
+    private val photos = mutableListOf<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = AddImagesViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_photo, parent, false)
@@ -20,6 +21,12 @@ class AddImagesAdapter (
 
     override fun onBindViewHolder(holder: AddImagesViewHolder, position: Int) {
         holder.render(photos[position])
+    }
+
+    fun submitList(photos: List<String>) {
+        this.photos.clear()
+        this.photos.addAll(photos)
+        notifyDataSetChanged()
     }
 
     inner class AddImagesViewHolder(view: View) : RecyclerView.ViewHolder(view) {

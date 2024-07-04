@@ -300,52 +300,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Tags"
-                android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceSubtitle1"
-                app:layout_constraintTop_toBottomOf="@id/create_product_category_input_layout"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/create_product_discount_chip_group"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                app:layout_constraintTop_toBottomOf="@id/create_product_category_input_layout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.MaterialComponents.Chip.Entry"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Example 1"
-                    app:chipBackgroundColor="@color/shape_gray_background"
-                    android:visibility="gone"
-                    tools:visibility="visible"/>
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.MaterialComponents.Chip.Entry"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Example 2"
-                    app:chipBackgroundColor="@color/shape_gray_background"
-                    android:visibility="gone"
-                    tools:visibility="visible"/>
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.MaterialComponents.Chip.Action"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Add"
-                    app:chipBackgroundColor="@color/shape_gray_background"
-                    app:chipIcon="@drawable/ic_plus" />
-
-            </com.google.android.material.chip.ChipGroup>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>

@@ -57,7 +57,7 @@ class AddNewCardFragment : BaseFragment<FragmentAddNewCardBinding>() {
         addNewCardViewModel.paymentMethodCreated.observe(viewLifecycleOwner) {
             when (it) {
                 is ApiResponse.Error -> Toast.makeText(requireContext(), "Ha ocurrido un error", Toast.LENGTH_SHORT).show()
-                ApiResponse.Loading -> TODO()
+                ApiResponse.Loading -> { /* TODO */ }
                 is ApiResponse.Success -> {
                     Toast.makeText(requireContext(), "Tarjeta agregada", Toast.LENGTH_SHORT).show()
                 }

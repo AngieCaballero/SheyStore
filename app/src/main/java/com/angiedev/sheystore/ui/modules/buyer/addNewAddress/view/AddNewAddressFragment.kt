@@ -105,7 +105,7 @@ class AddNewAddressFragment : BaseFragment<FragmentAddNewAddressBinding>() {
         addNewAddressViewModel.shippingAddressCrated.observe(viewLifecycleOwner) {
             when(it) {
                 is ApiResponse.Error -> Toast.makeText(requireContext(), "Ha ocurrido un error", Toast.LENGTH_SHORT).show()
-                ApiResponse.Loading -> TODO()
+                ApiResponse.Loading -> { /* TODO */ }
                 is ApiResponse.Success -> {
                     Toast.makeText(requireContext(), "Dirección agregada", Toast.LENGTH_SHORT).show()
                     hideKeyboard()

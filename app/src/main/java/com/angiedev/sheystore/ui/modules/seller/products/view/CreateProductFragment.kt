@@ -1,6 +1,7 @@
 package com.angiedev.sheystore.ui.modules.seller.products.view
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -46,13 +47,9 @@ class CreateProductFragment: BaseFragment<FragmentCreateProductBinding>() {
     }
 
     private fun setupAdapters() {
-        colorAdapter = AddColorAdapter(listOf("#000000", "#FFFFFF")) { colorPressed ->
-
-        }
+        colorAdapter = AddColorAdapter { colorPressed -> /* TODO */ }
         binding.createProductColorRecycler.adapter = colorAdapter
-        photoAdapter = AddImagesAdapter(listOf("", "")) { photoDeleted ->
-
-        }
+        photoAdapter = AddImagesAdapter { photoDeleted -> /* TODO */ }
         binding.createProductPhotosRecycler.adapter = photoAdapter
     }
 
@@ -66,6 +63,8 @@ class CreateProductFragment: BaseFragment<FragmentCreateProductBinding>() {
         colorPicker.setOnOkCancelListener { isOk, color ->
             if (isOk) {
                 Log.i("ColorPicker", "Color Selected: $color")
+                val hex = String.format("#%06X", 0xFFFFFF and color)
+                colorAdapter?.addColor(hex)
             }
         }
 

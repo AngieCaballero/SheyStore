@@ -105,7 +105,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
                         else -> {
                             // Setup admin bottom nav
                             (activity as MainActivity).setupAdminBottomNav()
-                            Pair(R.id.item_home, R.id.nav_home)
+                            Pair(R.id.item_admin_home, R.id.nav_admin_home)
                         }
                     }
                     (activity as MainActivity).selectBottomNav(selectItemId.first)

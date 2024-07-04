@@ -25,7 +25,7 @@ object NetworkModule {
     @NetworkingBaseUrl
     @Singleton
     @Provides
-    fun provideBaseUrl(): URL = URL("http://192.168.2.102:3001/")
+    fun provideBaseUrl(): URL = URL("http://192.168.1.21:3001/")
 
     @NetworkingOkHttp
     @Singleton

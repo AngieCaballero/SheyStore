@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.angiedev.sheystore.R
 import com.angiedev.sheystore.data.util.AuthResource
 import com.angiedev.sheystore.databinding.FragmentFillYourProfileBinding
+import com.angiedev.sheystore.domain.entities.user.RoleType
 import com.angiedev.sheystore.ui.base.BaseFragment
 import com.angiedev.sheystore.ui.main.view.MainActivity
 import com.angiedev.sheystore.ui.modules.buyer.fillProfile.viewmodel.FillYourProfileViewModel
@@ -171,8 +172,15 @@ class FillYourProfileFragment : BaseFragment<FragmentFillYourProfileBinding>() {
             when(it) {
                 is AuthResource.Error -> Toast.makeText(requireContext(), it.errorMessage, Toast.LENGTH_SHORT).show()
                 is AuthResource.Success -> {
+                    val selectItemId = if (binding.fillYourProfileAutoCompleteRole.text.toString() == RoleType.Seller.value) {
+                        (activity as MainActivity).setupSellerBottomNav()
+                        R.id.item_seller_home
+                    } else {
+                        (activity as MainActivity).setupBuyerBottomNav()
+                        R.id.item_home
+                    }
 
-                    (activity as MainActivity).selectBottomNav(R.id.item_home)
+                    (activity as MainActivity).selectBottomNav(selectItemId)
                 }
             }
         }

@@ -78,8 +78,8 @@ class MainActivity: AppCompatActivity() {
                         Pair(R.id.item_seller_home, R.id.nav_seller_home)
                     }
                     else -> {
-                        setupBuyerBottomNav()
-                        Pair(R.id.item_home, R.id.nav_home)
+                        setupAdminBottomNav()
+                        Pair(R.id.item_admin_home, R.id.nav_admin_home)
                     }
                 }
             }
@@ -107,6 +107,9 @@ class MainActivity: AppCompatActivity() {
             findItem(R.id.item_home).isVisible = false
             findItem(R.id.item_cart).isVisible = false
             findItem(R.id.item_shopping).isVisible = false
+            findItem(R.id.item_admin_home).isVisible = false
+            findItem(R.id.item_users_management).isVisible = false
+            findItem(R.id.item_backup).isVisible = false
             findItem(R.id.item_my_profile).isVisible = true
             findItem(R.id.item_seller_home).isVisible = true
             findItem(R.id.item_seller_product).isVisible = true
@@ -122,8 +125,26 @@ class MainActivity: AppCompatActivity() {
             findItem(R.id.item_my_profile).isVisible = true
             findItem(R.id.item_seller_home).isVisible = false
             findItem(R.id.item_seller_product).isVisible = false
+            findItem(R.id.item_admin_home).isVisible = false
+            findItem(R.id.item_users_management).isVisible = false
+            findItem(R.id.item_backup).isVisible = false
         }
         binding.bottomNavigation.selectedItemId = R.id.item_home
+    }
+
+    fun setupAdminBottomNav() {
+        binding.bottomNavigation.menu.apply {
+            findItem(R.id.item_home).isVisible = false
+            findItem(R.id.item_cart).isVisible = false
+            findItem(R.id.item_shopping).isVisible = false
+            findItem(R.id.item_seller_home).isVisible = false
+            findItem(R.id.item_seller_product).isVisible = false
+            findItem(R.id.item_admin_home).isVisible = true
+            findItem(R.id.item_users_management).isVisible = true
+            findItem(R.id.item_backup).isVisible = true
+            findItem(R.id.item_my_profile).isVisible = true
+        }
+        binding.bottomNavigation.selectedItemId = R.id.item_admin_home
     }
 
     private fun setupNavigationView(firsItemName: Int, firstItemId: Int) {

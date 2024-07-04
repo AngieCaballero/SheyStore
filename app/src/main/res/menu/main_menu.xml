@@ -42,10 +42,27 @@
         android:title="Productos" />
 
     <item
+        android:id="@+id/item_admin_home"
+        android:enabled="true"
+        android:icon="@drawable/selector_ic_home"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/item_users_management"
+        android:enabled="true"
+        android:icon="@drawable/ic_users"
+        android:title="Gestión de Usuarios" />
+
+    <item
+        android:id="@+id/item_backup"
+        android:enabled="true"
+        android:icon="@drawable/ic_backup"
+        android:title="Respaldo" />
+
+    <item
         android:id="@+id/item_my_profile"
         android:enabled="true"
         android:icon="@drawable/selector_ic_profile"
         android:title="Perfil" />
-
 
 </menu>

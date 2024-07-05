@@ -4,6 +4,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs.kotlin")
+    id("org.jetbrains.kotlin.plugin.compose")
     id("com.google.gms.google-services")
     id("kotlin-parcelize")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
@@ -50,6 +51,11 @@ android {
         viewBinding {
             enable = true
         }
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.10"
     }
 
     secrets {
@@ -91,7 +97,7 @@ dependencies {
 
     implementation("com.google.dagger:hilt-android:2.51.1")
     implementation("com.google.android.gms:play-services-location:21.3.0")
-    ksp("com.google.dagger:hilt-android-compiler:2.51")
+    ksp("com.google.dagger:hilt-android-compiler:2.51.1")
 
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
@@ -121,6 +127,11 @@ dependencies {
     implementation("com.patrykandpatrick.vico:compose-m3:1.15.0")
     implementation("com.patrykandpatrick.vico:core:1.15.0")
     implementation("com.patrykandpatrick.vico:views:1.15.0")
+
+    implementation(platform("androidx.compose:compose-bom:2024.06.00"))
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.foundation:foundation")
+    implementation ("androidx.compose.ui:ui")
 
     implementation("com.squareup.moshi:moshi:1.15.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")

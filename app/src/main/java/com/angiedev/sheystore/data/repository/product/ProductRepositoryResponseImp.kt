@@ -22,8 +22,41 @@ class ProductRepositoryResponseImp @Inject constructor(
         }
     }
 
-    override suspend fun saveProduct(product: ProductEntity): ApiResponse<Boolean> {
-        val response = apiDataSource.saveProduct(product)
+    override suspend fun saveProduct(userId: Int, product: ProductEntity): ApiResponse<Boolean> {
+        val response = apiDataSource.saveProduct(userId, product)
+
+        return if (response.isSuccess) {
+            ApiResponse.Success(data = response.isSuccess)
+        } else {
+            ApiResponse.Error(response.exceptionOrNull())
+        }
+    }
+
+    override suspend fun getProductsBySeller(userId: Int): ApiResponse<List<ProductEntity>> {
+        val response = apiDataSource.getProducts(userId)
+
+        return if (response.isSuccess) {
+            val data = response.getOrNull()?.data?.map {
+                ProductEntity(it)
+            }.orEmpty()
+            ApiResponse.Success(data = data)
+        } else {
+            ApiResponse.Error(response.exceptionOrNull())
+        }
+    }
+
+    override suspend fun updateProduct(product: ProductEntity): ApiResponse<Boolean> {
+        val response = apiDataSource.updateProduct(product)
+
+        return if (response.isSuccess) {
+            ApiResponse.Success(data = response.isSuccess)
+        } else {
+            ApiResponse.Error(response.exceptionOrNull())
+        }
+    }
+
+    override suspend fun deleteProduct(productId: Int): ApiResponse<Boolean> {
+        val response = apiDataSource.deleteProduct(productId)
 
         return if (response.isSuccess) {
             ApiResponse.Success(data = response.isSuccess)

@@ -13,6 +13,7 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/item_imageView_close"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_margin="10dp"
@@ -23,6 +24,7 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/item_imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/product_hint"/>

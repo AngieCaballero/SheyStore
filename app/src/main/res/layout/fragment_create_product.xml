@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/wishlist_toolbar"
+            android:id="@+id/create_product_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
@@ -142,28 +142,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Marca"
+                android:text="Existencia"
                 android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceSubtitle1"
                 app:layout_constraintTop_toBottomOf="@id/create_product_description_input_layout"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/create_product_brand_input_layout"
+                android:id="@+id/create_product_quantity_input_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="5dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                style="?attr/textInputOutlinedStyle"
                 android:textColorHint="@color/color_text_hint"
                 app:layout_constraintTop_toBottomOf="@id/create_product_description_input_layout"
-                app:layout_constraintEnd_toStartOf="@id/create_product_size_input_layout"
+                app:layout_constraintEnd_toStartOf="@id/create_product_price_input_layout"
                 app:layout_constraintStart_toStartOf="parent">
 
-                <AutoCompleteTextView
-                    android:id="@+id/create_product_brand_edit_text"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/create_product_quantity_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="none"/>
+                    android:inputType="number"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -172,29 +172,29 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="10dp"
-                android:text="Talla"
+                android:text="Precio"
                 android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceSubtitle1"
                 app:layout_constraintTop_toBottomOf="@id/create_product_description_input_layout"
-                app:layout_constraintBottom_toTopOf="@id/create_product_size_input_layout"
-                app:layout_constraintStart_toEndOf="@id/create_product_brand_input_layout"/>
+                app:layout_constraintBottom_toTopOf="@id/create_product_price_input_layout"
+                app:layout_constraintStart_toEndOf="@id/create_product_quantity_input_layout"/>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/create_product_size_input_layout"
+                android:id="@+id/create_product_price_input_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:layout_marginStart="5dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                style="?attr/textInputOutlinedStyle"
                 android:textColorHint="@color/color_text_hint"
                 app:layout_constraintTop_toBottomOf="@id/create_product_description_input_layout"
-                app:layout_constraintStart_toEndOf="@id/create_product_brand_input_layout"
+                app:layout_constraintStart_toEndOf="@id/create_product_quantity_input_layout"
                 app:layout_constraintEnd_toEndOf="parent">
 
-                <AutoCompleteTextView
-                    android:id="@+id/create_product_size_edit_text"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/create_product_price_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="none"/>
+                    android:inputType="number"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -204,7 +204,7 @@
                 android:layout_marginTop="20dp"
                 android:text="Colores disponibles"
                 android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceSubtitle1"
-                app:layout_constraintTop_toBottomOf="@id/create_product_brand_input_layout"
+                app:layout_constraintTop_toBottomOf="@id/create_product_quantity_input_layout"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -217,7 +217,7 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:itemCount="3"
                 tools:listitem="@layout/item_color_2"
-                app:layout_constraintTop_toBottomOf="@id/create_product_brand_input_layout"
+                app:layout_constraintTop_toBottomOf="@id/create_product_quantity_input_layout"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <com.google.android.material.card.MaterialCardView
@@ -230,7 +230,7 @@
                 app:cardElevation="0dp"
                 app:strokeColor="@color/color_primary"
                 app:cardBackgroundColor="@android:color/transparent"
-                app:layout_constraintTop_toBottomOf="@id/create_product_brand_input_layout"
+                app:layout_constraintTop_toBottomOf="@id/create_product_quantity_input_layout"
                 app:layout_constraintStart_toEndOf="@id/create_product_color_recycler">
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -246,7 +246,7 @@
                 android:layout_marginTop="20dp"
                 android:text="Categoria"
                 android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceSubtitle1"
-                app:layout_constraintTop_toBottomOf="@id/create_product_color_recycler"
+                app:layout_constraintTop_toBottomOf="@id/create_product_add_color_button"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -257,7 +257,7 @@
                 android:layout_marginEnd="5dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:textColorHint="@color/color_text_hint"
-                app:layout_constraintTop_toBottomOf="@id/create_product_color_recycler"
+                app:layout_constraintTop_toBottomOf="@id/create_product_add_color_button"
                 app:layout_constraintEnd_toStartOf="@id/create_product_discount_input_layout"
                 app:layout_constraintStart_toStartOf="parent">
 
@@ -276,7 +276,7 @@
                 android:layout_marginStart="10dp"
                 android:text="Descuento"
                 android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceSubtitle1"
-                app:layout_constraintTop_toBottomOf="@id/create_product_color_recycler"
+                app:layout_constraintTop_toBottomOf="@id/create_product_add_color_button"
                 app:layout_constraintBottom_toTopOf="@id/create_product_discount_input_layout"
                 app:layout_constraintStart_toEndOf="@id/create_product_category_input_layout" />
 
@@ -288,7 +288,7 @@
                 android:layout_marginStart="5dp"
                 style="?attr/textInputOutlinedStyle"
                 android:textColorHint="@color/color_text_hint"
-                app:layout_constraintTop_toBottomOf="@id/create_product_color_recycler"
+                app:layout_constraintTop_toBottomOf="@id/create_product_add_color_button"
                 app:layout_constraintStart_toEndOf="@id/create_product_category_input_layout"
                 app:layout_constraintEnd_toEndOf="parent">
 
@@ -299,6 +299,17 @@
                     android:inputType="number" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/create_product_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Guardar"
+                android:paddingVertical="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/create_product_category_input_layout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

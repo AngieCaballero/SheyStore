@@ -14,7 +14,7 @@ class AddColorAdapter(
     private val onColorSelected: (String) -> Unit
 ): RecyclerView.Adapter<AddColorAdapter.AddColorsViewHolder>() {
 
-    private val colors = mutableListOf<String>()
+    val colors = mutableListOf<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = AddColorsViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_color_2, parent, false)

@@ -61,7 +61,7 @@ class ChoiceMyShippingAddressFragment : BaseFragment<FragmentChoiceMyShippingAdd
         choiceMyShippingAddressViewModel.shippingAddressList.observe(viewLifecycleOwner) {
             when(it) {
                 is ApiResponse.Error -> Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
-                ApiResponse.Loading -> TODO()
+                ApiResponse.Loading -> { /* TODO */ }
                 is ApiResponse.Success -> {
                     choiceMyShippingAddressAdapter?.submitList(it.data)
                 }
@@ -70,7 +70,7 @@ class ChoiceMyShippingAddressFragment : BaseFragment<FragmentChoiceMyShippingAdd
         choiceMyShippingAddressViewModel.shippingAddressUpdated.observe(viewLifecycleOwner) {
             when(it) {
                 is ApiResponse.Error -> Toast.makeText(requireContext(), "Ha ocurrido un error", Toast.LENGTH_SHORT).show()
-                ApiResponse.Loading -> TODO()
+                ApiResponse.Loading -> { /* TODO */ }
                 is ApiResponse.Success -> {
                     Toast.makeText(requireContext(), "Direeción actualizada", Toast.LENGTH_SHORT).show()
                 }

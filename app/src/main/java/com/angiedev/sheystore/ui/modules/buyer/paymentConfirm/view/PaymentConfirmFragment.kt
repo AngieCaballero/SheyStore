@@ -58,7 +58,7 @@ class PaymentConfirmFragment : BaseFragment<FragmentPaymentConfirmBinding>() {
         paymentConfirmViewModel.paymentConfirm.observe(viewLifecycleOwner) {
             when(it) {
                 is ApiResponse.Error -> Toast.makeText(requireContext(), "Ha ocurrido un error", Toast.LENGTH_SHORT).show()
-                ApiResponse.Loading -> TODO()
+                ApiResponse.Loading -> { /* TODO */ }
                 is ApiResponse.Success -> {
                     showConfirmPaymentDialog()
                 }

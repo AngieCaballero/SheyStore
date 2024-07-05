@@ -92,7 +92,7 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding>() {
         productViewModel.cartItems.observe(viewLifecycleOwner) { response ->
             when(response) {
                 is ApiResponse.Error -> Toast.makeText(requireContext(), response.toString(), Toast.LENGTH_SHORT).show()
-                ApiResponse.Loading -> TODO()
+                ApiResponse.Loading -> { /* TODO */ }
                 is ApiResponse.Success -> {
                     Toast.makeText(requireContext(), "Producto agregado al carrito", Toast.LENGTH_SHORT).show()
                 }

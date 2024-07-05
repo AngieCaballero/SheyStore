@@ -23,6 +23,7 @@ import com.angiedev.sheystore.data.model.remote.response.dto.user.SignInResponse
 import com.angiedev.sheystore.data.model.remote.response.dto.user.SignUpResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.user.UserDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.user.UserResponseDTO
+import com.angiedev.sheystore.domain.entities.product.ProductEntity
 import com.kmc.networking.HttpMethod
 import com.kmc.networking.NetworkCaller
 import com.kmc.networking.safeRequest
@@ -76,6 +77,7 @@ class ApiDataSource @Inject constructor(
             )
             .execute<UserResponseDTO>()
 
+    /* Buyer */
 
     suspend fun getSpecialsOffers() = service.safeRequest(endpoint = "specials-offers/")
         .withMethod(HttpMethod.GET)
@@ -192,6 +194,51 @@ class ApiDataSource @Inject constructor(
         )
         .execute<ReviewResponseDTO>()
 
+
+    /* Seller */
+
+    suspend fun getProducts(userId: Int) = service.safeRequest(endpoint = "product/user/${userId}")
+        .withMethod(HttpMethod.GET)
+        .execute<ProductResponseDTO>()
+
+    suspend fun saveProduct(userId: Int, product: ProductEntity) = service.safeRequest(endpoint = "product/user/${userId}")
+        .withMethod(HttpMethod.POST)
+        .withBody(
+            mapOf(
+                "name" to product.name,
+                "description" to product.description,
+                "price" to product.price,
+                "category_id" to product.category.id,
+                "colors" to product.colors,
+                "discount" to product.discount,
+                "quantity" to product.quantity,
+                "image" to product.image,
+                "presentation_images" to product.presentationImages,
+                "rate" to product.rate,
+                )
+        )
+        .execute<ProductResponseDTO>()
+
+    suspend fun updateProduct(product: ProductEntity) = service.safeRequest(endpoint = "product/${product.id}")
+        .withMethod(HttpMethod.PUT)
+        .withBody(
+            mapOf(
+                "name" to product.name,
+                "description" to product.description,
+                "price" to product.price,
+                "category" to product.category.id,
+                "colors" to product.colors,
+                "presentation_images" to product.presentationImages,
+                "rate" to product.rate,
+
+                )
+        )
+        .execute<Boolean>()
+
+    suspend fun deleteProduct(productId: Int) = service.safeRequest(endpoint = "product/${productId}")
+        .withMethod(HttpMethod.DELETE)
+        .execute<ProductEntity>()
+        
     suspend fun getTopCategories(userId: Int) = service.safeRequest(endpoint = "report/top-categories-by-user/user/$userId/")
         .withMethod(HttpMethod.GET)
         .execute<TopCategoriesResponseDTO>()

@@ -55,7 +55,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), CartItemListener {
                 is ApiResponse.Error -> {
                     setUI(emptyList())
                 }
-                ApiResponse.Loading -> TODO()
+                ApiResponse.Loading -> { /* TODO */ }
                 is ApiResponse.Success -> {
                     mainViewModel.cartId = response.data.id
                     setUI(response.data.cartItems)
@@ -66,7 +66,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(), CartItemListener {
         cartViewModel.deleteCartItem.observe(viewLifecycleOwner) {
             when(it) {
                 is ApiResponse.Error -> Toast.makeText(requireContext(), "Ha ocurrido un error", Toast.LENGTH_SHORT).show()
-                ApiResponse.Loading -> TODO()
+                ApiResponse.Loading -> { /* TODO */ }
                 is ApiResponse.Success -> {
                     cartAdapter?.removeItem(itemToRemove)
                 }

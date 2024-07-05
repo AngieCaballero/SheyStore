@@ -5,7 +5,7 @@ import com.angiedev.sheystore.domain.entities.product.ProductEntity
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import javax.inject.Inject
 
-class ProductRepositoryResponseImp @Inject constructor(
+class ProductRepositoryImp @Inject constructor(
     private val apiDataSource: ApiDataSource
 ) : IProductRepository {
 

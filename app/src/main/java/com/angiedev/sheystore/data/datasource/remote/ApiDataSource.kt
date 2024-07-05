@@ -14,6 +14,7 @@ import com.angiedev.sheystore.data.model.remote.response.dto.order.OrderResponse
 import com.angiedev.sheystore.data.model.remote.response.dto.paymentMethod.PaymentMethodResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.paymentMethod.PaymentMethodResponseListDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.product.ProductResponseDTO
+import com.angiedev.sheystore.data.model.remote.response.dto.report.topCategories.TopCategoriesResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.review.ReviewResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.shppingAddress.ShippingAddressResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.shppingAddress.ShippingAddressResponseListDTO
@@ -237,4 +238,8 @@ class ApiDataSource @Inject constructor(
     suspend fun deleteProduct(productId: Int) = service.safeRequest(endpoint = "product/${productId}")
         .withMethod(HttpMethod.DELETE)
         .execute<ProductEntity>()
+        
+    suspend fun getTopCategories(userId: Int) = service.safeRequest(endpoint = "report/top-categories-by-user/user/$userId/")
+        .withMethod(HttpMethod.GET)
+        .execute<TopCategoriesResponseDTO>()
 }

@@ -20,4 +20,5 @@
         android:name="com.angiedev.sheystore.ui.modules.seller.products.view.CreateProductFragment"
         android:label="CreateProductFragment"
         tools:layout="@layout/fragment_create_product"/>
+
 </navigation>

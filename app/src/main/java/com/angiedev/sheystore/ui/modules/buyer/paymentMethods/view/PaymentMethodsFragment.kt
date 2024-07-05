@@ -40,7 +40,7 @@ class PaymentMethodsFragment : BaseFragment<FragmentPaymentMethodsBinding>(),
         paymentMethodsViewModel.paymentMethods.observe(viewLifecycleOwner) {
             when(it) {
                 is ApiResponse.Error -> Toast.makeText(requireContext(), "Ha ocurrido un error", Toast.LENGTH_SHORT).show()
-                ApiResponse.Loading -> TODO()
+                ApiResponse.Loading -> { /* TODO */ }
                 is ApiResponse.Success -> {
                     paymentMethodsAdapter?.submitList(it.data)
                 }

@@ -17,7 +17,8 @@ data class ProductEntity(
     val rate: String,
     val description: String,
     val presentationImages: List<String>,
-    val colors: List<String>
+    val colors: List<String>,
+    val quantity: Int = 0
 ) : Parcelable {
     constructor(productDTO: ProductDTO?) : this(
         id = productDTO?.id ?: 0,

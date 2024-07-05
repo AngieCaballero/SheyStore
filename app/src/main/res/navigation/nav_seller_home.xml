@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/homeSellerFragment"
-        android:name="com.angiedev.sheystore.ui.modules.seller.home.HomeSellerFragment"
+        android:name="com.angiedev.sheystore.ui.modules.seller.home.view.HomeSellerFragment"
         android:label="fragment_home_seller"
         tools:layout="@layout/fragment_home_seller" />
 </navigation>

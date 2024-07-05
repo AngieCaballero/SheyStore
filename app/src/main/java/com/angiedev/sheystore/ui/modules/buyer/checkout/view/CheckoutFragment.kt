@@ -77,7 +77,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding>() {
                     setShippingAddress(emptyList())
                     Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
                 }
-                ApiResponse.Loading -> TODO()
+                ApiResponse.Loading -> { /* TODO */ }
                 is ApiResponse.Success -> {
                     setShippingAddress(it.data)
                 }
@@ -87,7 +87,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding>() {
         checkoutViewModel.orderList.observe(viewLifecycleOwner) {
             when(it) {
                 is ApiResponse.Error -> Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
-                ApiResponse.Loading -> TODO()
+                ApiResponse.Loading -> { /* TODO */ }
                 is ApiResponse.Success -> {
                     orderListAdapter?.submitList(it.data.cartItems)
                     setInfoPayment(it.data.cartItems)

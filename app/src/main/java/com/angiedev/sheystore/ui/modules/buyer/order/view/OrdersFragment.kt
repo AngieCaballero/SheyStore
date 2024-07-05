@@ -51,7 +51,7 @@ class OrdersFragment : BaseFragment<FragmentOrdersBinding>(), OrderItemListener 
         viewModel.order.observe(viewLifecycleOwner) {
             when(it) {
                 is ApiResponse.Error -> Toast.makeText(requireContext(), "Ha ocurrido un error", Toast.LENGTH_SHORT).show()
-                ApiResponse.Loading -> TODO()
+                ApiResponse.Loading -> { /* TODO */ }
                 is ApiResponse.Success -> {
                     ordersAdapter?.submitList(it.data.reversed())
                 }
@@ -61,7 +61,7 @@ class OrdersFragment : BaseFragment<FragmentOrdersBinding>(), OrderItemListener 
         viewModel.review.observe(viewLifecycleOwner) {
             when(it) {
                 is ApiResponse.Error -> Toast.makeText(requireContext(), "Ha ocurrido un error", Toast.LENGTH_SHORT).show()
-                ApiResponse.Loading -> TODO()
+                ApiResponse.Loading -> { /* TODO */ }
                 is ApiResponse.Success -> Toast.makeText(requireContext(), "Gracias por tu opinión", Toast.LENGTH_SHORT).show()
             }
         }

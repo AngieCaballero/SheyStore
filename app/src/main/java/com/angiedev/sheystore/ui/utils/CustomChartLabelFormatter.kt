@@ -9,7 +9,7 @@ import com.patrykandpatrick.vico.core.extension.appendCompat
 import com.patrykandpatrick.vico.core.extension.transformToSpannable
 import com.patrykandpatrick.vico.core.marker.Marker
 import com.patrykandpatrick.vico.core.marker.MarkerLabelFormatter
-import java.text.DecimalFormat
+import kotlin.math.roundToInt
 
 class CustomChartLabelFormatter(
     private val colorCode: Boolean = true
@@ -25,18 +25,13 @@ class CustomChartLabelFormatter(
     ) { model ->
         if (colorCode) {
             appendCompat(
-                "$${format(model.entry.y)}",
+                model.entry.y.roundToInt().toString(),
                 ForegroundColorSpan(Color.White.toArgb()),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE,
             )
         } else {
             append(PATTERN.format(model.entry.y))
         }
-    }
-
-    private fun format(amount: Float):String{
-        val numberFormat = DecimalFormat("#,###.00")
-        return numberFormat.format(amount)
     }
 
     private companion object {

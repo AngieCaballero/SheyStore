@@ -2,7 +2,7 @@ package com.angiedev.sheystore.data.model.remote.response.dto.report.topCategori
 
 import com.google.gson.annotations.SerializedName
 
-data class TopCategories(
+data class TopCategoriesDTO(
     @SerializedName("category") val category: String?,
     @SerializedName("totalQuantity") val totalQuantity: Int?
 )

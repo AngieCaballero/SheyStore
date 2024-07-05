@@ -1,4 +1,6 @@
 package com.angiedev.sheystore.ui.utils
 
-class ChartBuilder {
+class ChartBuilder private constructor(
+
+){
 }

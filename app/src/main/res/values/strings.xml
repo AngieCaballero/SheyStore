@@ -86,8 +86,9 @@
     <string name="dejar_opini_n">Dejar opinión</string>
     <string name="dejar_una_opini_n">Dejar una opinión</string>
     <string name="c_mo_estuvo_tu_pedido">¿Cómo estuvo tu pedido?</string>
-    <string name="por_favor_da_tu_calificaci_n_y_tambi_n_tu_rese_a">Por favor da tu calificación y también tu reseña...</string>
+    <string name="por_favor_da_tu_calificaci_n_y_tambi_n_tu_rese_a">Por favor da tu calificación y también tu reseña…</string>
     <string name="escribe_tu_opini_n">Escribe tu opinión</string>
     <string name="enviar">Enviar</string>
     <string name="completado">Completado</string>
+    <string name="categorais_m_s_vendiddas">Categorías más vendiddas</string>
 </resources>

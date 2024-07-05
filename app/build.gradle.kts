@@ -124,9 +124,9 @@ dependencies {
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("com.facebook.shimmer:shimmer:0.5.0")
 
-    implementation("com.patrykandpatrick.vico:compose-m3:1.14.0")
-    implementation("com.patrykandpatrick.vico:core:1.14.0")
-    implementation("com.patrykandpatrick.vico:views:1.14.0")
+    implementation("com.patrykandpatrick.vico:compose-m3:1.15.0")
+    implementation("com.patrykandpatrick.vico:core:1.15.0")
+    implementation("com.patrykandpatrick.vico:views:1.15.0")
 
     implementation(platform("androidx.compose:compose-bom:2024.06.00"))
     implementation("androidx.compose.material3:material3")

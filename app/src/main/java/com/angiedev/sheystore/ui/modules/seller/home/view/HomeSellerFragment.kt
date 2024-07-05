@@ -21,6 +21,7 @@ import com.angiedev.sheystore.ui.utils.constant.PreferencesKeys
 import com.patrykandpatrick.vico.compose.component.overlayingComponent
 import com.patrykandpatrick.vico.compose.component.textComponent
 import com.patrykandpatrick.vico.compose.dimensions.dimensionsOf
+import com.patrykandpatrick.vico.core.axis.AxisItemPlacer
 import com.patrykandpatrick.vico.core.axis.AxisPosition
 import com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter
 import com.patrykandpatrick.vico.core.axis.horizontal.HorizontalAxis
@@ -33,6 +34,7 @@ import com.patrykandpatrick.vico.core.component.shape.DashedShape
 import com.patrykandpatrick.vico.core.component.shape.LineComponent
 import com.patrykandpatrick.vico.core.component.shape.Shapes
 import com.patrykandpatrick.vico.core.component.text.TextComponent
+import com.patrykandpatrick.vico.core.dimensions.MutableDimensions
 import com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer
 import com.patrykandpatrick.vico.core.entry.entryOf
 import com.patrykandpatrick.vico.core.extension.sumOf
@@ -54,6 +56,38 @@ class HomeSellerFragment : BaseFragment<FragmentHomeSellerBinding>() {
         viewModel.getTopCategories(
             userDataViewModel.readValue(PreferencesKeys.USER_ID) ?: 0
         )
+        setupChart()
+    }
+
+    private fun setupChart() {
+        with(binding.fragmentHomeSellerChart) {
+            marker = CustomMarkerComponent(
+                label = TextComponent.Builder().apply {
+                    lineCount = 3
+                    padding = dimensionsOf(6.dp, 4.dp)
+                    color = resources.getColor(R.color.teal_700, resources.newTheme())
+                    typeface = Typeface.SANS_SERIF
+                    textAlignment = Layout.Alignment.ALIGN_CENTER
+                }.build(),
+                guideline = LineComponent(
+                    color = resources.getColor(R.color.teal_700, resources.newTheme()),
+                    shape = DashedShape(Shapes.pillShape, 8f, 4f)
+                ),
+                indicator = null
+            )
+            chart = ColumnChart(
+                columns = listOf(
+                    LineComponent(
+                        color = resources.getColor(R.color.teal_700, resources.newTheme()),
+                        thicknessDp = 6f,
+                        shape = Shapes.roundedCornerShape(
+                            topLeftPercent = 10,
+                            topRightPercent = 10
+                        )
+                    )
+                )
+            )
+        }
     }
 
     override fun setObservers() {
@@ -71,55 +105,68 @@ class HomeSellerFragment : BaseFragment<FragmentHomeSellerBinding>() {
 
     private fun buildChart(data: List<TopCategoriesEntity>) {
         with(binding.fragmentHomeSellerChart) {
-            marker = CustomMarkerComponent(
-                label = TextComponent.Builder().apply {
-                    lineCount = 3
-                    padding = dimensionsOf(6.dp, 4.dp)
-                    color = resources.getColor(R.color.teal_700, resources.newTheme())
-                    typeface = Typeface.SANS_SERIF
-                    textAlignment = Layout.Alignment.ALIGN_CENTER
-                }.build(),
-                guideline = LineComponent(
-                    color = resources.getColor(R.color.teal_700, resources.newTheme()),
-                    shape = DashedShape(Shapes.pillShape, 8f, 4f)
-                ),
-                indicator = null
-            )
             bottomAxis = HorizontalAxis(AxisPosition.Horizontal.Bottom).apply {
                 valueFormatter = AxisValueFormatter { value, _ ->
-                    data[value.toInt()].category.first
+                    data.getOrNull(value.roundToInt())?.category?.first.orEmpty()
                 }
-            }
-//            startAxis = VerticalAxis(AxisPosition.Vertical.Start).apply {
-//                valueFormatter = AxisValueFormatter { value, _ ->
-//                    value.roundToInt().toString()
-//                }
-//            }
+                itemPlacer = AxisItemPlacer.Horizontal.default(
+                    offset = 1,
+                    spacing = 1,
+                    shiftExtremeTicks = false,
+                    addExtremeLabelPadding = true
+                )
+                axisLine = LineComponent(
+                    color = resources.getColor(R.color.color_primary_variant, resources.newTheme()),
+                    thicknessDp = 1F
+                )
+                label = TextComponent.Builder().apply {
+                    color = resources.getColor(R.color.color_text, resources.newTheme())
 
-            lifecycleScope.launch {
-                chart = ColumnChart(
-                    column = LineComponent(
-                        color = resources.getColor(R.color.teal_700, resources.newTheme()),
-                        thicknessDp = 6F
+                }.build()
+            }
+            startAxis = VerticalAxis(AxisPosition.Vertical.Start).apply {
+                valueFormatter = AxisValueFormatter { value, _ ->
+                    value.roundToInt().toString()
+                }
+                itemPlacer = AxisItemPlacer.Vertical.default(
+                    maxItemCount = 6
+                )
+                axisLine = LineComponent(
+                    color = resources.getColor(R.color.color_primary_variant, resources.newTheme()),
+                    thicknessDp = 1F
+                )
+
+                guideline = LineComponent(
+                    color = resources.getColor(R.color.color_primary_variant, resources.newTheme()),
+                    thicknessDp = 1F
+                )
+
+                label = TextComponent.Builder().apply {
+                    color = resources.getColor(R.color.color_text, resources.newTheme())
+                    margins = MutableDimensions(
+                        endDp = 6f,
+                        bottomDp = 6f,
+                        startDp = 6f,
+                        topDp = 6f
                     )
-                )
-                delay(1000)
-                entryProducer = ChartEntryModelProducer(
-                    data.map {
-                        entryOf(
-                            it.category.second.toFloat(),
-                            it.totalQuantity.toFloat()
-                        )
-                    }
-                )
-
-                chart?.axisValuesOverrider = AxisValuesOverrider.fixed(
-                    minX = 0F,
-                    maxX = data.size.toFloat(),
-                    minY = 0F,
-                    maxY = data.sumOf { it.totalQuantity.toFloat() } + 5,
-                )
+                }.build()
             }
+
+            entryProducer = ChartEntryModelProducer(
+                data.map {
+                    entryOf(
+                        it.category.second.toFloat(),
+                        it.totalQuantity.toFloat()
+                    )
+                }
+            )
+
+            chart?.axisValuesOverrider = AxisValuesOverrider.fixed(
+                minX = 0F,
+                maxX = data.size.toFloat() - 1,
+                minY = 0F,
+                maxY = data.sumOf { it.totalQuantity.toFloat() },
+            )
         }
     }
 }

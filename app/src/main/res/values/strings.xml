@@ -91,4 +91,5 @@
     <string name="enviar">Enviar</string>
     <string name="completado">Completado</string>
     <string name="categorais_m_s_vendiddas">Categorías más vendiddas</string>
+    <string name="exportar_a_excel">Exportar a Excel</string>
 </resources>

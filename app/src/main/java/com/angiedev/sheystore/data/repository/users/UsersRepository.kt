@@ -7,11 +7,7 @@ interface UsersRepository {
 
     suspend fun getAllUsers(): ApiResponse<List<UserEntity>>
 
-    suspend fun getUserById(username: String): ApiResponse<UserEntity>
+    suspend fun updateUser(userId: Int, userEntity: UserEntity): ApiResponse<Boolean>
 
-    suspend fun createUser(userEntity: UserEntity): Boolean
-
-    suspend fun updateUser(username: String, userEntity: UserEntity): Boolean
-
-    suspend fun deleteUser(username: String): Boolean
+    suspend fun deleteUser(userId: Int): ApiResponse<Boolean>
 }

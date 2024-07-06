@@ -7,7 +7,17 @@
 
     <fragment
         android:id="@+id/userManagementFragment"
-        android:name="com.angiedev.sheystore.ui.modules.admin.usermanagement.UserManagementFragment"
+        android:name="com.angiedev.sheystore.ui.modules.admin.usermanagement.view.UserManagementFragment"
         android:label="UserManagementFragment"
-        tools:layout="@layout/fragment_users_management" />
+        tools:layout="@layout/fragment_users_management" >
+        <action
+            android:id="@+id/action_userManagementFragment_to_adminCreateUserFragment"
+            app:destination="@id/adminCreateUserFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/adminCreateUserFragment"
+        android:name="com.angiedev.sheystore.ui.modules.admin.usermanagement.view.AdminCreateUserFragment"
+        android:label="AdminCreateUserFragment"
+        tools:layout="@layout/fragment_admin_create_user" />
 </navigation>

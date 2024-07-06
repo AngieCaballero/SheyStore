@@ -1,4 +1,4 @@
-package com.angiedev.sheystore.ui.modules.admin.usermanagement
+package com.angiedev.sheystore.ui.modules.admin.usermanagement.adapter
 
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
@@ -13,7 +13,7 @@ import com.angiedev.sheystore.databinding.ItemUserCellBinding
 import com.angiedev.sheystore.domain.entities.user.UserEntity
 
 class UserListAdapter(
-    private val onClickAction: (String) -> Unit
+    private val onClickAction: (Int) -> Unit
 ) : ListAdapter<UserEntity, UserListAdapter.UserViewHolder>(UserDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
@@ -52,7 +52,7 @@ class UserListAdapter(
 
             llUserItem.setOnClickListener {
 
-                onClickAction(user.username)
+                onClickAction(user.id)
             }
         }
 

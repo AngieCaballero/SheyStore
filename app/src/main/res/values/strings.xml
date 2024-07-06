@@ -92,4 +92,6 @@
     <string name="completado">Completado</string>
     <string name="categorais_m_s_vendiddas">Categorías más vendiddas</string>
     <string name="exportar_a_excel">Exportar a Excel</string>
+    <string name="cantidad_de_productos_vendidos_por_d_a">Cantidad de productos vendidos por día</string>
+    <string name="ingresos_totales_por_d_a">Ingresos totales por día</string>
 </resources>

@@ -40,8 +40,8 @@ class ProductSoldQuantityAdapter : RecyclerView.Adapter<ProductSoldQuantityAdapt
 
         fun render(item: ProductSoldQuantityEntity) {
             with(binding) {
-                itemTableRowDayOfWeek.text = item.date.getFormattedDate("EEEE").replaceFirstChar(Char::titlecase)
-                itemTableRowCount.text = item.totalQuantity.toString()
+                itemTableRowDayOfWeek.text = item.date.first.getFormattedDate("EEEE").replaceFirstChar(Char::titlecase)
+                itemTableRowCount.text = item.totalQuantity.first.toString()
             }
         }
     }

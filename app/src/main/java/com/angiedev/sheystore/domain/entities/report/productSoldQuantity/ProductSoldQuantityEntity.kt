@@ -4,11 +4,16 @@ import com.angiedev.sheystore.data.model.remote.response.dto.report.productSoldQ
 import java.util.Date
 
 data class ProductSoldQuantityEntity(
-    val totalQuantity: Int,
-    val date: Date
+    val totalQuantity: Pair<Int, Int>,
+    val date: Pair<Date, Int>
 ) {
     constructor(productSoldQuantityDTO: ProductSoldQuantityDTO?) : this(
-        totalQuantity = productSoldQuantityDTO?.totalQuantity ?: 0,
-        date = productSoldQuantityDTO?.date ?: Date()
+        totalQuantity = Pair(productSoldQuantityDTO?.totalQuantity ?: 0, 0),
+        date = Pair(productSoldQuantityDTO?.date ?: Date(), 0)
+    )
+
+    constructor(productSoldQuantityDTO: ProductSoldQuantityDTO, index: Int) : this(
+        totalQuantity = Pair(productSoldQuantityDTO.totalQuantity ?: 0, index),
+        date = Pair(productSoldQuantityDTO.date ?: Date(), index)
     )
 }

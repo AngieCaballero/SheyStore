@@ -79,6 +79,7 @@ class CreateAccountFragment : BaseFragment<FragmentCreateAccountBinding>() {
                     Toast.makeText(requireContext(), response.errorMessage, Toast.LENGTH_SHORT).show()
                 }
                 is AuthResource.Success -> {
+                    viewModel.resetSignUpState()
                     findNavController().navigate(CreateAccountFragmentDirections.actionCreateAccountFragmentToFillYourProfileFragment())
                 }
             }

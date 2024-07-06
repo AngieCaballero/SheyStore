@@ -15,6 +15,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AdminCreateUserFragment: BaseFragment<FragmentAdminCreateUserBinding>() {
+
+    override var isBottomNavVisible = View.VISIBLE
+
     private val viewModel: UserManagementViewModel by viewModels()
 
     override fun getViewBinding() = FragmentAdminCreateUserBinding.inflate(layoutInflater)

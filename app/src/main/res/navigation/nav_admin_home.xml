@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/adminHomeFragment"
-        android:name="com.angiedev.sheystore.ui.modules.admin.AdminHomeFragment"
+        android:name="com.angiedev.sheystore.ui.modules.admin.home.view.AdminHomeFragment"
         android:label="fragment_admin_home"
         tools:layout="@layout/fragment_admin_home" />
 </navigation>

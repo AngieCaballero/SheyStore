@@ -6,7 +6,6 @@ import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.domain.entities.report.income.IncomeEntity
 import com.angiedev.sheystore.domain.entities.report.productSoldQuantity.ProductSoldQuantityEntity
 import com.angiedev.sheystore.domain.entities.report.topCategories.TopCategoriesEntity
-import okhttp3.ResponseBody
 import javax.inject.Inject
 
 class ReportRepositoryImp @Inject constructor(
@@ -53,16 +52,23 @@ class ReportRepositoryImp @Inject constructor(
         }
     }
 
-    override suspend fun downloadTopCategoriesReport(userId: Int): ResponseBody? {
-        return apiDownload.downloadTopCategoriesReport(userId)
+    override suspend fun getProductsSoldGlobalQuantity(): ApiResponse<List<ProductSoldQuantityEntity>> {
+       val response = apiDataSource.getProductsSoldGlobalQuantity()
+
+        return if (response.isSuccess) {
+            val data = response.getOrNull()?.data?.mapIndexed { index, value ->
+                ProductSoldQuantityEntity(value, index)
+            }.orEmpty()
+            ApiResponse.Success(data = data)
+        } else {
+            ApiResponse.Error(response.exceptionOrNull())
+        }
     }
 
+    override suspend fun downloadTopCategoriesReport(userId: Int) = apiDownload.downloadTopCategoriesReport(userId)
 
-    override suspend fun downloadProductsSoldQuantityReport(userId: Int): ResponseBody {
-        return apiDownload.downloadProductsSoldQuantityReport(userId)
-    }
 
-    override suspend fun downloadIncomeReport(userId: Int): ResponseBody {
-        return apiDownload.downloadIncomeReport(userId)
-    }
+    override suspend fun downloadProductsSoldQuantityReport(userId: Int) = apiDownload.downloadProductsSoldQuantityReport(userId)
+
+    override suspend fun downloadIncomeReport(userId: Int) = apiDownload.downloadIncomeReport(userId)
 }

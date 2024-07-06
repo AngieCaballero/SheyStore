@@ -264,4 +264,8 @@ class ApiDataSource @Inject constructor(
     suspend fun deleteUser(userId: Int) = service.safeRequest(endpoint = "users/${userId}")
         .withMethod(HttpMethod.DELETE)
         .execute<UserResponseDTO>()
+
+    suspend fun getProductsSoldGlobalQuantity() = service.safeRequest(endpoint = "report/product-sold-global/")
+        .withMethod(HttpMethod.GET)
+        .execute<ProductSoldQuantityResponseDTO>()
 }

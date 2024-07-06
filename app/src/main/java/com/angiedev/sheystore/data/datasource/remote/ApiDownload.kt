@@ -15,5 +15,6 @@ interface ApiDownload {
     @GET("report/download-income-report/user/{userId}")
     suspend fun downloadIncomeReport(@Path("userId") userId: Int): ResponseBody
 
-
+    @GET("backup")
+    suspend fun downloadBackup(): ResponseBody
 }

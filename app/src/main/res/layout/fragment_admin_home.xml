@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.modules.admin.AdminHomeFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true"
+    tools:context=".ui.modules.admin.home.view.AdminHomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical"
+        android:background="#F8F8F8">
 
-</FrameLayout>
+        <include
+            android:id="@+id/admin_home_header_profile"
+            layout="@layout/layout_header_profile_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="end"
+            android:padding="4dp"
+            android:text="@string/cantidad_de_productos_vendidos_por_d_a"
+            android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceBody2"
+            android:textStyle="bold" />
+
+        <com.patrykandpatrick.vico.views.chart.ChartView
+            android:id="@+id/admin_home_chart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="-20dp"
+            app:chart="column"
+            app:chartHorizontalScrollingEnabled="true"
+            app:horizontalLayout="segmented"
+            app:showBottomAxis="true"
+            app:showStartAxis="true" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.core.widget.NestedScrollView>

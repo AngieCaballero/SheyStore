@@ -14,6 +14,8 @@ interface IReportRepository {
 
     suspend fun getProductSoldQuantity(userId: Int): ApiResponse<List<ProductSoldQuantityEntity>>
 
+    suspend fun getProductsSoldGlobalQuantity(): ApiResponse<List<ProductSoldQuantityEntity>>
+
     suspend fun downloadTopCategoriesReport(userId: Int): ResponseBody?
 
     suspend fun downloadProductsSoldQuantityReport(userId: Int): ResponseBody?

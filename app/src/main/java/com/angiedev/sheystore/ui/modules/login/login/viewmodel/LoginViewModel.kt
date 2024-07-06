@@ -42,6 +42,10 @@ class LoginViewModel @Inject constructor(
         _sigInWithEmailAndPassword.postValue(AuthResource.Error(""))
     }
 
+    fun resetSignUpState() {
+        _createUserWithEmailAndPassword.postValue(AuthResource.Error(""))
+    }
+
     fun isAuthored(currentTime: Long) {
         runBlocking(Dispatchers.IO) {
             _isAuthored.postValue(authenticationRepository.isAuthenticate(currentTime))

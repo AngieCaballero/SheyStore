@@ -6,7 +6,6 @@ import com.angiedev.sheystore.data.model.remote.request.order.CreateOrderDTO
 import com.angiedev.sheystore.data.model.remote.request.paymentMethod.CreatePaymentMethodDTO
 import com.angiedev.sheystore.data.model.remote.request.review.CreateReviewDTO
 import com.angiedev.sheystore.data.model.remote.request.shippingAddress.UpdateOrCreateShippingAddressDTO
-import com.angiedev.sheystore.data.model.remote.response.dto.cart.CartDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.cart.CartItemDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.cart.CartResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.category.CategoryResponseDTO
@@ -25,7 +24,6 @@ import com.angiedev.sheystore.data.model.remote.response.dto.shppingAddress.Ship
 import com.angiedev.sheystore.data.model.remote.response.dto.specialsOffers.SpecialOfferResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.user.SignInResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.user.SignUpResponseDTO
-import com.angiedev.sheystore.data.model.remote.response.dto.user.UserDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.user.UserResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.user.UsersResponseDTO
 import com.angiedev.sheystore.domain.entities.product.ProductEntity

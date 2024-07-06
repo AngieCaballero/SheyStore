@@ -4,6 +4,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Layout
 import android.view.View
+import android.widget.Toast
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import com.angiedev.sheystore.R
@@ -69,6 +70,23 @@ class HomeSellerFragment : BaseFragment<FragmentHomeSellerBinding>() {
         binding.fragmentHomeSellerIncomeRecycler.adapter = incomeAdapter
     }
 
+    override fun setListeners() {
+        super.setListeners()
+        with(binding) {
+            fragmentHomeSellerTopCategoriesExport.setOnClickListener {
+                viewModel.downloadTopCategoriesReport(userId)
+            }
+
+            fragmentHomeSellerIncomeExport.setOnClickListener {
+                viewModel.downloadIncomeReport(userId)
+            }
+
+            fragmentHomeSellerProductCountExport.setOnClickListener {
+                viewModel.downloadProductsSoldQuantityReport(userId)
+            }
+        }
+    }
+
     private fun setupChart() {
         with(binding.fragmentHomeSellerChart) {
             marker = CustomMarkerComponent(
@@ -130,6 +148,10 @@ class HomeSellerFragment : BaseFragment<FragmentHomeSellerBinding>() {
                     incomeAdapter?.submitList(it.data)
                 }
             }
+        }
+
+        viewModel.downloadFile.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
     }
 

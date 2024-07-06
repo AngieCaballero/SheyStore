@@ -4,6 +4,7 @@ import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.domain.entities.report.income.IncomeEntity
 import com.angiedev.sheystore.domain.entities.report.productSoldQuantity.ProductSoldQuantityEntity
 import com.angiedev.sheystore.domain.entities.report.topCategories.TopCategoriesEntity
+import okhttp3.ResponseBody
 
 interface IReportRepository {
 
@@ -12,4 +13,11 @@ interface IReportRepository {
     suspend fun getIncome(userId: Int): ApiResponse<List<IncomeEntity>>
 
     suspend fun getProductSoldQuantity(userId: Int): ApiResponse<List<ProductSoldQuantityEntity>>
+
+    suspend fun downloadTopCategoriesReport(userId: Int): ResponseBody?
+
+    suspend fun downloadProductsSoldQuantityReport(userId: Int): ResponseBody?
+
+    suspend fun downloadIncomeReport(userId: Int): ResponseBody?
+
 }

@@ -44,6 +44,7 @@
             app:showStartAxis="true" />
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fragment_home_seller_top_categories_export"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -76,6 +77,19 @@
             tools:listitem="@layout/item_table_row" />
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fragment_home_seller_product_count_export"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            android:padding="4dp"
+            android:text="@string/exportar_a_excel"
+            android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceBody2"
+            android:textColor="#3075D8"
+            android:textStyle="bold"/>
+
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
@@ -94,6 +108,19 @@
             tools:itemCount="7"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_table_row" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fragment_home_seller_income_export"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            android:padding="4dp"
+            android:text="@string/exportar_a_excel"
+            android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceBody2"
+            android:textColor="#3075D8"
+            android:textStyle="bold"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

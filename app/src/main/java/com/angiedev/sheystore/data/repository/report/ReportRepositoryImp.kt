@@ -1,14 +1,17 @@
 package com.angiedev.sheystore.data.repository.report
 
 import com.angiedev.sheystore.data.datasource.remote.ApiDataSource
+import com.angiedev.sheystore.data.datasource.remote.ApiDownload
 import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.domain.entities.report.income.IncomeEntity
 import com.angiedev.sheystore.domain.entities.report.productSoldQuantity.ProductSoldQuantityEntity
 import com.angiedev.sheystore.domain.entities.report.topCategories.TopCategoriesEntity
+import okhttp3.ResponseBody
 import javax.inject.Inject
 
 class ReportRepositoryImp @Inject constructor(
-    private val apiDataSource: ApiDataSource
+    private val apiDataSource: ApiDataSource,
+    private val apiDownload: ApiDownload
 ) : IReportRepository {
 
     override suspend fun getTopCategories(userId: Int): ApiResponse<List<TopCategoriesEntity>> {
@@ -48,5 +51,18 @@ class ReportRepositoryImp @Inject constructor(
         } else {
             ApiResponse.Error(response.exceptionOrNull())
         }
+    }
+
+    override suspend fun downloadTopCategoriesReport(userId: Int): ResponseBody? {
+        return apiDownload.downloadTopCategoriesReport(userId)
+    }
+
+
+    override suspend fun downloadProductsSoldQuantityReport(userId: Int): ResponseBody {
+        return apiDownload.downloadProductsSoldQuantityReport(userId)
+    }
+
+    override suspend fun downloadIncomeReport(userId: Int): ResponseBody {
+        return apiDownload.downloadIncomeReport(userId)
     }
 }

@@ -14,6 +14,8 @@ import com.angiedev.sheystore.data.model.remote.response.dto.order.OrderResponse
 import com.angiedev.sheystore.data.model.remote.response.dto.paymentMethod.PaymentMethodResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.paymentMethod.PaymentMethodResponseListDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.product.ProductResponseDTO
+import com.angiedev.sheystore.data.model.remote.response.dto.report.income.IncomeResponseDTO
+import com.angiedev.sheystore.data.model.remote.response.dto.report.productSoldQuantity.ProductSoldQuantityResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.report.topCategories.TopCategoriesResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.review.ReviewResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.shppingAddress.ShippingAddressResponseDTO
@@ -242,4 +244,13 @@ class ApiDataSource @Inject constructor(
     suspend fun getTopCategories(userId: Int) = service.safeRequest(endpoint = "report/top-categories-by-user/user/$userId/")
         .withMethod(HttpMethod.GET)
         .execute<TopCategoriesResponseDTO>()
+
+    suspend fun getIncome(userId: Int) = service.safeRequest(endpoint = "report/sale-income-by-day/user/$userId/")
+        .withMethod(HttpMethod.GET)
+        .execute<IncomeResponseDTO>()
+
+    suspend fun getProductSoldQuantity(userId: Int) = service.safeRequest(endpoint = "report/sale-quantity-by-day/user/$userId/")
+        .withMethod(HttpMethod.GET)
+        .execute<ProductSoldQuantityResponseDTO>()
+
 }

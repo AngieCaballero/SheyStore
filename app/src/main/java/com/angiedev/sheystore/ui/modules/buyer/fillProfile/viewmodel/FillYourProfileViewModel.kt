@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.angiedev.sheystore.data.model.remote.response.dto.user.UserDTO
 import com.angiedev.sheystore.data.repository.auth.IAuthenticationRepository
 import com.angiedev.sheystore.data.util.AuthResource
+import com.angiedev.sheystore.domain.entities.user.UserEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -28,7 +29,8 @@ class FillYourProfileViewModel @Inject constructor(
     ) {
         runBlocking(Dispatchers.IO) {
             val response = authenticationRepository.saveUserProfileData(
-                userDTO = UserDTO(
+                user = UserEntity(
+                    id = 0,
                     fullName = fullName,
                     username = username,
                     phone = phone,

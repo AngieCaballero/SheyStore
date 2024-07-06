@@ -7,6 +7,7 @@ import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.data.util.AuthResource
 import com.angiedev.sheystore.data.repository.auth.IAuthenticationRepository
 import com.angiedev.sheystore.domain.entities.user.SignInEntity
+import com.angiedev.sheystore.domain.entities.user.UseSignUpEntity
 import com.angiedev.sheystore.ui.utils.extension.validatePassword
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -27,7 +28,7 @@ class LoginViewModel @Inject constructor(
     private val _sigInWithEmailAndPassword = MutableLiveData<AuthResource<SignInEntity>>()
     val signInWithEmailAndPassword get() = _sigInWithEmailAndPassword
 
-    private val _createUserWithEmailAndPassword = MutableLiveData<AuthResource<Boolean>>()
+    private val _createUserWithEmailAndPassword = MutableLiveData<AuthResource<UseSignUpEntity>>()
     val createUserWithEmailAndPassword get() = _createUserWithEmailAndPassword
 
     private val _signOut = MutableLiveData(false)

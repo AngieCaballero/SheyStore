@@ -15,13 +15,6 @@
         android:title="Inicio" />
 
     <item
-        android:id="@+id/item_seller_home"
-        android:enabled="true"
-        android:visible="false"
-        android:icon="@drawable/selector_ic_home"
-        android:title="Home Seller" />
-
-    <item
         android:id="@+id/item_shopping"
         android:enabled="true"
         android:icon="@drawable/selector_ic_shopping"
@@ -33,6 +26,18 @@
         android:icon="@drawable/selector_ic_cart"
         android:title="Carrito" />
 
+    <item
+        android:id="@+id/item_my_profile"
+        android:enabled="true"
+        android:icon="@drawable/selector_ic_profile"
+        android:title="Perfil" />
+
+    <item
+        android:id="@+id/item_seller_home"
+        android:enabled="true"
+        android:visible="false"
+        android:icon="@drawable/selector_ic_home"
+        android:title="Home Seller" />
 
     <item
         android:id="@+id/item_seller_product"
@@ -42,10 +47,22 @@
         android:title="Productos" />
 
     <item
-        android:id="@+id/item_my_profile"
+        android:id="@+id/item_admin_home"
         android:enabled="true"
-        android:icon="@drawable/selector_ic_profile"
-        android:title="Perfil" />
+        android:visible="false"
+        android:icon="@drawable/selector_ic_home"
+        android:title="Home Admin" />
 
+    <item
+        android:id="@+id/item_users_management"
+        android:enabled="true"
+        android:icon="@drawable/ic_users"
+        android:title="Gestión de Usuarios" />
+
+    <!--<item
+        android:id="@+id/item_backup"
+        android:enabled="true"
+        android:icon="@drawable/ic_backup"
+        android:title="Respaldo" />-->
 
 </menu>

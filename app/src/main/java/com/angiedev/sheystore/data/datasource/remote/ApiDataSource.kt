@@ -6,6 +6,7 @@ import com.angiedev.sheystore.data.model.remote.request.order.CreateOrderDTO
 import com.angiedev.sheystore.data.model.remote.request.paymentMethod.CreatePaymentMethodDTO
 import com.angiedev.sheystore.data.model.remote.request.review.CreateReviewDTO
 import com.angiedev.sheystore.data.model.remote.request.shippingAddress.UpdateOrCreateShippingAddressDTO
+import com.angiedev.sheystore.data.model.remote.response.dto.cart.CartDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.cart.CartItemDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.cart.CartResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.category.CategoryResponseDTO
@@ -25,7 +26,9 @@ import com.angiedev.sheystore.data.model.remote.response.dto.user.SignInResponse
 import com.angiedev.sheystore.data.model.remote.response.dto.user.SignUpResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.user.UserDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.user.UserResponseDTO
+import com.angiedev.sheystore.data.model.remote.response.dto.user.UsersResponseDTO
 import com.angiedev.sheystore.domain.entities.product.ProductEntity
+import com.angiedev.sheystore.domain.entities.user.UserEntity
 import com.kmc.networking.HttpMethod
 import com.kmc.networking.NetworkCaller
 import com.kmc.networking.safeRequest
@@ -64,17 +67,17 @@ class ApiDataSource @Inject constructor(
         )
         .execute<SignInResponseDTO>()
 
-    suspend fun saveUserProfileData(userId: Int, userDTO: UserDTO) =
+    suspend fun saveUserProfileData(userId: Int, user: UserEntity) =
         service.safeRequest(endpoint = "users/${userId}")
             .withMethod(HttpMethod.PATCH)
             .withBody(
                 mapOf(
-                    "full_name" to userDTO.fullName,
-                    "username" to userDTO.username,
-                    "role" to userDTO.role,
-                    "phone" to userDTO.phone,
-                    "photo" to userDTO.photo,
-                    "gender" to userDTO.gender
+                    "full_name" to user.fullName,
+                    "username" to user.username,
+                    "role" to user.role,
+                    "phone" to user.phone,
+                    "photo" to user.photo,
+                    "gender" to user.gender
                 )
             )
             .execute<UserResponseDTO>()
@@ -106,7 +109,7 @@ class ApiDataSource @Inject constructor(
                     "product_id" to createCartItemDTO.productId,
                     "quantity" to createCartItemDTO.quantity,
                     "total_price" to createCartItemDTO.totalPrice,
-                    "color" to createCartItemDTO.color
+                    "color" to "#ffffff"
                 )
             )
             .execute<CartResponseDTO>()
@@ -253,4 +256,13 @@ class ApiDataSource @Inject constructor(
         .withMethod(HttpMethod.GET)
         .execute<ProductSoldQuantityResponseDTO>()
 
+    /* Admin */
+
+    suspend fun getUsers() = service.safeRequest(endpoint = "users/")
+        .withMethod(HttpMethod.GET)
+        .execute<UsersResponseDTO>()
+
+    suspend fun deleteUser(userId: Int) = service.safeRequest(endpoint = "users/${userId}")
+        .withMethod(HttpMethod.DELETE)
+        .execute<UserResponseDTO>()
 }

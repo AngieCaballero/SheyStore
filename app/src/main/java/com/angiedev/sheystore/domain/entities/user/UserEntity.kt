@@ -6,6 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class UserEntity(
+    val id: Int,
     val fullName: String,
     val gender: String,
     val phone: String,
@@ -14,6 +15,7 @@ data class UserEntity(
     val username: String
 ) : Parcelable {
     constructor(userDTO: UserDTO?) : this(
+        id = userDTO?.id ?: 0,
         fullName = userDTO?.fullName.orEmpty(),
         gender = userDTO?.gender.orEmpty(),
         phone = userDTO?.phone.orEmpty(),

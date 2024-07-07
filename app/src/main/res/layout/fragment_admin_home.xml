@@ -44,5 +44,51 @@
             app:showBottomAxis="true"
             app:showStartAxis="true" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/admin_home_product_export"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            android:padding="4dp"
+            android:text="@string/exportar_a_excel"
+            android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceBody2"
+            android:textColor="#3075D8"
+            android:textStyle="bold"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:padding="4dp"
+            android:text="@string/cantidad_de_usuarios_registrados_por_d_a"
+            android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceBody2"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/admin_home_users_report_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            tools:itemCount="7"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_table_row" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/admin_home_users_report_export"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            android:padding="4dp"
+            android:text="@string/exportar_a_excel"
+            android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceBody2"
+            android:textColor="#3075D8"
+            android:textStyle="bold"/>
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.core.widget.NestedScrollView>

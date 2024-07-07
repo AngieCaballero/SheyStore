@@ -94,4 +94,5 @@
     <string name="exportar_a_excel">Exportar a Excel</string>
     <string name="cantidad_de_productos_vendidos_por_d_a">Cantidad de productos vendidos por día</string>
     <string name="ingresos_totales_por_d_a">Ingresos totales por día</string>
+    <string name="cantidad_de_usuarios_registrados_por_d_a">Cantidad de usuarios registrados por día</string>
 </resources>

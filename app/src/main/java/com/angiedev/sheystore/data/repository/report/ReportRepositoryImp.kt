@@ -6,6 +6,7 @@ import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.domain.entities.report.income.IncomeEntity
 import com.angiedev.sheystore.domain.entities.report.productSoldQuantity.ProductSoldQuantityEntity
 import com.angiedev.sheystore.domain.entities.report.topCategories.TopCategoriesEntity
+import com.angiedev.sheystore.domain.entities.report.userCount.UserCountEntity
 import javax.inject.Inject
 
 class ReportRepositoryImp @Inject constructor(
@@ -58,6 +59,19 @@ class ReportRepositoryImp @Inject constructor(
         return if (response.isSuccess) {
             val data = response.getOrNull()?.data?.mapIndexed { index, value ->
                 ProductSoldQuantityEntity(value, index)
+            }.orEmpty()
+            ApiResponse.Success(data = data)
+        } else {
+            ApiResponse.Error(response.exceptionOrNull())
+        }
+    }
+
+    override suspend fun getUsersReport(): ApiResponse<List<UserCountEntity>> {
+        val response = apiDataSource.getUserCount()
+
+        return if (response.isSuccess) {
+            val data = response.getOrNull()?.data?.map {
+                UserCountEntity(it)
             }.orEmpty()
             ApiResponse.Success(data = data)
         } else {

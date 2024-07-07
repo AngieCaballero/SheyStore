@@ -18,6 +18,7 @@ import com.angiedev.sheystore.data.model.remote.response.dto.product.SingleProdu
 import com.angiedev.sheystore.data.model.remote.response.dto.report.income.IncomeResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.report.productSoldQuantity.ProductSoldQuantityResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.report.topCategories.TopCategoriesResponseDTO
+import com.angiedev.sheystore.data.model.remote.response.dto.report.userCount.UserCountResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.review.ReviewResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.shppingAddress.ShippingAddressResponseDTO
 import com.angiedev.sheystore.data.model.remote.response.dto.shppingAddress.ShippingAddressResponseListDTO
@@ -268,4 +269,8 @@ class ApiDataSource @Inject constructor(
     suspend fun getProductsSoldGlobalQuantity() = service.safeRequest(endpoint = "report/product-sold-global/")
         .withMethod(HttpMethod.GET)
         .execute<ProductSoldQuantityResponseDTO>()
+
+    suspend fun getUserCount() = service.safeRequest(endpoint = "report/users-report/")
+        .withMethod(HttpMethod.GET)
+        .execute<UserCountResponseDTO>()
 }

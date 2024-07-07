@@ -11,6 +11,7 @@ import com.angiedev.sheystore.data.model.remote.response.ApiResponse
 import com.angiedev.sheystore.databinding.FragmentAdminHomeBinding
 import com.angiedev.sheystore.domain.entities.report.productSoldQuantity.ProductSoldQuantityEntity
 import com.angiedev.sheystore.ui.base.BaseFragment
+import com.angiedev.sheystore.ui.modules.admin.home.adapter.UsersReportAdapter
 import com.angiedev.sheystore.ui.modules.admin.home.viewmodel.AdminHomeViewModel
 import com.angiedev.sheystore.ui.utils.CustomMarkerComponent
 import com.angiedev.sheystore.ui.utils.helper.getFormattedDate
@@ -39,13 +40,21 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
     override var isBottomNavVisible = View.VISIBLE
     private val viewModel: AdminHomeViewModel by viewModels()
 
+    private var usersReportAdapter: UsersReportAdapter? = null
     override fun getViewBinding(): FragmentAdminHomeBinding =
         FragmentAdminHomeBinding.inflate(layoutInflater)
 
     override fun createView(view: View, savedInstanceState: Bundle?) {
         super.createView(view, savedInstanceState)
         setupChart()
+        setupAdapter()
+        viewModel.getUsersReport()
         viewModel.getProductSoldGlobalQuantity()
+    }
+
+    private fun setupAdapter() {
+        usersReportAdapter = UsersReportAdapter()
+        binding.adminHomeUsersReportRecycler.adapter = usersReportAdapter
     }
 
     private fun setupChart() {
@@ -87,6 +96,16 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
                 ApiResponse.Loading -> TODO()
                 is ApiResponse.Success -> {
                     buildChart(it.data)
+                }
+            }
+        }
+
+        viewModel.usersReport.observe(viewLifecycleOwner) {
+            when(it) {
+                is ApiResponse.Error -> {}
+                ApiResponse.Loading -> TODO()
+                is ApiResponse.Success -> {
+                    usersReportAdapter?.submitList(it.data)
                 }
             }
         }

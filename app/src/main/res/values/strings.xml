@@ -95,4 +95,8 @@
     <string name="cantidad_de_productos_vendidos_por_d_a">Cantidad de productos vendidos por día</string>
     <string name="ingresos_totales_por_d_a">Ingresos totales por día</string>
     <string name="cantidad_de_usuarios_registrados_por_d_a">Cantidad de usuarios registrados por día</string>
+    <string name="backup_message">Puede crear un respaldo de su base de datos siguiendo estos pasos: \n\n 1- Acceda a la sección de administración de la base de datos. \n 2- Haga clic en "Crear Respaldo". \n 3- Descargue el archivo generado y guárdelo en un lugar seguro.</string>
+    <string name="crear_respaldo">Crear respaldo</string>
+    <string name="solo_los_administradores_pueden_crear_un_respaldo_de_la_base_de_datos">Solo los administradores pueden crear un respaldo de la base de datos.</string>
+    <string name="por_favor_contacte_a_un_administrador_para_realizar_esta_acci_n">Por favor, contacte a un administrador para realizar esta acción.</string>
 </resources>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#F8F8F8"
+    tools:context=".ui.modules.admin.advancedConfig.view.DatabaseBackupFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/fragment_backup_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="9dp"
+        android:translationZ="90dp"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/fragment_backup_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:title="Configuración Avanzada"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            android:background="@android:color/transparent"
+            app:titleTextAppearance="@style/TextAppearance.SheyStore.textAppearanceSubtitle1" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/role_admin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:visibility="gone"
+        android:visibility="visible">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceBody2"
+            android:layout_marginHorizontal="10dp"
+            android:text="@string/backup_message"/>
+
+        <com.google.android.material.button.MaterialButton
+
+            android:id="@+id/fragment_backup_button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:iconTint="@color/white"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="20dp"
+            android:text="@string/crear_respaldo"
+            style="@style/Widget.SheyStore.Button"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/black"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/role_not_admin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceBody1"
+            android:text="@string/solo_los_administradores_pueden_crear_un_respaldo_de_la_base_de_datos"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="italic"
+            android:textAppearance="@style/TextAppearance.SheyStore.textAppearanceBody2"
+            android:text="@string/por_favor_contacte_a_un_administrador_para_realizar_esta_acci_n"/>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

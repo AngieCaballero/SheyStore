@@ -77,6 +77,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(), ProfileItemsList
             ProfileItemsType.Payment -> { /* TODO */ }
             ProfileItemsType.PrivacyPolicy -> { /* TODO */ }
             ProfileItemsType.Security -> { /* TODO */ }
+            ProfileItemsType.UsersConfiguration -> {
+                findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToDatabaseBackupFragment())
+            }
         }
     }
 

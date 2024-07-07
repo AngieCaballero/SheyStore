@@ -76,6 +76,13 @@ object GetProfileItems {
             type = ProfileItemsType.InviteFriends
         ),
         ProfileItem(
+            id = 9,
+            startIcon = R.drawable.ic_users_config,
+            endIcon = R.drawable.ic_arrow_angle_right,
+            title = "Configuraciones avanzadas",
+            type = ProfileItemsType.UsersConfiguration
+        ),
+        ProfileItem(
             id = 10,
             startIcon = R.drawable.ic_logout,
             endIcon = R.drawable.ic_arrow_angle_right,

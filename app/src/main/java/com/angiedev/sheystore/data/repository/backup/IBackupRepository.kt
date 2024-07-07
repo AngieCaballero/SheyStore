@@ -4,5 +4,5 @@ import okhttp3.ResponseBody
 
 interface IBackupRepository {
 
-    suspend fun downloadBackup(): ResponseBody
+    suspend fun downloadBackup(): ResponseBody?
 }

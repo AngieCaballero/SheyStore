@@ -11,5 +11,6 @@ sealed class ProfileItemsType {
     data object PrivacyPolicy : ProfileItemsType()
     data object HelpCenter : ProfileItemsType()
     data object InviteFriends : ProfileItemsType()
+    data object UsersConfiguration : ProfileItemsType()
     data object Logout : ProfileItemsType()
 }

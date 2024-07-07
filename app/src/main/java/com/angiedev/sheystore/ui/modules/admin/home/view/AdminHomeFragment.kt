@@ -4,6 +4,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Layout
 import android.view.View
+import android.widget.Toast
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import com.angiedev.sheystore.R
@@ -57,6 +58,18 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
         binding.adminHomeUsersReportRecycler.adapter = usersReportAdapter
     }
 
+    override fun setListeners() {
+        super.setListeners()
+        with(binding) {
+            adminHomeProductExport.setOnClickListener {
+                viewModel.downloadProductSoldGlobalReport()
+            }
+            adminHomeUsersReportExport.setOnClickListener {
+                viewModel.downloadUsersReport()
+            }
+        }
+    }
+
     private fun setupChart() {
         with(binding.adminHomeChart) {
             marker = CustomMarkerComponent(
@@ -108,6 +121,10 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
                     usersReportAdapter?.submitList(it.data)
                 }
             }
+        }
+
+        viewModel.downloadFile.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -25,4 +25,8 @@ interface IReportRepository {
 
     suspend fun downloadIncomeReport(userId: Int): ResponseBody?
 
+    suspend fun downloadUsersReport(): ResponseBody?
+
+    suspend fun downloadProductSoldGlobalQuantity(): ResponseBody?
+
 }

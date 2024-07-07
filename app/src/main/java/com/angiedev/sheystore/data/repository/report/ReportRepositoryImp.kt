@@ -7,6 +7,7 @@ import com.angiedev.sheystore.domain.entities.report.income.IncomeEntity
 import com.angiedev.sheystore.domain.entities.report.productSoldQuantity.ProductSoldQuantityEntity
 import com.angiedev.sheystore.domain.entities.report.topCategories.TopCategoriesEntity
 import com.angiedev.sheystore.domain.entities.report.userCount.UserCountEntity
+import okhttp3.ResponseBody
 import javax.inject.Inject
 
 class ReportRepositoryImp @Inject constructor(
@@ -81,8 +82,11 @@ class ReportRepositoryImp @Inject constructor(
 
     override suspend fun downloadTopCategoriesReport(userId: Int) = apiDownload.downloadTopCategoriesReport(userId)
 
-
     override suspend fun downloadProductsSoldQuantityReport(userId: Int) = apiDownload.downloadProductsSoldQuantityReport(userId)
 
     override suspend fun downloadIncomeReport(userId: Int) = apiDownload.downloadIncomeReport(userId)
+
+    override suspend fun downloadUsersReport() = apiDownload.downloadUsersReport()
+
+    override suspend fun downloadProductSoldGlobalQuantity() = apiDownload.downloadProductSoldGlobalReport()
 }

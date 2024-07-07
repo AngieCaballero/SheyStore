@@ -17,4 +17,10 @@ interface ApiDownload {
 
     @GET("backup")
     suspend fun downloadBackup(): ResponseBody
+
+    @GET("report/download-users-report")
+    suspend fun downloadUsersReport(): ResponseBody
+
+    @GET("report/download-product-sold-global-report")
+    suspend fun downloadProductSoldGlobalReport(): ResponseBody
 }
